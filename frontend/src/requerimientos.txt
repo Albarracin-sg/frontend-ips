@@ -1,0 +1,5 @@
+tailwind (estilo)
+npm install tailwindcss @tailwindcss/vite
+
+react-router-dom (enrrutador)
+npm install react-router-dom
