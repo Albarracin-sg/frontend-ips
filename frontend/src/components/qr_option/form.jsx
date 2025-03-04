@@ -22,6 +22,10 @@ const Form = () => {
         [name]: value,
         });
     };
+    const handleSubmit = (event) => {
+        event.preventDefault(); // Evita que la página se recargue
+        console.log(values); // Muestra los datos en la consola
+    };
 
     const navigate = useNavigate(); // Hook para la navegación entre páginas
     const [isOpen, setIsOpen] = useState(false); // Estado para controlar la apertura del modal
@@ -32,81 +36,111 @@ const Form = () => {
     };
 
     return (
-        <div className="relative h-screen w-screen bg-gradient-to-l from-[#E1EAF0] via-[#4187B5] to-[#2F688D] overflow-hidden">
-            
-            {/* Logo de la IPS en la parte superior izquierda */}
-            <div className="absolute top-0 left-0 m-2 sm:m-4">
+        <div className="relative min-h-screen w-screen bg-[#4187B5] flex justify-center items-center">
+      {/* Contenedor de la imagen de la IPS */}
+            <div className="absolute top-0 left-0 m-4">
+                {/* Imagen de la IPS */}
                 <img
                 src={ipsLogo}
                 alt="IPS Logo"
-                className="w-16 h-8 sm:w-20 sm:h-10 lg:w-30 lg:h-15"
+                className="w-20 h-10 md:w-30 md:h-15" // Mantiene el tamaño original
                 />
             </div>
 
-        {/* Formulario de registro */}
-        <form className="bg-[#d9d9d9] border-[15px] sm:border-[18.9px] border-[#3c3c3c] p-3 sm:p-4.725 w-[95%] sm:w-[85.05%] max-w-[500px] h-[90vh] overflow-y-auto mx-auto mt-[50px] sm:mt-[56.7px] mb-[20px] sm:mb-[28.35px] rounded-[0]">
-
-            {/* Título del formulario */}
-            <h1 className="text-center text-[15.2px] sm:text-[17px] mb-[10px] sm:mb-[14.46px] mt-[30px] sm:mt-[20px] font-extrabold leading-[19px] sm:leading-[22.89px] tracking-[2.85px] sm:tracking-[3.81px] whitespace-pre-line">FORMULARIO {"\n"}DE{"\n"} REGISTRO</h1>
-
-            {/* Campo de entrada para el nombre */}
-            <label htmlFor="name" className="font-bold text-[13.3px] sm:text-[14.36px]"> Nombre </label>
-            <input
+            {/* Formulario de registro */}
+            <form
+                className="bg-[#d9d9d9] border-[15px] border-[#3c3c3c] p-[0_50px] w-[90%] max-w-[500px]  h-[630px]  " // Mantiene el tamaño original
+                onSubmit={handleSubmit}
+            >
+                {/* Contenedor adicional para el formulario (coso negro) */}
+                <div className="relative w-[192px] h-[60px]  left-[90px] mt-[-20px] bg-[#1E1E1E] rounded-[10px]"></div>
+                {/* Título del formulario */}
+                <h1 className="text-center text-[23.1px]  mt-[10px]  font-extrabold tracking-[4.25px] leading-normal">
+                FORMULARIO DE REGISTRO
+                </h1>
+                {/* Campo para el nombre */}
+                <label htmlFor="name" className="font-bold">
+                Nombre
+                </label>
+                <input
                 type="text"
                 name="name"
-                className="text-[12.35px] sm:text-[12.57px] w-full box-border p-[8px] sm:p-[9.45px_8.505px] mb-[15px] sm:mb-[18.9px] bg-none border-b-[2px] sm:border-b-[2.05px] border-b-[#6EA3C7]"
+                className="text-[15px] w-full box-border p-[10px_9px] mb-[15px] bg-none border-b-[2.175px] border-b-[#6EA3C7]" // Reducido en un 15%
                 onChange={handleInputChange}
                 placeholder="Primer Nombre"
-            />
-
-            {/* Campo de entrada para el apellido */}
-            <label htmlFor="lastname" className="font-bold text-[14px] sm:text-[15px]"> Apellido </label>
-            <input
+                />
+                <label htmlFor="name" className="font-bold">
+                Apellido
+                </label>
+                <input
                 type="text"
                 name="lastname"
-                className="text-[13px] sm:text-[14px] w-full box-border p-[8px] sm:p-[10px_9px] mb-[15px] sm:mb-[20px] bg-none border-b-[2px] sm:border-b-[2.175px] border-b-[#6EA3C7]"
+                className="text-[15px] w-full box-border p-[10px_9px] mb-[15px] bg-none border-b-[2.175px] border-b-[#6EA3C7]"
                 onChange={handleInputChange}
                 placeholder="Primer Apellido"
-            />
+                />
 
-            {/* Campo de selección para el tipo de documento */}
-            <label htmlFor="typeDocument" className="font-bold text-[14px] sm:text-[16px]"> Tipo de Documento </label>
-            <input
+                {/* Campo para el TIPO DE DOCUMENTO */}
+                <label htmlFor="typeDocument" className="font-bold">
+                Tipo de Documento
+                </label>
+                <input
                 list="typeDocument"
                 name="typeDocument"
-                className="text-[13px] sm:text-[14px] w-full box-border bg-[#fff] p-[4px] sm:p-[5.78px_9px] mb-[15px] sm:mb-[20px] mt-[5px] sm:mt-[7.225px]"
+                className="text-[15px] w-full box-border bg-[#fff] p-[5.78px_9px] mb-[15px] mt-[7.225px]" // Reducido en un 15%
                 onChange={handleInputChange}
                 placeholder="C.C"
-            />
-            <datalist id="typeDocument">
-                <option value="Cédula de ciudadanía"></option>
-                <option value="Pasaporte"></option>
+                />
+                {/* Lista de opciones para el tipo de documento */}
+                <datalist id="typeDocument">
+                <option value="Cédula de ciudadania"></option>
+                <option value="Pasaporte "></option>
                 <option value="Tarjeta de identidad"></option>
-                <option value="Cédula de extranjería"></option>
+                <option value="Cédula de extranjeria"></option>
                 <option value="Registro civil"></option>
                 <option value="Permiso especial de permanencia"></option>
-            </datalist>
-
-            {/* Campo de entrada para el número de documento */}
-            <label htmlFor="document" className="font-bold text-[14px] sm:text-[16px]"> Documento </label>
-            <input
+                </datalist>
+                {/* Campo para el documento */}
+                <label htmlFor="document" className="font-bold">
+                Documento
+                </label>
+                <input
                 type="number"
                 name="document"
-                className="text-[13px] sm:text-[14px] w-full box-border p-[6px] sm:p-[7.65px_9px] mb-[15px] sm:mb-[20px] bg-none border-b-[2px] sm:border-b-[2.175px] border-b-[#6EA3C7]"
+                className="text-[15px] w-full box-border p-[7.65px_9px] mb-[15px] bg-none border-b-[2.175px] border-b-[#6EA3C7]" // Reducido en un 15%
                 onChange={handleInputChange}
                 placeholder="Documento"
-            />
+                />
+                {/* Campo para la condición con una lista de opciones */}
+                <label htmlFor="condition" className="font-bold">
+                Condición
+                </label>
+                <input
+                list="conditions"
+                name="condition"
+                className="text-[15px] w-full box-border bg-[#fff] p-[5.78px_9px] mb-[10px] mt-[7.225px]" // Reducido en un 15%
+                onChange={handleInputChange}
+                placeholder="N/A"
+                />
+                {/* Lista de opciones para la condición */}
+                <datalist id="conditions">
+                <option value="No aplica"></option>
+                <option value="Adulto mayor"></option>
+                <option value="Mujer Embarazada / Con niños en Brazos"></option>
+                <option value="Condición de Discapacidad"></option>
+                </datalist>
+                {/* Botón de envío del formulario */}
+                <button
+                    onClick={() => setIsOpen(true)} //se abre la ventana modal de advertencia
+                    type="submit"
+                    className="bg-[#6EA3C7] font-bold w-[150px] h-[50px] text-white py-[2.175px] rounded-lg mt-2 hover:bg-[#3e577d] transition-colors mx-auto block" // Reducido en un 15%
+                    >
+                    ENVIAR
+                </button>
+            </form>
 
-            {/* Botón para abrir el modal */}
-            <button
-                onClick={() => setIsOpen(true)}
-                type="button"
-                className="bg-[#6EA3C7] font-bold w-[108px] sm:w-[127.575px] h-[36px] sm:h-[42.525px] text-[11.97px] sm:text-[12.93px] text-white py-[1.8px] sm:py-[1.85px] mt-0 rounded-lg hover:bg-[#3c3c3c] transition-colors mx-auto block"
-            >ENVIAR</button>
-        </form>
-
-        {/* Modal de confirmación */}
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} onConfirm={handleSubmitModal} />
+            {/* Modal de confirmación */}
+            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} onConfirm={handleSubmitModal} />
         </div>
     );
 };
