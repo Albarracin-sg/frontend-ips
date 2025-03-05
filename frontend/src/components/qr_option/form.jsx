@@ -133,7 +133,7 @@ const Form = () => {
                 <button
                     onClick={() => setIsOpen(true)} //se abre la ventana modal de advertencia
                     type="submit"
-                    className="bg-[#6EA3C7] font-bold w-[150px] h-[50px] text-white py-[2.175px] rounded-lg mt-2 hover:bg-[#3e577d] transition-colors mx-auto block" // Reducido en un 15%
+                    className="bg-[#6EA3C7] cursor-pointer font-bold w-[150px] h-[50px] text-white py-[2.175px] rounded-lg mt-2 hover:bg-[#3e577d] transition-colors mx-auto block" // Reducido en un 15%
                     >
                     ENVIAR
                 </button>
