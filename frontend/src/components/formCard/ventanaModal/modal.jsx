@@ -30,13 +30,13 @@ const Modal = ({ isOpen, onClose, onConfirm }) => {
             <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4 mt-4">
                 <button
                     onClick={onClose}
-                    className="bg-[#bd1d1d] text-white px-3 sm:px-3.78 py-2 rounded text-[13.3px] sm:text-[14.36px]">
+                    className="bg-[#bd1d1d] hover:bg-[#8f1d1d] cursor-pointer text-white px-3 sm:px-3.78 py-2 rounded text-[13.3px] sm:text-[14.36px]">
                     Regresar
                 </button>
 
                 <button 
                     onClick={onConfirm}
-                    className="bg-[#1d8f1d] text-white px-3 sm:px-3.78 py-2 rounded text-[13.3px] sm:text-[14.36px]">
+                    className="bg-[#1d8f1d] hover:bg-[#437938] cursor-pointer text-white px-3 sm:px-3.78 py-2 rounded text-[13.3px] sm:text-[14.36px]">
                     Estoy Seguro(a)
                 </button>
             </div>

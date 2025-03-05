@@ -1,8 +1,8 @@
-    import { useState } from "react";
-    import ipsLogo from "../../assets/ips.png";
+import BarraLateral from './componets_op/barraLateral';
+const mainOperador = () => {
+	return (
+		<BarraLateral/>
+	)
+}
 
-    const mainOperador = () => {
-        
-    };
-    
-    export default mainOperador;
+export default mainOperador;
