@@ -31,6 +31,7 @@ const Screen = () => {
       <div className="flex flex- flex-row h-full ">
         {/* Sección izquierda - Cola de turnos */}
         <div className="flex-1 flex flex-col gap-4 ">
+          
           {/* Encabezado de la cola de turnos */}
           <div className="relative w-full h-[90px] bg-none border-[2px] rounded-[20px] flex items-center justify-between px-6">
             <h2 className="font-bold text-lg sm:text-xl whitespace-pre-line">
