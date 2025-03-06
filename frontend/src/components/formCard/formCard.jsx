@@ -4,7 +4,7 @@ import Modal from "./ventanaModal/modal"; // Importa el modal
 
 const FormCard = () => {
   // Estado para almacenar los valores del formulario
-  const [values, setValues] = useState({
+const [values, setValues] = useState({
     name: "",
     lastname: "",
     typeDocument: "",
@@ -12,7 +12,7 @@ const FormCard = () => {
     date: "",
     locate: "",
     phone: "",
-  });
+});
 
   // Maneja los cambios en los campos de entrada del formulario
 const handleInputChange = (event) => {
