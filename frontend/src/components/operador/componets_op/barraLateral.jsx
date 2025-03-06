@@ -7,7 +7,7 @@ const BarraLateral = () => {
   const [componenteActual, setComponenteActual] = useState(<InicioOp />);
 
   return (
-    <div className="flex">
+    <div className="flex ">
       {/* Barra lateral responsiva */}
       <aside className="w-64 sm:w-52 h-screen bg-gray-800 text-white flex flex-col p-4">
         {/* Logo */}
