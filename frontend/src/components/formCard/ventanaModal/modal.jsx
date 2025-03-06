@@ -12,7 +12,7 @@ const Modal = ({ isOpen, onClose, onConfirm }) => {
             {/* Botón de cierre (X) dentro del div blanco */}
             <button 
             onClick={onClose} 
-            className="absolute top-2 right-2 text-black text-[18px] px-2 py-1 rounded cursor-pointer"
+            className="absolute top-0 right-2 text-black text-[18px] px-2 py-1 rounded cursor-pointer"
             >
             x
             </button>
