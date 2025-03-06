@@ -1,66 +1,56 @@
 import { useState, useEffect } from 'react'
 import ipsLogo from '../../assets/ipsBlack.png'
 
-/**
- * Componente funcional Screen
- * Este componente representa una pantalla con una lista de turnos y la información del turno actual.
- */
 const Screen = () => {
 	const [currentTime, setCurrentTime] = useState(new Date())
 
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setCurrentTime(new Date())
-		}, 1000) // Actualiza cada segundo
+		}, 1000)
 
-		return () => clearInterval(interval) // Limpia el intervalo al desmontar
+		return () => clearInterval(interval)
 	}, [])
 
-	// Formato de fecha y hora
-	const options = {
-		weekday: 'long',
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric',
-	}
+	const options = { weekday: 'short', day: 'numeric', month: 'numeric' }
 	const formattedDate = currentTime.toLocaleDateString('es-ES', options)
-	const formattedTime = currentTime.toLocaleTimeString('es-ES')
+	let hours = currentTime.getHours()
+	const minutes = currentTime.getMinutes().toString().padStart(2, '0')
+	const ampm = hours >= 12 ? 'PM' : 'AM'
+	hours = hours % 12 || 12
+	const formattedTime = `${hours}:${minutes} ${ampm}`
 
 	return (
-		<div className="bg-[#d9d9d9] border-[12px] border-[#3c3c3c] h-screen w-screen flex items-center justify-center">
+		<div className="bg-[#d9d9d9] border-[#3c3c3c] h-screen w-screen flex items-center justify-center">
 			<div className="relative flex flex-col h-screen w-screen">
-				{/* Logo - Posicionado en la esquina superior derecha */}
 				<div className="absolute top-[20px] right-[20px]">
 					<img src={ipsLogo} alt="IPS Logo" className="w-[120px]" />
 				</div>
 
-				{/* Sección del Turno Actual - A la derecha */}
-				<div className="relative flex-1  mb-[40px] flex justify-end mr-[200px]">
-					<div className="bg-[#d9d9d9] border-[18px] border-[#3c3c3c] w-4/12 h-full mt-[12px] flex flex-col items-center justify-center">
-						{/* Decoración negra */}
-						<div className="absolute w-[192px] h-[60px] top-[-10px] bg-[#1E1E1E] rounded-[10px]" />
+				<div className="relative flex-1 flex justify-center items-center gap-10 mt-[20px]">
+					{/* Reloj Digital */}
 
+					{/* Sección del Turno Actual */}
+					<div className="bg-[#d9d9d9] border-[18px] border-[#3c3c3c] ml-220 w-3/12 h-full mt-[12px] flex flex-col items-center justify-center">
+						<div className="absolute w-[192px] h-[60px] top-[-10px] bg-[#1E1E1E] rounded-[10px]" />
 						<h2 className="text-3xl font-bold text-center tracking-[3px] uppercase mb-8">
 							Turno actual
 						</h2>
 						<h2 className="text-3xl font-bold text-center uppercase mb-8">
-							Javier Alexander Gomez
+							Javier Alexander Gomez Quiroz
 						</h2>
 						<h2 className="text-5xl font-bold text-center text-[#9B0000] uppercase">
 							TURNO
 						</h2>
-
-						{/* Fecha y Hora */}
-						<div className="relative bottom-[-10px] left-0 w-full flex flex-col items-center justify-center gap-4">
-							<h2 className="font-bold text-xl uppercase">{formattedDate}</h2>
-							<h2 className="font-bold text-xl">{formattedTime}</h2>
-						</div>
+					</div>
+					<div className="bg-gray-300 border-4 border-gray-500 rounded-lg p-4 text-center shadow-lg w-[200px]">
+						<div className="text-6xl font-bold">{formattedTime}</div>
+						<div className="text-xl mt-2">{formattedDate}</div>
 					</div>
 				</div>
 
-				{/* Sección de la Cola de Turnos (Tabla) */}
+				{/* Sección de la Cola de Turnos */}
 				<div className="relative flex-1">
-					{/* Encabezado de la tabla */}
 					<table className="w-full table-auto border-separate border-spacing-0">
 						<thead>
 							<tr className="bg-none">
@@ -72,7 +62,6 @@ const Screen = () => {
 							</tr>
 						</thead>
 						<tbody>
-							{/* Elementos de la cola - Generados dinámicamente con map */}
 							{[1, 2, 3, 4, 5].map((index) => (
 								<tr
 									key={index}
@@ -80,7 +69,7 @@ const Screen = () => {
 										index === 1 ? 'bg-[#42A5F5]' : 'bg-[#90CAF9]'
 									} rounded-[20px]`}
 								>
-									<td className="font-bold text-xl text-center p-4">{index}</td>
+									<td className="font-bold text-xl text-left p-9 ">{index}</td>
 									<td className="font-bold text-xl text-center p-4">
 										{
 											[
@@ -93,7 +82,6 @@ const Screen = () => {
 										}
 									</td>
 									<td className="font-bold text-xl text-center p-4">
-										<p className="text-4xl font-bold">-</p>
 										<p className="font-bold text-xl">D290</p>
 									</td>
 								</tr>
