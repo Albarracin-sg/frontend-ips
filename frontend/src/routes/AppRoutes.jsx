@@ -4,7 +4,6 @@ import Ticket from '../components/qr_option/ticket'
 import MainOperador from '../components/operador/mainOperador'
 import Screen from '../components/mainscreen/screen'
 import QR from '../components/qr_option/qr'
-import TurnosOPERADOR from '../components/operador/TurnosOperador'
 
 function AppRoutes() {
 	return (
