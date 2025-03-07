@@ -1,10 +1,10 @@
 const TurnoOp = () => {
 	return(
 
-			<div className="w-[80%] m-auto">				
+			<div className="w-full h-screen flex flex-col">				
 
-				<div class="relative overflow-x-auto w-full h-[100vh] ">
-					<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mt-15  ">
+				<div class="flex-1 overflow-x-auto p-4">
+					<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 						<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 							<tr>
 								<th scope="col" class="px-6 py-3">
