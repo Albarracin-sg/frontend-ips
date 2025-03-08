@@ -42,11 +42,16 @@ const FormCard = () => {
     };
     
     //Se ejecuta solo cuando el usuario envia el form
-    const handleSubmit = async  (e) => {
-        e.preventDefault();//Hace que no se recarge la pagina
-        
-        //constante para almacenar los valores del formulario con el estilo de la BD
-        const datos ={
+    const handleSubmit = async (e) => {
+        e.preventDefault(); // Hace que no se recargue la página
+    
+        if (!validarCamposRequeridos()) {
+            alert("Por favor, completa todos los campos requeridos.");
+            return;
+        }
+    
+        // Constante para almacenar los valores del formulario con el estilo de la BD
+        const datos = {
             data: {
                 PrimerNombre: form.primerNombre,
                 SegundoNombre: form.segundoNombre,
@@ -59,16 +64,16 @@ const FormCard = () => {
                 NumeroTelefono: form.numeroTelefono,
                 TipoDeCitas_ID: form.tipoDeCitas,
             },
-        }
-        try{
-            await api.post("/", datos);// envia datos al back
-            console.log("Datos enviados: " , datos); // verificar si si esta funcionando correctamente
+        };
+    
+        try {
+            await api.post("/", datos); // Envía datos al backend
+            console.log("Datos enviados: ", datos); // Verificar si está funcionando correctamente
             setEnviado(true);
-        } 
-        catch(error){
-            console.error("Error al enviar debido a: ", error)
+        } catch (error) {
+            console.error("Error al enviar debido a: ", error);
         }
-    }
+    };
 
     //--------- VENTANA MODAL ---------
     const navigate = useNavigate(); // Hook para la navegación entre páginas
@@ -190,7 +195,7 @@ const FormCard = () => {
                     name="numeroDocumento"
                     value={form.numeroDocumento}
                     onChange={handleChange}
-                    placeholder="C.C"
+                    placeholder="Numero de Documento"
                     required
                 />
 
@@ -252,13 +257,17 @@ const FormCard = () => {
                     className="text-[14px] w-full box-border p-[7.65px_9px] bg-none border-b-[2.175px] border-b-[#6EA3C7]" // Reducido en un 15%
                     required
                 />
+                {/* Campo para el TIPO DE CITA */}
+                <label htmlFor="document" className="font-bold text-[14px]">
+                    Tipo de Cita
+                </label>
                 <input
                     type="text"
                     name="tipoDeCitas"
                     value={form.tipoDeCitas}
                     onChange={handleChange}
                     placeholder="Tipo de Citas"
-                    className="border p-2 w-full mb-2"
+                    className="text-[14px] w-full box-border p-[7.65px_9px] bg-none border-b-[2.175px] border-b-[#6EA3C7]"
                     required
                 />
                 {/* Botón de envío del formulario */}
