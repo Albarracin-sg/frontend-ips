@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Modal from "./ventanaModal/modal"; // Importa el modal
+import Modal from "./ventanaModal/modalOP"; // Importa el modal
 import api from "../../api"
 
 const FormCard = () => {
