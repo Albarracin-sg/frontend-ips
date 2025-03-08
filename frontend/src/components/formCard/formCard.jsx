@@ -28,31 +28,25 @@ const FormCard = () => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-
+    const validarCamposRequeridos = () => {
+        return (
+            form.primerNombre.trim() !== "" &&
+            form.primerApellido.trim() !== "" &&
+            form.localidad.trim() !== "" &&
+            form.numeroDocumento.trim() !== "" &&
+            form.fechaNacimiento.trim() !== "" &&
+            form.tipoDocumento.trim() !== "" &&
+            form.numeroTelefono.trim() !== "" &&
+            form.tipoDeCitas.trim() !== ""
+        );
+    };
+    
     //Se ejecuta solo cuando el usuario envia el form
-    const handleSubmit = async (e) => {
-        e.preventDefault(); // Evita recargar la página
-    
-        // Verifica que no haya campos vacíos
-        const camposRequeridos = [
-            "primerNombre",
-            "primerApellido",
-            "localidad",
-            "numeroDocumento",
-            "fechaNacimiento",
-            "tipoDocumento",
-            "numeroTelefono",
-            "tipoDeCitas",
-        ];
+    const handleSubmit = async  (e) => {
+        e.preventDefault();//Hace que no se recarge la pagina
         
-        // Valida si todos los campos requeridos tienen valor
-        const faltantes = camposRequeridos.filter(campo => !form[campo].trim());//trim() se usa para evitar espacios en blanco como valores válidos
-        if (faltantes.length > 0) {
-            return;
-        }
-    
-        // Datos para enviar a la BD
-        const datos = {
+        //constante para almacenar los valores del formulario con el estilo de la BD
+        const datos ={
             data: {
                 PrimerNombre: form.primerNombre,
                 SegundoNombre: form.segundoNombre,
@@ -65,16 +59,16 @@ const FormCard = () => {
                 NumeroTelefono: form.numeroTelefono,
                 TipoDeCitas_ID: form.tipoDeCitas,
             },
-        };
-    
-        try {
-            await api.post("/", datos); // Enviar datos al backend
-            setEnviado(true);
-            setIsOpen(true); // Solo abrir modal si el envío fue exitoso
-        } catch (error) {
-            console.error("Error al enviar debido a: ", error);
         }
-    };
+        try{
+            await api.post("/", datos);// envia datos al back
+            console.log("Datos enviados: " , datos); // verificar si si esta funcionando correctamente
+            setEnviado(true);
+        } 
+        catch(error){
+            console.error("Error al enviar debido a: ", error)
+        }
+    }
 
     //--------- VENTANA MODAL ---------
     const navigate = useNavigate(); // Hook para la navegación entre páginas
@@ -89,7 +83,7 @@ const FormCard = () => {
     return (
         <>
         {enviado ? (
-            <p className="text-green-600">Datos enviados correctamente.</p>
+            <p className="text-green-600">✅ Datos enviados correctamente.</p>
         ) : (
             <form
                 className="bg-[#d9d9d9] border-[12px] border-[#3c3c3c] p-[0_40px] w-[90%] max-w-[500px]    " // Mantiene el tamaño original
@@ -269,8 +263,15 @@ const FormCard = () => {
                 />
                 {/* Botón de envío del formulario */}
                 <button
-                    type="submit"
-                    className="bg-[#6EA3C7] font-bold cursor-pointer w-[130px] h-[40px] text-white py-[2.175px] mb-3 rounded-lg mt-3 hover:bg-[#53709c] transition-colors mx-auto block" // Reducido en un 15%
+                    type="button"
+                    className="bg-[#6EA3C7] font-bold cursor-pointer w-[130px] h-[40px] text-white py-[2.175px] mb-3 rounded-lg mt-3 hover:bg-[#53709c] transition-colors mx-auto block"
+                    onClick={() => {
+                        if (validarCamposRequeridos()) {
+                            setIsOpen(true);
+                        } else {
+                            alert(" Por favor, completa todos los campos requeridos.");
+                        }
+                    }}
                 >
                     ENVIAR
                 </button>
@@ -282,7 +283,7 @@ const FormCard = () => {
             isOpen={isOpen}
             onClose={() => setIsOpen(false)}
             onConfirm={handleSubmitModal}
-        />
+            />
         </>
     );
 };

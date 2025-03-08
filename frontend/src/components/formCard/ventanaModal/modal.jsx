@@ -4,7 +4,7 @@ const Modal = ({ isOpen, onClose, onConfirm }) => {
     if (!isOpen) return null;
 
     return (
-    <div className="fixed inset-0 flex items-center justify-center bg-[#000c] bg-opacity-50 p-4">
+    <div className="fixed inset-0 flex items-center justify-center bg-[#000c] bg-opacity-50 p-4 z-50">
     
         {/* Contenedor del modal con relative para que el botón se posicione dentro */}
         <div className="bg-white p-4 sm:p-5.67 rounded-lg shadow-lg w-[90%] sm:w-90.72 max-w-md relative">
