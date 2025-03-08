@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Modal from "./ventanaModal/modalOP"; // Importa el modal
+import ModalOp from "./ventanaModal/modalOP";
 import api from "../../api"
 
 const FormCard = () => {
@@ -59,19 +58,33 @@ const FormCard = () => {
     }
 
     //--------- VENTANA MODAL ---------
-    const navigate = useNavigate(); // Hook para la navegación entre páginas
-    const [isOpen, setIsOpen] = useState(false); // Estado para controlar la apertura del modal
-
-    // Maneja la confirmación del modal y redirige a la página de ticket
+    const [isOpen, setIsOpen] = useState(false);
     const handleSubmitModal = () => {
-        navigate("/ticket");
+        setIsOpen(false); // Cierra el modal
+    
+        // Resetea los valores del formulario
+        setForm({ 
+            primerNombre: "",
+            segundoNombre: "",
+            primerApellido: "",
+            segundoApellido: "",
+            localidad: "",
+            numeroDocumento: "",
+            fechaNacimiento: "",
+            tipoDocumento: "",
+            numeroTelefono: "",
+            tipoDeCitas: "",
+        });
     };
+    
+    
+
     //------------------
 
     return (
         <>
         {enviado ? (
-            <p className="text-green-600">✅ Datos enviados correctamente.</p>
+            <p className="text-green-600"> Datos enviados correctamente.</p>
         ) : (
             <form
                 className="bg-[#d9d9d9] border-[12px] border-[#3c3c3c] p-[0_40px] w-[90%] max-w-[500px]    " // Mantiene el tamaño original
@@ -261,12 +274,9 @@ const FormCard = () => {
 
             
         )}
-            <Modal
-            isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
-            onConfirm={handleSubmitModal}
-            />
-        </>
+            {/* Modal de confirmación */}
+            <ModalOp isOpen={isOpen} onClose={() => setIsOpen(false)} onConfirm={handleSubmitModal} />
+    </>
     );
 };
 
