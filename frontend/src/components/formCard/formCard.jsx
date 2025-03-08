@@ -4,9 +4,7 @@ import Modal from "./ventanaModal/modal"; // Importa el modal
 import api from "../../api"
 
 const FormCard = () => {
-  // Estado para almacenar los valores del formulario
-        
-    // 
+    //Estado para almacenar los valores del formulario
     const [form, setForm] = useState({
         primerNombre: "",
         segundoNombre: "",
@@ -68,7 +66,6 @@ const FormCard = () => {
     
         try {
             await api.post("/", datos); // Envía datos al backend
-            console.log("Datos enviados: ", datos); // Verificar si está funcionando correctamente
             setEnviado(true);
         } catch (error) {
             console.error("Error al enviar debido a: ", error);
@@ -288,7 +285,7 @@ const FormCard = () => {
                         if (validarCamposRequeridos()) {
                             setIsOpen(true);
                         } else {
-                            alert(" Por favor, completa todos los campos requeridos.");
+                            alert(" Por favor, completa todos los campos requenpm ridos.");
                         }
                     }}
                 >

@@ -26,12 +26,28 @@ const FormCard = () => {
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
-
+    const validarCamposRequeridos = () => {
+        return (
+            form.primerNombre.trim() !== "" && //trim() elimina espacios al inicio o al final
+            form.primerApellido.trim() !== "" && // si los valores tienen algo es true si toda los campos son true la funcion da true 
+            form.localidad.trim() !== "" &&
+            form.numeroDocumento.trim() !== "" &&
+            form.fechaNacimiento.trim() !== "" &&
+            form.tipoDocumento.trim() !== "" &&
+            form.numeroTelefono.trim() !== "" &&
+            form.tipoDeCitas.trim() !== ""
+        );
+    };
 
     //Se ejecuta solo cuando el usuario envia el form
     const handleSubmit = async  (e) => {
         e.preventDefault();//Hace que no se recarge la pagina
         
+        if (!validarCamposRequeridos()) {
+            alert("Por favor, completa todos los campos requeridos.");
+            return;
+        }
+
         //constante para almacenar los valores del formulario con el estilo de la BD
         const datos ={
             data: {
@@ -49,7 +65,6 @@ const FormCard = () => {
         }
         try{
             await api.post("/", datos);// envia datos al back
-            console.log("Datos enviados: " , datos); // verificar si si esta funcionando correctamente
             setEnviado(true);
         } 
         catch(error){
@@ -277,7 +292,13 @@ const FormCard = () => {
                 />
                 {/* Botón de envío del formulario */}
                 <button
-                onClick={() => setIsOpen(true)} //se abre la ventana modal de advertencia
+                onClick={() => {
+                    if (validarCamposRequeridos()) {
+                        setIsOpen(true);
+                    } else {
+                        alert(" Por favor, completa todos los campos requenpm ridos.");
+                    }
+                }} //se abre la ventana modal de advertencia
                     type="submit"
                 className="bg-[#6EA3C7] font-bold cursor-pointer w-[130px] h-[40px] text-white py-[2.175px] mb-3 rounded-lg mt-3 hover:bg-[#53709c] transition-colors mx-auto block" // Reducido en un 15%
                 >
