@@ -191,7 +191,7 @@ const FormCard = () => {
                     name="numeroDocumento"
                     value={form.numeroDocumento}
                     onChange={handleChange}
-                    placeholder="C.C"
+                    placeholder="Numero de Documento"
                     required
                 />
 
@@ -253,13 +253,17 @@ const FormCard = () => {
                     className="text-[14px] w-full box-border p-[7.65px_9px] bg-none border-b-[2.175px] border-b-[#6EA3C7]" // Reducido en un 15%
                     required
                 />
+                {/* Campo para el tipo de cita */}
+                <label htmlFor="document" className="font-bold text-[14px]">
+                    Tipo de Cita
+                </label>
                 <input
                     type="text"
                     name="tipoDeCitas"
                     value={form.tipoDeCitas}
                     onChange={handleChange}
                     placeholder="Tipo de Citas"
-                    className="border p-2 w-full mb-2"
+                    className="text-[14px] w-full box-border p-[7.65px_9px] bg-none border-b-[2.175px] border-b-[#6EA3C7]"
                     required
                 />
                 {/* Botón de envío del formulario */}
