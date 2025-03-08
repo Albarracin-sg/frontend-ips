@@ -85,7 +85,7 @@ const FormCard = () => {
     return (
         <>
         {enviado ? (
-            <p className="text-green-600">✅ Datos enviados correctamente.</p>
+            <p className="text-green-600">Datos enviados correctamente.</p>
         ) : (
             <form
                 className="bg-[#d9d9d9] border-[12px] border-[#3c3c3c] p-[0_40px] w-[90%] max-w-[500px]    " // Mantiene el tamaño original
@@ -285,7 +285,7 @@ const FormCard = () => {
                         if (validarCamposRequeridos()) {
                             setIsOpen(true);
                         } else {
-                            alert(" Por favor, completa todos los campos requenpm ridos.");
+                            alert(" Por favor, completa todos los campos requeridos.");
                         }
                     }}
                 >

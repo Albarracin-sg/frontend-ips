@@ -296,7 +296,7 @@ const FormCard = () => {
                     if (validarCamposRequeridos()) {
                         setIsOpen(true);
                     } else {
-                        alert(" Por favor, completa todos los campos requenpm ridos.");
+                        alert(" Por favor, completa todos los campos requeridos.");
                     }
                 }} //se abre la ventana modal de advertencia
                     type="submit"
