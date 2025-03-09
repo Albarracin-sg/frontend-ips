@@ -1,9 +1,8 @@
 const TurnoOp = () => {
 	return(
-
-			<div className="w-full h-screen flex flex-col">				
-
-				<div class="flex-1 overflow-x-auto p-4">
+		<div className="w-full h-screen flex flex-col">		
+			<div className="flex-1 overflow-hidden p-4 flex items-center justify-center">
+				<div className="w-full max-w-6xl">
 					<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 						<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 							<tr>
@@ -168,12 +167,13 @@ const TurnoOp = () => {
 					</table>
 					<button
 						href="#"
-						className="block py-2 px-10 rounded bg-blue-500 hover:bg-blue-900 transition-colors cursor-pointer mt-10 mx-auto"
+						className="block py-2 px-10 rounded bg-blue-500 hover:bg-blue-900 transition-colors cursor-pointer mt-2 lg:mt-10 mx-auto"
 					>
 						Nuevo Turno
 					</button>
 				</div>
 			</div>
+		</div>
 	)
 }
 

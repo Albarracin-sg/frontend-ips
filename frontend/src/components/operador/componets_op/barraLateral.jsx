@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Ipslogo from './../../../assets/ips.png' // Ruta corregida
 import InicioOp from './Inicio'
-import TurnoOp from './Turnos'
+import TurnoOp from './turnos'
 
 const BarraLateral = () => {
 	const [componenteActual, setComponenteActual] = useState(<InicioOp />)
@@ -40,7 +40,7 @@ const BarraLateral = () => {
 			</aside>
 
 			{/* Contenido principal dinámico */}
-			<main className="flex-1 p-4 sm:p-6">{componenteActual}</main>
+			<main className="flex-1 ">{componenteActual}</main>
 		</div>
 	)
 }
