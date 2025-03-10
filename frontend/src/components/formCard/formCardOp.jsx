@@ -102,14 +102,20 @@ const FormCard = () => {
             <p className="text-green-600"> Datos enviados correctamente.</p>
         ) : (
             <form
-                className="bg-[#d9d9d9] border-[12px] border-[#3c3c3c] p-[0_40px] w-[90%] max-w-[500px]    " // Mantiene el tamaño original
+            className="bg-[#d9d9d9] border-[7px] border-[#3c3c3c] p-[0_15px] max-w-[320px] mx-auto
+            sm:bg-[#d9d9d9] sm:border-[10px] sm:border-[#3c3c3c] sm:p-[0_30px] sm:w-[90%] sm:max-w-[500px]
+            lg:bg-[#d9d9d9] lg:border-[12px] lg:border-[#3c3c3c] lg:p-[0_30px] lg:w-[90%] lg:max-w-[400px]"// Mantiene el tamaño original
                 onSubmit={handleSubmit}
             >
                 {/* Contenedor adicional para el formulario (coso negro) */}
-                <div className="relative w-[192px] h-[45px] left-[110px] mt-[-20px] bg-[#1E1E1E] rounded-[10px]"></div>
+                <div className="relative w-[142px] h-[45px] left-[70px] mt-[-20px] bg-[#1E1E1E] rounded-[10px]
+                sm:relative sm:w-[192px] sm:h-[45px] sm:left-[110px] sm:mt-[-20px]
+                lg:relative lg:w-[180px] lg:h-[40px] lg:left-[85px] lg:mt-[-15px]"></div>
                 
                 {/* Título del formulario */}
-                <h1 className="text-center text-[23.1px] mt-[10px] mb-[10px] font-extrabold tracking-[4px] leading-normal">
+                <h1 className="text-center text-[17px] mt-[323] mb-[5px] font-extrabold tracking-[2.53px] leading-5.1
+                sm:text-[23.1px] sm:mt-[10px] sm:mb-[10px] sm:font-extrabold sm:tracking-[4px] px-[10px] sm:leading-normal
+                lg:text-[23px] lg:mt-[5px] lg:mb-[8px] lg:font-extrabold lg:tracking-[2px] lg:px-[20px] lg:leading-6">
                     FORMULARIO DE REGISTRO
                 </h1>
 
@@ -120,7 +126,9 @@ const FormCard = () => {
                             Primer Nombre
                         </label>
                         <input
-                            className="text-[14px] w-full p-[10px_9px] mb-[10px] border-b-[2.175px] border-b-[#6EA3C7]"
+                            className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
                             type="text "
                             name="primerNombre"
                             value={form.primerNombre}
@@ -131,9 +139,12 @@ const FormCard = () => {
                     </div>
 
                     <div className="w-1/2">
-                        <label className="text-[14px] font-bold">Segundo Nombre</label>
+                        <label className="text-[12.5px] font-bold
+                        sm:text-[14px] lg:text-[12px]">Segundo Nombre</label>
                         <input 
-                            className="text-[14px] w-full p-[10px_9px] mb-[10px] border-b-[2.175px] border-b-[#6EA3C7]"
+                            className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
                             type="text"
                             name="segundoNombre"
                             value={form.segundoNombre}
@@ -146,11 +157,14 @@ const FormCard = () => {
                 {/* Contenedor de apellidos */}
                 <div className="flex gap-4">
                     <div className="w-1/2">
-                        <label htmlFor="lastname" className="font-bold text-[14px]">
+                        <label htmlFor="lastname" className="text-[12.5px] font-bold
+                        sm:text-[14px] lg:text-[12px]">
                             Primer Apellido
                         </label>
                         <input
-                            className="text-[14px] w-full p-[10px_9px] mb-[10px] border-b-[2.175px] border-b-[#6EA3C7]"
+                            className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
                             type="text"
                             name="primerApellido"
                             value={form.primerApellido}
@@ -163,7 +177,9 @@ const FormCard = () => {
                     <div className="w-1/2">
                         <label className="text-[14px] font-bold">Segundo Apellido</label>
                         <input 
-                            className="text-[14px] w-full p-[10px_9px] mb-[10px] border-b-[2.175px] border-b-[#6EA3C7]" 
+                            className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
                             type="text"
                             name="segundoApellido"
                             value={form.segundoApellido}
@@ -177,12 +193,15 @@ const FormCard = () => {
                 <div className="flex gap-4">
                     {/* Localidad */}
                     <div className="w-1/2">
-                        <label className="font-bold text-[14px]">Localidad</label>
+                        <label className="text-[12.5px] font-bold
+                        sm:text-[14px] lg:text-[12px]">Localidad</label>
                         <select
                             name="localidad"
                             value={form.localidad}
                             onChange={handleChange}
-                            className="text-[14px] w-full p-[10px_9px] mb-[10px] border-b-[2.175px] border-b-[#6EA3C7]"
+                            className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
                             required
                         >
                             <option value="" disabled>Seleccione su localidad</option>
@@ -212,7 +231,8 @@ const FormCard = () => {
 
                     {/* Número de Teléfono */}
                     <div className="w-1/2">
-                        <label htmlFor="numeroTelefono" className="font-bold text-[14px]">
+                        <label htmlFor="numeroTelefono" className="text-[12.5px] font-bold
+                        sm:text-[14px] lg:text-[12px]">
                             Número de Teléfono
                         </label>
                         <input
@@ -221,75 +241,97 @@ const FormCard = () => {
                             value={form.numeroTelefono}
                             onChange={handleChange}
                             placeholder="Número de Teléfono"
-                            className="text-[14px] w-full p-[10px_9px] mb-[10px] border-b-[2.175px] border-b-[#6EA3C7]"
+                            className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
                             required
                         />
                     </div>
                 </div>
 
                 {/* Campo para el TIPO DE DOCUMENTO */}
-                <label className="font-bold text-[14px]">Tipo de Documento</label>
-                <input
-                    className="w-full p-2 mb-2 border-b-2 border-[#6EA3C7]"
-                    list="tipoDocumento"
-                    name="tipoDocumento"
-                    value={form.tipoDocumento}
-                    onChange={handleChange} 
-                    placeholder="C.C"
-                    required
-                />
-
-                <datalist id="tipoDocumento">
-                    <option value="Cédula de ciudadanía" />
-                    <option value="Pasaporte" />
-                    <option value="Tarjeta de identidad" />
-                    <option value="Cédula de extranjería" />
-                    <option value="Registro civil" />
-                    <option value="Permiso especial de permanencia" />
-                </datalist>
+                <div className="mb-2">
+                    <label className="text-[12.5px] font-bold
+                    sm:text-[14px] lg:text-[12px]">
+                        Tipo de Documento
+                    </label>
+                    <input
+                        className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+                        sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                        name="tipoDocumento"
+                        value={form.tipoDocumento}
+                        onChange={handleChange} 
+                        placeholder="C.C"
+                        required
+                    />
+                    <datalist id="tipoDocumento">
+                        <option value="Cédula de ciudadanía" />
+                        <option value="Pasaporte" />
+                        <option value="Tarjeta de identidad" />
+                        <option value="Cédula de extranjería" />
+                        <option value="Registro civil" />
+                        <option value="Permiso especial de permanencia" />
+                    </datalist>
+                </div>
 
                 {/* Campo para el documento */}
 
-                <label htmlFor="document" className="font-bold text-[14px]">
-                    Documento
-                </label>
-                <input
-                    className="text-[14px] w-full box-border p-[7.65px_9px] mb-[10px] bg-none border-b-[2.175px] border-b-[#6EA3C7]" // Reducido en un 15%
-                    type="number"
-                    name="numeroDocumento"
-                    value={form.numeroDocumento}
-                    onChange={handleChange}
-                    placeholder="Numero de Documento"
-                    required
-                />
-
+                <div className="mb-2">
+                    <label htmlFor="document" className="text-[12.5px] font-bold
+                    sm:text-[14px] lg:text-[12px]">
+                        Documento
+                    </label>
+                    <input
+                        className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+                        sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                        type="number"
+                        name="numeroDocumento"
+                        value={form.numeroDocumento}
+                        onChange={handleChange}
+                        placeholder="Numero de Documento"
+                        required
+                    />
+                </div>
 
                 {/* Campo para la fecha de nacimiento */}
-                <label htmlFor="document" className="font-bold text-[14px]">
-                    Fecha de Nacimiento
-                </label>
-                <input
-                    className="text-[14px] w-full box-border p-[7.65px_9px] mb-[10px] bg-none border-b-[2.175px] border-b-[#6EA3C7]" // Reducido en un 15%
-                    type="date"
-                    name="fechaNacimiento"
-                    value={form.fechaNacimiento}
-                    onChange={handleChange}
-                    required
-                />
+                <div className="mb-2">
+                    <label htmlFor="document" className="text-[12.5px] font-bold
+                    sm:text-[14px] lg:text-[12px]">
+                        Fecha de Nacimiento
+                    </label>
+                    <input
+                        className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+                        sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                        type="date"
+                        name="fechaNacimiento"
+                        value={form.fechaNacimiento}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
                 {/* Campo para el tipo de cita */}
-                <label htmlFor="document" className="font-bold text-[14px]">
-                    Tipo de Cita
-                </label>
-                <input
-                    type="text"
-                    name="tipoDeCitas"
-                    value={form.tipoDeCitas}
-                    onChange={handleChange}
-                    placeholder="Tipo de Citas"
-                    className="text-[14px] w-full box-border p-[7.65px_9px] bg-none border-b-[2.175px] border-b-[#6EA3C7]"
-                    required
-                />
+                <div className="mb-3">
+                    <label htmlFor="document" className="text-[12.5px] font-bold
+                    sm:text-[14px] lg:text-[12px]">
+                        Tipo de Cita
+                    </label>
+                    <input
+                        type="text"
+                        name="tipoDeCitas"
+                        value={form.tipoDeCitas}
+                        onChange={handleChange}
+                        placeholder="Tipo de Citas"
+                        className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+                        sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                        required
+                    />
+                </div>
+
                 {/* Botón de envío del formulario */}
                 <button
                 onClick={() => {
