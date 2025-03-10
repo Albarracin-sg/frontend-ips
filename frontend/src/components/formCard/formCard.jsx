@@ -245,6 +245,14 @@ const FormCard = () => {
                         placeholder="C.C"
                         required
                     />
+                    <datalist id="tipoDocumento">
+                        <option value="Cédula de ciudadanía" />
+                        <option value="Pasaporte" />
+                        <option value="Tarjeta de identidad" />
+                        <option value="Cédula de extranjería" />
+                        <option value="Registro civil" />
+                        <option value="Permiso especial de permanencia" />
+                    </datalist>
                 </div>
 
                 {/* Campo para el documento */}
