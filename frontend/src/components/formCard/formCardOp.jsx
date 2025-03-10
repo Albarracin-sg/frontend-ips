@@ -251,8 +251,7 @@ const FormCard = () => {
 
                 {/* Campo para el TIPO DE DOCUMENTO */}
                 <div className="mb-2">
-                    <label className="text-[12.5px] font-bold
-                    sm:text-[14px] lg:text-[12px]">
+                    <label className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px]">
                         Tipo de Documento
                     </label>
                     <input
@@ -261,8 +260,9 @@ const FormCard = () => {
                         lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
                         name="tipoDocumento"
                         value={form.tipoDocumento}
-                        onChange={handleChange} 
-                        placeholder="C.C"
+                        onChange={handleChange}
+                        placeholder="Seleccione un tipo"
+                        list="tipoDocumento"
                         required
                     />
                     <datalist id="tipoDocumento">
@@ -274,6 +274,7 @@ const FormCard = () => {
                         <option value="Permiso especial de permanencia" />
                     </datalist>
                 </div>
+
 
                 {/* Campo para el documento */}
 
@@ -313,10 +314,9 @@ const FormCard = () => {
                     />
                 </div>
 
-                {/* Campo para el tipo de cita */}
+                {/* Campo para el TIPO DE CITA */}
                 <div className="mb-3">
-                    <label htmlFor="document" className="text-[12.5px] font-bold
-                    sm:text-[14px] lg:text-[12px]">
+                    <label htmlFor="tipoDeCitas" className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px]">
                         Tipo de Cita
                     </label>
                     <input
@@ -324,12 +324,17 @@ const FormCard = () => {
                         name="tipoDeCitas"
                         value={form.tipoDeCitas}
                         onChange={handleChange}
-                        placeholder="Tipo de Citas"
+                        placeholder="Seleccione un tipo"
+                        list="tipoDeCitas"
                         className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                         sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                         lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
                         required
                     />
+                    <datalist id="tipoDeCitas">
+                        <option value="prioritaria" />
+                        <option value="no prioritaria" />
+                    </datalist>
                 </div>
 
                 {/* Botón de envío del formulario */}
