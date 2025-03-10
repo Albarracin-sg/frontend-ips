@@ -240,6 +240,7 @@ const FormCard = () => {
                         sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                         lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
                         name="tipoDocumento"
+                        id="tipoDocumento"                        
                         value={form.tipoDocumento}
                         onChange={handleChange} 
                         placeholder="C.C"
