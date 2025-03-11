@@ -96,7 +96,7 @@ const FormCard = () => {
                 </h1>
 
                 {/* Contenedor de nombres */}
-                <div className="flex gap-4 mb-2">
+                <div className="flex gap-4">
                     <div className="w-1/2">
                         <label htmlFor="name" className="text-[12.5px] font-bold
                         sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
@@ -136,7 +136,7 @@ const FormCard = () => {
                 </div>
 
                 {/* Contenedor de apellidos */}
-                <div className="flex gap-4 mb-2">
+                <div className="flex gap-4 ">
                     <div className="w-1/2">
                         <label htmlFor="lastname" className="text-[12.5px] font-bold
                         sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
@@ -176,7 +176,7 @@ const FormCard = () => {
                 </div>
 
                 {/* Contenedor de Localidad y Teléfono */}
-                <div className="flex gap-4 mb-2">
+                <div className="flex gap-4">
                     {/* Localidad */}
                     <div className="w-1/2">
                         <label className="text-[12.5px] font-bold
