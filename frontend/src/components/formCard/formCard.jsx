@@ -41,7 +41,7 @@ const FormCard = () => {
             alert("Por favor, completa todos los campos requeridos.");
             return;
         }
-
+        
         const datos = {
             data: {
                 PrimerNombre: form.primerNombre,
@@ -56,10 +56,11 @@ const FormCard = () => {
                 TipoDeCitas_ID: form.tipoDeCitas,
             },
         };
-
         try {
-            await api.post("/", datos);
+            console.log(datos)
+            await api.post("/Envioform", datos);
         } catch (error) {
+            console.log("error no se enviaron los datos")
             console.error("Error al enviar debido a: ", error);
         }
     };
@@ -318,7 +319,7 @@ const FormCard = () => {
 
                 {/* Botón de envío del formulario */}
                 <button
-                    type="button"
+                    type="submit"
                     className="bg-[#6EA3C7] text-[15px] font-bold cursor-pointer w-[90px] h-[35px] text-white mb-3 rounded-lg hover:bg-[#53709c] transition-colors mx-auto block
                     sm:w-[130px] sm:h-[40px] sm:mb-3 sm:rounded-lg
                     lg:w-[100px] lg:h-[30px] lg:text-[13px]"
