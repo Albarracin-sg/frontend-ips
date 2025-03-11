@@ -229,25 +229,28 @@ const FormCard = () => {
                             </select>
                         </div>
 
-                        {/* Número de Teléfono */}
-                        <div className="w-1/2">
-                            <label htmlFor="numeroTelefono" className="text-[12.5px] font-bold
-                            sm:text-[14px] lg:text-[12px]">
-                                Número de Teléfono
-                            </label>
-                            <input
-                                type="text"
-                                name="numeroTelefono"
-                                value={form.numeroTelefono}
-                                onChange={handleChange}
-                                placeholder="Número de Teléfono"
-                                className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                                sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                                lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
-                                required
-                            />
-                        </div>
+                    {/* Número de Teléfono */}
+                    <div className="w-1/2">
+                        <label htmlFor="numeroTelefono" className="text-[12.5px] font-bold
+                        sm:text-[14px] lg:text-[12px]">
+                            Número de Teléfono
+                        </label>
+                        <input
+                            type="tel"
+                            name="numeroTelefono"
+                            id="numeroTelefono"
+                            value={form.numeroTelefono}
+                            onChange={handleChange}
+                            placeholder="Número de Teléfono"
+                            pattern="[0-9]{10}"
+                            aria-label="Ingrese su número de teléfono"
+                            className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                            required
+                        />
                     </div>
+                </div>
 
                     {/* Campo para el TIPO DE DOCUMENTO */}
                     <div className="mb-2">
