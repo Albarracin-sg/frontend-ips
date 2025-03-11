@@ -77,18 +77,21 @@ const FormCard = () => {
             <form
                 className="bg-[#d9d9d9] border-[7px] border-[#3c3c3c] p-[0_15px] max-w-[320px] mx-auto
                 sm:bg-[#d9d9d9] sm:border-[10px] sm:border-[#3c3c3c] sm:p-[0_30px] sm:w-[90%] sm:max-w-[500px]
-                lg:bg-[#d9d9d9] lg:border-[12px] lg:border-[#3c3c3c] lg:p-[0_30px] lg:w-[90%] lg:max-w-[400px]"
+                lg:bg-[#d9d9d9] lg:border-[12px] lg:border-[#3c3c3c] lg:p-[0_30px] lg:w-[90%] lg:max-w-[400px]
+                2xl:bg-[#d9d9d9] 2xl:border-[10px] 2xl:border-[#3c3c3c] 2xl:p-[0_30px] 2xl:w-[90%] 2xl:max-w-[500px]"
                 onSubmit={handleSubmit}
             >
                 {/* Contenedor adicional para el formulario (rectángulo negro) */}
                 <div className="relative w-[142px] h-[45px] left-[70px] mt-[-20px] bg-[#1E1E1E] rounded-[10px]
                 sm:relative sm:w-[192px] sm:h-[45px] sm:left-[110px] sm:mt-[-20px]
-                lg:relative lg:w-[180px] lg:h-[40px] lg:left-[85px] lg:mt-[-15px]"></div>
+                lg:relative lg:w-[180px] lg:h-[40px] lg:left-[85px] lg:mt-[-15px]
+                2xl:relative 2xl:w-[192px] 2xl:h-[45px] 2xl:left-[110px] 2xl:mt-[-20px]"></div>
                 
                 {/* Título del formulario */}
                 <h1 className="text-center text-[17px] mt-[323] mb-[5px] font-extrabold tracking-[2.53px] leading-5.1
                 sm:text-[23.1px] sm:mt-[10px] sm:mb-[10px] sm:font-extrabold sm:tracking-[4px] px-[10px] sm:leading-normal
-                lg:text-[23px] lg:mt-[5px] lg:mb-[8px] lg:font-extrabold lg:tracking-[2px] lg:px-[20px] lg:leading-6">
+                lg:text-[23px] lg:mt-[5px] lg:mb-[8px] lg:font-extrabold lg:tracking-[2px] lg:px-[20px] lg:leading-6
+                2xl:text-[23.1px] 2xl:mt-[10px] 2xl:mb-[10px] 2xl:font-extrabold 2xl:tracking-[4px] 2xl:px-[10px] 2xl:leading-normal">
                     FORMULARIO DE REGISTRO
                 </h1>
 
@@ -96,13 +99,14 @@ const FormCard = () => {
                 <div className="flex gap-4 mb-2">
                     <div className="w-1/2">
                         <label htmlFor="name" className="text-[12.5px] font-bold
-                        sm:text-[14px] lg:text-[12px]">
+                        sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
                             Primer Nombre
                         </label>
                         <input
                             className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                             sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
                             type="text"
                             name="primerNombre"
                             value={form.primerNombre}
@@ -114,13 +118,14 @@ const FormCard = () => {
 
                     <div className="w-1/2">
                         <label className="text-[12.5px] font-bold
-                        sm:text-[14px] lg:text-[12px]">
+                        sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
                             Segundo Nombre
                         </label>
                         <input 
                             className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                             sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
                             type="text"
                             name="segundoNombre"
                             value={form.segundoNombre}
@@ -134,13 +139,14 @@ const FormCard = () => {
                 <div className="flex gap-4 mb-2">
                     <div className="w-1/2">
                         <label htmlFor="lastname" className="text-[12.5px] font-bold
-                        sm:text-[14px] lg:text-[12px]">
+                        sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
                             Primer Apellido
                         </label>
                         <input
                             className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                             sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
                             type="text"
                             name="primerApellido"
                             value={form.primerApellido}
@@ -152,13 +158,14 @@ const FormCard = () => {
 
                     <div className="w-1/2">
                         <label className="text-[12.5px] font-bold
-                        sm:text-[14px] lg:text-[12px]">
+                        sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
                             Segundo Apellido
                         </label>
                         <input 
                             className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                             sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
                             type="text"
                             name="segundoApellido"
                             value={form.segundoApellido}
@@ -173,7 +180,7 @@ const FormCard = () => {
                     {/* Localidad */}
                     <div className="w-1/2">
                         <label className="text-[12.5px] font-bold
-                        sm:text-[14px] lg:text-[12px]">
+                        sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
                             Localidad
                         </label>
                         <select
@@ -182,7 +189,8 @@ const FormCard = () => {
                             onChange={handleChange}
                             className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                             sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
                             required
                         >
                             <option value="" disabled>Seleccione su localidad</option>
@@ -213,7 +221,7 @@ const FormCard = () => {
                     {/* Número de Teléfono */}
                     <div className="w-1/2">
                         <label htmlFor="numeroTelefono" className="text-[12.5px] font-bold
-                        sm:text-[14px] lg:text-[12px]">
+                        sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
                             Número de Teléfono
                         </label>
                         <input
@@ -227,7 +235,8 @@ const FormCard = () => {
                             aria-label="Ingrese su número de teléfono"
                             className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                             sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
                             required
                         />
                     </div>
@@ -236,13 +245,14 @@ const FormCard = () => {
 
                 {/* Campo para el TIPO DE DOCUMENTO */}
                 <div className="mb-2">
-                    <label className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px]">
+                    <label className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
                         Tipo de Documento
                     </label>
                     <input
                         className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                         sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+                        2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
                         name="tipoDocumento"
                         value={form.tipoDocumento}
                         onChange={handleChange}
@@ -263,13 +273,14 @@ const FormCard = () => {
                 {/* Campo para el documento */}
                 <div className="mb-2">
                     <label htmlFor="document" className="text-[12.5px] font-bold
-                    sm:text-[14px] lg:text-[12px]">
+                    sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
                         Documento
                     </label>
                     <input
                         className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                         sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+                        2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
                         type="number"
                         name="numeroDocumento"
                         value={form.numeroDocumento}
@@ -282,13 +293,14 @@ const FormCard = () => {
                 {/* Campo para la fecha de nacimiento */}
                 <div className="mb-2">
                     <label htmlFor="document" className="text-[12.5px] font-bold
-                    sm:text-[14px] lg:text-[12px]">
+                    sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
                         Fecha de Nacimiento
                     </label>
                     <input
                         className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                         sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+                        2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
                         type="date"
                         name="fechaNacimiento"
                         value={form.fechaNacimiento}
@@ -299,7 +311,7 @@ const FormCard = () => {
 
                 {/* Campo para el TIPO DE CITA */}
                 <div className="mb-3">
-                    <label htmlFor="tipoDeCitas" className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px]">
+                    <label htmlFor="tipoDeCitas" className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
                         Tipo de Cita
                     </label>
                     <input
@@ -311,7 +323,8 @@ const FormCard = () => {
                         list="tipoDeCitas"
                         className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                         sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+                        2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
                         required
                     />
                     <datalist id="tipoDeCitas">
@@ -326,7 +339,8 @@ const FormCard = () => {
                     type="submit"
                     className="bg-[#6EA3C7] text-[15px] font-bold cursor-pointer w-[90px] h-[35px] text-white mb-3 rounded-lg hover:bg-[#53709c] transition-colors mx-auto block
                     sm:w-[130px] sm:h-[40px] sm:mb-3 sm:rounded-lg
-                    lg:w-[100px] lg:h-[30px] lg:text-[13px]"
+                    lg:w-[100px] lg:h-[30px] lg:text-[13px]
+                    2xl:w-[130px] 2xl:h-[40px] 2xl:mb-3 2xl:rounded-lg"
                     onClick={() => {
                         if (validarCamposRequeridos()) {
                             setIsOpen(true);
