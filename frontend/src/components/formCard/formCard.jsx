@@ -84,7 +84,7 @@ const FormCard = () => {
                 {/* Contenedor adicional para el formulario (rectángulo negro) */}
                 <div className="relative w-[142px] h-[45px] left-[70px] mt-[-20px] bg-[#1E1E1E] rounded-[10px]
                 sm:relative sm:w-[192px] sm:h-[45px] sm:left-[110px] sm:mt-[-20px]
-                lg:relative lg:w-[180px] lg:h-[40px] lg:left-[85px] lg:mt-[-15px]
+                lg:relative lg:w-[180px] lg:h-[40px] lg:left-[70px] lg:mt-[-15px]
                 2xl:relative 2xl:w-[192px] 2xl:h-[45px] 2xl:left-[110px] 2xl:mt-[-20px]"></div>
                 
                 {/* Título del formulario */}
@@ -244,7 +244,7 @@ const FormCard = () => {
                 </div>
 
                 {/* Campo para el TIPO DE DOCUMENTO */}
-                <div className="mb-2">
+                <div>
                     <label className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
                         Tipo de Documento
                     </label>
@@ -271,7 +271,7 @@ const FormCard = () => {
                 </div>
 
                 {/* Campo para el documento */}
-                <div className="mb-2">
+                <div >
                     <label htmlFor="document" className="text-[12.5px] font-bold
                     sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
                         Documento
@@ -291,7 +291,7 @@ const FormCard = () => {
                 </div>
 
                 {/* Campo para la fecha de nacimiento */}
-                <div className="mb-2">
+                <div>
                     <label htmlFor="document" className="text-[12.5px] font-bold
                     sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
                         Fecha de Nacimiento
