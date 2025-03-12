@@ -1,4 +1,6 @@
-const TurnoOp = () => {
+import NewTurn from "./newForm"
+
+const TurnoOp = ({ setComponenteActual }) => {
 	return(
 		<div className="w-full h-screen flex flex-col 2xl:w-full 2xl:h-screen 2xl:flex 2xl:flex-col">		
 			<div className="flex-1 flex items-center justify-center 2xl:flex-1 2xl:flex 2xl:items-center 2xl:justify-center">
@@ -166,8 +168,8 @@ const TurnoOp = () => {
 						</tbody>
 					</table>
 					<button
-						href="#"
-						className="block py-3 px-5 rounded bg-blue-500 hover:bg-blue-700 text-white transition-colors cursor-pointer mt-2 lg:mt-10 mx-auto 2xl:block 2xl:py-2 2xl:px-10 2xl:rounded 2xl:bg-blue-500 2xl:hover:bg-blue-700 2xl:text-white 2xl:transition-colors 2xl:cursor-pointer 2xl:mt-2 2xl:lg:mt-10 2xl:mx-auto"
+						onClick={() => setComponenteActual(<NewTurn />)}
+						className="block py-3 px-5 rounded bg-blue-500 hover:bg-blue-700 text-white transition-colors cursor-pointer mt-2 mx-auto"
 					>
 						Nuevo Turno
 					</button>
