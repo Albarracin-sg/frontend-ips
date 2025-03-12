@@ -92,6 +92,7 @@ const FormCard = ({ modo = 'normal' }) => {
 		}
 	}
 
+	
 
 	return (
 		<>
