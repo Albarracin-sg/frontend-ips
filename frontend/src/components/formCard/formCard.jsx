@@ -244,28 +244,31 @@ const FormCard = () => {
                 </div>
 
                 {/* Campo para el TIPO DE DOCUMENTO */}
-                <div className="mb-2">
-                        <label className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px]">
-                            Tipo de Documento
-                        </label>
-                        <select
-                            className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
-                            name="tipoDocumento"
-                            value={form.tipoDocumento}
-                            onChange={handleChange}
-                            required
-                        >
-                            <option value="">Seleccione un tipo</option>
-                            <option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
-                            <option value="Pasaporte">Pasaporte</option>
-                            <option value="Tarjeta de identidad">Tarjeta de identidad</option>
-                            <option value="Cédula de extranjería">Cédula de extranjería</option>
-                            <option value="Registro civil">Registro civil</option>
-                            <option value="Permiso especial de permanencia">Permiso especial de permanencia</option>
-                        </select>
-                    </div>
+                <div>
+                    <label className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
+                        Tipo de Documento
+                    </label>
+                    <input
+                        className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+                        sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+                        2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
+                        name="tipoDocumento"
+                        value={form.tipoDocumento}
+                        onChange={handleChange}
+                        placeholder="Seleccione un tipo"
+                        list="tipoDocumento"
+                        required
+                    />
+                    <datalist id="tipoDocumento">
+                        <option value="Cédula de ciudadanía" />
+                        <option value="Pasaporte" />
+                        <option value="Tarjeta de identidad" />
+                        <option value="Cédula de extranjería" />
+                        <option value="Registro civil" />
+                        <option value="Permiso especial de permanencia" />
+                    </datalist>
+                </div>
 
 
                 {/* Campo para el documento */}
