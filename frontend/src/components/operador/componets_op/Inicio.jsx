@@ -1,13 +1,17 @@
-import FormCardOP from '../../formCard/formCardOp';
-import TicketCard from '../../ticketCard/ticketCard';
+import FormCardOP from '../../formCard/formCardOp'
+import TicketCard from '../../ticketCard/ticketCard'
 
 const InicioOp = () => {
 	return (
-		<div className="flex gap-4 justify-evenly p-4">
-		<FormCardOP />
-		<TicketCard />
+		<div className="flex justify-evenly p-10">
+			<div className="flex-1 flex justify-center">
+				<FormCardOP />
+			</div>
+			<div className="flex-1 flex justify-center">
+				<TicketCard />
+			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default InicioOp;
+export default InicioOp
