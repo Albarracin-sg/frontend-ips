@@ -4,8 +4,10 @@ import ModalOp from './ventanaModal/modalOP'
 import api from '../../api'
 
 const FormCard = ({ modo = 'normal' }) => {
+	// Hook para redireccionar a otras rutas
 	const navigate = useNavigate()
 
+	// Estado inicial del formulario con todos los campos vacíos
 	const formInicial = {
 		primerNombre: '',
 		segundoNombre: '',
@@ -19,13 +21,17 @@ const FormCard = ({ modo = 'normal' }) => {
 		tipoDeCitas: '',
 	}
 
+	// Estado del formulario
 	const [form, setForm] = useState(formInicial)
+	// Estado para controlar si el modal está abierto
 	const [isOpen, setIsOpen] = useState(false)
 
+	// Función para manejar los cambios en los inputs del formulario
 	const handleChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value })
 	}
 
+	// Función para validar que los campos obligatorios no estén vacíos
 	const validarCamposRequeridos = () => {
 		return (
 			form.primerNombre.trim() !== '' &&
@@ -39,14 +45,17 @@ const FormCard = ({ modo = 'normal' }) => {
 		)
 	}
 
+	// Función que se ejecuta al enviar el formulario
 	const handleSubmit = async (e) => {
-		e.preventDefault()
+		e.preventDefault() // Previene el comportamiento por defecto del formulario
 
+		// Si los campos requeridos no están completos, muestra una alerta
 		if (!validarCamposRequeridos()) {
 			alert('Por favor, completa todos los campos requeridos.')
 			return
 		}
 
+		// Objeto con los datos formateados para enviar a la API
 		const datos = {
 			data: {
 				PrimerNombre: form.primerNombre,
@@ -62,22 +71,27 @@ const FormCard = ({ modo = 'normal' }) => {
 			},
 		}
 		try {
+			// Envío de datos al backend según el modo actual
 			await api.post(modo === 'op' ? '/' : '/Envioform', datos)
+			// Abre el modal tras el envío exitoso
 			setIsOpen(true)
 		} catch (error) {
+			// Muestra error en consola si falla el envío
 			console.error('Error al enviar debido a: ', error)
 		}
 	}
 
+	// Función que se ejecuta al cerrar el modal
 	const handleSubmitModal = () => {
-		setIsOpen(false)
+		setIsOpen(false) // Cierra el modal
 		if (modo === 'op') {
-			setForm(formInicial)
-			setEnviado(true)
+			setForm(formInicial) // Reinicia el formulario
+			setEnviado(true) // Marca como enviado (requiere definición previa)
 		} else {
-			navigate('/ticket')
+			navigate('/ticket') // Redirige a la página de ticket
 		}
 	}
+
 
 	return (
 		<>
