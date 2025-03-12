@@ -118,7 +118,7 @@ const Screen = () => {
             <h3 className="text-xl font-bold text-blue-700 mb-5">Información</h3>
             <ul className="space-y-5">
               <li className="flex items-start">
-                <span className="bg-blue-100 text-blue-800 p-1 rounded-full mr-3 mt-0.5 flex-shrink-0">✓</span>
+                <span className="bg-blue-100 text-blue-800 p-1 rounded-full mr-3 mt-0.5 flex-shrink-0"> </span>
                 <span className="text-gray-700">Por favor, esté atento a su turno</span>
               </li>
               <li className="flex items-start">
