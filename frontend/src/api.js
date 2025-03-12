@@ -1,8 +1,18 @@
 import axios from 'axios';
 
-// Aca va la URL de la API cuando se tenga el backend solo se cambia la url
+// Instancia general de la API
 const api = axios.create({
-    baseURL:"http://localhost:3000/api/Envioform"
-})
+    baseURL: "http://localhost:3000/api/Envioform"
+});
 
-export default api;
+
+const api2 = axios.create({
+    baseURL: "http://localhost:3000/api/api2"
+});
+
+const api3 = axios.create({
+    baseURL: "http://localhost:3000/api/api3"
+});
+
+// Exportación nombrada
+export { api, api2, api3 };
