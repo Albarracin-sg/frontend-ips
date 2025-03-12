@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Modal from "./ventanaModal/modal";
+import ModalOp from "./ventanaModal/modalOP";
 import api from "../../api";
 
 const FormCard = () => {
@@ -244,32 +244,29 @@ const FormCard = () => {
                 </div>
 
                 {/* Campo para el TIPO DE DOCUMENTO */}
-                <div>
-                    <label className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
-                        Tipo de Documento
-                    </label>
-                    <input
-                        className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                        sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
-                        2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
-                        name="tipoDocumento"
-                        id="tipoDocumento"                        
-                        value={form.tipoDocumento}
-                        onChange={handleChange}
-                        placeholder="Seleccione un tipo"
-                        list="tipoDocumento"
-                        required
-                    />
-                    <datalist id="tipoDocumento">
-                        <option value="Cédula de ciudadanía" />
-                        <option value="Pasaporte" />
-                        <option value="Tarjeta de identidad" />
-                        <option value="Cédula de extranjería" />
-                        <option value="Registro civil" />
-                        <option value="Permiso especial de permanencia" />
-                    </datalist>
-                </div>
+                <div className="mb-2">
+                        <label className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px]">
+                            Tipo de Documento
+                        </label>
+                        <select
+                            className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                            name="tipoDocumento"
+                            value={form.tipoDocumento}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Seleccione un tipo</option>
+                            <option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
+                            <option value="Pasaporte">Pasaporte</option>
+                            <option value="Tarjeta de identidad">Tarjeta de identidad</option>
+                            <option value="Cédula de extranjería">Cédula de extranjería</option>
+                            <option value="Registro civil">Registro civil</option>
+                            <option value="Permiso especial de permanencia">Permiso especial de permanencia</option>
+                        </select>
+                    </div>
+
 
                 {/* Campo para el documento */}
                 <div >
@@ -312,27 +309,24 @@ const FormCard = () => {
 
                 {/* Campo para el TIPO DE CITA */}
                 <div className="mb-3">
-                    <label htmlFor="tipoDeCitas" className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px] 2xl:text-[14px]">
-                        Tipo de Cita
-                    </label>
-                    <input
-                        type="text"
-                        name="tipoDeCitas"
-                        value={form.tipoDeCitas}
-                        onChange={handleChange}
-                        placeholder="Seleccione un tipo"
-                        list="tipoDeCitas"
-                        className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                        sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
-                        2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
-                        required
-                    />
-                    <datalist id="tipoDeCitas">
-                        <option value="prioritaria" />
-                        <option value="no prioritaria" />
-                    </datalist>
-                </div>
+                        <label htmlFor="tipoDeCitas" className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px]">
+                            Tipo de Cita
+                        </label>
+                        <select
+                            name="tipoDeCitas"
+                            value={form.tipoDeCitas}
+                            onChange={handleChange}
+                            className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+                            required
+                        >
+                            <option value="">Seleccione un tipo</option>
+                            <option value="prioritaria">Prioritaria</option>
+                            <option value="no prioritaria">No prioritaria</option>
+                        </select>
+                    </div>
+
 
 
                 {/* Botón de envío del formulario */}
@@ -353,7 +347,7 @@ const FormCard = () => {
                     ENVIAR
                 </button>
             </form>
-            <Modal
+            <ModalOp
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
                 onConfirm={handleSubmitModal}

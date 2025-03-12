@@ -22,7 +22,7 @@ const FormCard = () => {
     // 
     const [enviado,setEnviado] = useState(false);
 
-    //Actualiza SOLO EL CAMPO MODIGICADO sin perder valores anteriores 
+    //Actualiza SOLO EL CAMPO MODIFICADO sin perder valores anteriores 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
@@ -257,26 +257,25 @@ const FormCard = () => {
                         <label className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px]">
                             Tipo de Documento
                         </label>
-                        <input
+                        <select
                             className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                             sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
                             name="tipoDocumento"
                             value={form.tipoDocumento}
                             onChange={handleChange}
-                            placeholder="Seleccione un tipo"
-                            list="tipoDocumento"
                             required
-                        />
-                        <datalist id="tipoDocumento">
-                            <option value="Cédula de ciudadanía" />
-                            <option value="Pasaporte" />
-                            <option value="Tarjeta de identidad" />
-                            <option value="Cédula de extranjería" />
-                            <option value="Registro civil" />
-                            <option value="Permiso especial de permanencia" />
-                        </datalist>
+                        >
+                            <option value="">Seleccione un tipo</option>
+                            <option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
+                            <option value="Pasaporte">Pasaporte</option>
+                            <option value="Tarjeta de identidad">Tarjeta de identidad</option>
+                            <option value="Cédula de extranjería">Cédula de extranjería</option>
+                            <option value="Registro civil">Registro civil</option>
+                            <option value="Permiso especial de permanencia">Permiso especial de permanencia</option>
+                        </select>
                     </div>
+
 
 
                     {/* Campo para el documento */}
@@ -322,23 +321,21 @@ const FormCard = () => {
                         <label htmlFor="tipoDeCitas" className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px]">
                             Tipo de Cita
                         </label>
-                        <input
-                            type="text"
+                        <select
                             name="tipoDeCitas"
                             value={form.tipoDeCitas}
                             onChange={handleChange}
-                            placeholder="Seleccione un tipo"
-                            list="tipoDeCitas"
                             className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                             sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
                             required
-                        />
-                        <datalist id="tipoDeCitas">
-                            <option value="prioritaria" />
-                            <option value="no prioritaria" />
-                        </datalist>
+                        >
+                            <option value="">Seleccione un tipo</option>
+                            <option value="prioritaria">Prioritaria</option>
+                            <option value="no prioritaria">No prioritaria</option>
+                        </select>
                     </div>
+
 
                     {/* Botón de envío del formulario */}
                     <button
