@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import ModalOp from './ventanaModal/modalOP'
 import api from '../../api'
 
-const FormCard = () => {
-	const [form, setForm] = useState({
+const FormCard = ({ modo = 'normal' }) => {
+	const navigate = useNavigate()
+
+	const formInicial = {
 		primerNombre: '',
 		segundoNombre: '',
 		primerApellido: '',
@@ -15,7 +17,10 @@ const FormCard = () => {
 		tipoDocumento: '',
 		numeroTelefono: '',
 		tipoDeCitas: '',
-	})
+	}
+
+	const [form, setForm] = useState(formInicial)
+	const [isOpen, setIsOpen] = useState(false)
 
 	const handleChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value })
@@ -57,19 +62,21 @@ const FormCard = () => {
 			},
 		}
 		try {
-			console.log(datos)
-			await api.post('/Envioform', datos)
+			await api.post(modo === 'op' ? '/' : '/Envioform', datos)
+			setIsOpen(true)
 		} catch (error) {
-			console.log('error no se enviaron los datos')
 			console.error('Error al enviar debido a: ', error)
 		}
 	}
 
-	const navigate = useNavigate()
-	const [isOpen, setIsOpen] = useState(false)
-
 	const handleSubmitModal = () => {
-		navigate('/ticket')
+		setIsOpen(false)
+		if (modo === 'op') {
+			setForm(formInicial)
+			setEnviado(true)
+		} else {
+			navigate('/ticket')
+		}
 	}
 
 	return (
@@ -375,6 +382,7 @@ const FormCard = () => {
 					ENVIAR
 				</button>
 			</form>
+
 			<ModalOp
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
