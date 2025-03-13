@@ -70,14 +70,16 @@ const FormCard = ({ modo = 'normal' }) => {
 				TipoDeCitas_ID: form.tipoDeCitas,
 			},
 		}
+
+		console.log(JSON.stringify(datos, null, 2)); // Verificar el formato antes de enviar
 		try {
-			// Envío de datos al backend según el modo actual
-			await api.post(modo === 'op' ? '/' : '/Envioform', datos)
-			// Abre el modal tras el envío exitoso
-			setIsOpen(true)
+			// Envío de datos al backend
+			await api.post(modo === 'op' ? '/' : '/Envioform', datos, {
+				headers: { 'Content-Type': 'application/json' }, // Axios maneja JSON automáticamente
+			});
+			setIsOpen(true);
 		} catch (error) {
-			// Muestra error en consola si falla el envío
-			console.error('Error al enviar debido a: ', error)
+			console.error('Error al enviar debido a: ', error);
 		}
 	}
 

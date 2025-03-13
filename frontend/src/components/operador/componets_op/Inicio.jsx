@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const InicioOp = () => {
@@ -38,16 +38,16 @@ const InicioOp = () => {
 
 		//seccion de busqueda
 		const datosBusq = {
-			busqueda: { //el back recibira el valor de 'busqueda' con la opcion seleccionada y el dato a enviar [cedula:"12345"]
+			data: { //el back recibira el valor de 'busqueda' con la opcion seleccionada y el dato a enviar [cedula:"12345"]
 				[dato.opcionSeleccionada]: dato.datoEnviado
 			},
 		};
 
 		try {
 			//muestra la constante con los datos que se van a enviar al back para la consulta
-			console.log(datosBusq);
+			console.log(JSON.stringify(datosBusq, null, 2));
 			//la respuesta del back se almacena en una constante llamada response en caso de que se necesite para mostrar datos (se va a hacer)
-			const response = await axios.post('http://localhost:3000/api/datoX', datosBusq);
+			await axios.post('http://localhost:3000/api/datoX', datosBusq);
 			
 		} catch (error) {
 			console.error("ERROR", error);
@@ -55,11 +55,21 @@ const InicioOp = () => {
 		
 		//formatea los campos a la hora de enviar
 		setDato({
-		datoEnviado: "",
-		opcionSeleccionada: ""
+			datoEnviado: "",
+			opcionSeleccionada: ""
 		});
 	};
 
+	//MOSTRAR DATOS DEL BACK EN LOS INPUTS
+	useEffect(()=>{
+		axios.get('http://localhost:3000/api/datoX')
+		.then((response)=>{
+			setFormData(response.data)
+		})
+		.catch((error)=>{
+			console.error("Error al mostrar los datos del Paciente ",error)
+		})
+	},[])
 	//Funcion que guarda los datos actualizados y los manda nuevamente al back
 	const handleSave = async () => {
 		try {
@@ -105,9 +115,6 @@ const InicioOp = () => {
 								type="submit" 
 								className="w-full md:w-auto px-6 py-3 bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg flex items-center justify-center"
 							>
-								<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-								</svg>
 								Buscar
 							</button>
 						</div>
