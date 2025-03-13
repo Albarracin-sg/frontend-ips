@@ -89,7 +89,6 @@ const FormCard = ({ modo = 'normal' }) => {
 		setIsOpen(false) // Cierra el modal
 		if (modo === 'op') {
 			setForm(formInicial) // Reinicia el formulario
-			setEnviado(true) // Marca como enviado (requiere definición previa)
 		} else {
 			navigate('/ticket') // Redirige a la página de ticket
 		}
@@ -366,8 +365,8 @@ const FormCard = ({ modo = 'normal' }) => {
 	2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]
 	focus:outline-none focus:shadow-none"
 						type="date"
-						name="fecha"
-						value={form.fecha}
+						name="fechaNacimiento"
+						value={form.fechaNacimiento}
 						onChange={handleChange}
 						placeholder="DD/MM/AAAA"
 						required
@@ -410,11 +409,12 @@ const FormCard = ({ modo = 'normal' }) => {
                     2xl:w-[130px] 2xl:h-[40px] 2xl:mb-3 2xl:rounded-lg"
 					onClick={() => {
 						if (validarCamposRequeridos()) {
-							setIsOpen(true)
+							setIsOpen(true)  // This opens the modal
 						} else {
 							alert('Por favor, completa todos los campos requeridos.')
 						}
 					}}
+					
 				>
 					ENVIAR
 				</button>
