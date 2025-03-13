@@ -78,9 +78,10 @@ const FormCard = ({ modo = 'normal' }) => {
 			})
 			setIsOpen(true)
 		} catch (error) {
-			// Muestra error en consola si falla el envío
-			console.error('Error al enviar debido a: ', error)
+			console.error('Error al enviar debido a: ', error);
+			console.error('Error al enviar debido a: ', error);
 		}
+
 	}
 
 	// Función que se ejecuta al cerrar el modal

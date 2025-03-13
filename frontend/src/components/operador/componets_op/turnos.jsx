@@ -40,16 +40,16 @@ const TurnoOp = ({ setComponenteActual }) => {
                 {/* Creación de array de objetos que representará la lista de turnos en cola */}
                 {[
                   //Cada objeto dentro del array representa un turno individual y tiene estos datos (id,nombre,turno,modulo)
-                  { id: 1, nombre: "Juan Pablo Ramírez Mora", turno: "G129", modulo: "Pediatría" },
-                  { id: 2, nombre: "Javier Alexander Gómez Delgado", turno: "N223", modulo: "Otorrinolaringólogo" },
-                  { id: 3, nombre: "Ramiro Felipe Troches Martínez", turno: "N554", modulo: "Nutriología" },
-                  { id: 4, nombre: "Juan Pablo Ramírez Mora", turno: "G129", modulo: "Pediatría" },
-                  { id: 5, nombre: "Javier Alexander Gómez Delgado", turno: "N223", modulo: "Otorrinolaringólogo" },
-                  { id: 6, nombre: "Ramiro Felipe Troches Martínez", turno: "N554", modulo: "Nutriología" },
-                  { id: 7, nombre: "Juan Pablo Ramírez Mora", turno: "G129", modulo: "Pediatría" },
-                  { id: 8, nombre: "Ramiro Felipe Troches Martínez", turno: "N554", modulo: "Nutriología" },
-                  { id: 9, nombre: "Juan Pablo Ramírez Mora", turno: "G129", modulo: "Pediatría" },
-                  { id: 10, nombre: "Javier Alexander Gómez Delgado", turno: "N223", modulo: "Otorrinolaringólogo" }                  
+                  { id: 1, nombre: "Juan Pablo Ramírez Mora", turno: "G129", modulo: "Prioritario" },
+                  { id: 2, nombre: "Javier Alexander Gómez Delgado", turno: "N223", modulo: "No Prioritario" },
+                  { id: 3, nombre: "Ramiro Felipe Troches Martínez", turno: "N554", modulo: "Prioritario" },
+                  { id: 4, nombre: "Juan Pablo Ramírez Mora", turno: "G129", modulo: "Prioritario" },
+                  { id: 5, nombre: "Javier Alexander Gómez Delgado", turno: "N223", modulo: "No Prioritario" },
+                  { id: 6, nombre: "Ramiro Felipe Troches Martínez", turno: "N554", modulo: "Prioritario" },
+                  { id: 7, nombre: "Juan Pablo Ramírez Mora", turno: "G129", modulo: "Prioritario" },
+                  { id: 8, nombre: "Ramiro Felipe Troches Martínez", turno: "N554", modulo: "No Prioritario" },
+                  { id: 9, nombre: "Juan Pablo Ramírez Mora", turno: "G129", modulo: "Prioritario" },
+                  { id: 10, nombre: "Javier Alexander Gómez Delgado", turno: "N223", modulo: "No Prioritario" }                  
                 ].map((paciente, index) => (
                   /*en la funcion map a cada objeto se asigna una variable paciente y como es un objeto se puede acceder usando paciente.id etc
                   y el index especifica el posicionamiento del array, por lo que (paciente.nombre con index==0 = Juan Pablo Ramirez Mora)*/
@@ -76,7 +76,7 @@ const TurnoOp = ({ setComponenteActual }) => {
 
                     {/* COLUMNA PARA EL TURNO */}
                     <td className="px-6 py-4">
-                      <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium text-blue-800">
+                      <span className="inline-flex items-center rounded-full bg-sky-100 px-2.5 py-1 text-xs font-medium text-sky-800">
                         {paciente.turno}
                       </span>
                     </td>
@@ -84,9 +84,9 @@ const TurnoOp = ({ setComponenteActual }) => {
                     {/* COLUMNA PARA EL MODULO */}
                     <td className="px-6 py-4">
                       <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium
-                        ${paciente.modulo === "Nutriología" ? "bg-purple-100 text-purple-800" : 
-                          paciente.modulo === "Otorrinolaringólogo" ? "bg-amber-100 text-amber-800" : 
-                          "bg-emerald-100 text-emerald-800"}
+                        ${paciente.modulo === "No Prioritario" ? "bg-blue-100 text-blue-800" : 
+                          paciente.modulo === "Prioritario" ? "bg-red-100 text-red-800" : 
+                          ""}
                       `}>
                         {paciente.modulo}
                       </span>
