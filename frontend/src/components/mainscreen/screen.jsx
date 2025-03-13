@@ -47,7 +47,7 @@ const Screen = () => {
     <div className="w-screen h-screen bg-blue-50 overflow-hidden flex flex-col">
       {/* Cabecera con logo y título */}
       <header className="w-full bg-white shadow-md flex justify-between items-center px-10 py-2">
-        <h1 className="text-3xl font-bold text-blue-700">Sistema de Turnos</h1>
+        <h1 className="text-3xl font-bold text-blue-500">Sistema de Turnos</h1>
         <img src={ipsLogo} alt="IPS Logo" className="h-14" />
       </header>
       
@@ -57,7 +57,7 @@ const Screen = () => {
         <div className="w-3/4 flex flex-col space-y-4">
           {/* Panel del turno actual */}
           <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div className="bg-blue-600 text-white py-3">
+            <div className="bg-blue-500 text-white py-3">
               <h2 className="text-2xl font-bold tracking-wide text-center">TURNO ACTUAL</h2>
             </div>
             <div className="p-6 flex flex-col items-center">
@@ -72,7 +72,7 @@ const Screen = () => {
                 </div>
                 <div className="text-center">
                   <p className="text-gray-600 text-lg">Módulo</p>
-                  <h3 className="text-7xl font-bold text-blue-700">{currentPatient.module}</h3>
+                  <h3 className="text-7xl font-bold text-blue-500">{currentPatient.module}</h3>
                 </div>
               </div>
             </div>
@@ -80,13 +80,13 @@ const Screen = () => {
 
           {/* Lista de turnos en espera */}
           <div className="bg-white rounded-xl shadow-lg overflow-hidden flex-grow">
-            <div className="bg-blue-600 text-white py-3">
+            <div className="bg-blue-500 text-white py-3">
               <h2 className="text-2xl font-bold tracking-wide text-center">TURNOS ACTUALES</h2>
             </div>
             {/* Panel con desplazamiento vertical para la tabla de turnos */}
             <div className="overflow-y-auto" style={{ maxHeight: "calc(100% - 48px)" }}>
               <table className="w-full text-left">
-                <thead className="bg-blue-100 text-blue-800 sticky top-0">
+                <thead className="bg-blue-100 text-blue-500 sticky top-0">
                   <tr>
                     <th className="py-3 px-6 text-center w-1/6">Módulo</th>
                     <th className="py-3 px-6 w-3/6">Nombre</th>
@@ -131,7 +131,7 @@ const Screen = () => {
 
           {/* Panel de publicidad */}
           <div className="bg-white rounded-xl shadow-lg p-6 flex-grow">
-            <h3 className="text-xl font-bold text-blue-700 mb-5">Publicidad</h3>
+            <h3 className="text-xl font-bold text-blue-500 mb-5">Publicidad</h3>
             <ul className="space-y-5">
               
             </ul>
@@ -140,7 +140,7 @@ const Screen = () => {
       </div>
 
       {/* Pie de página */}
-      <footer className="w-full bg-blue-600 text-white py-3 px-10 flex justify-between items-center mt-auto">
+      <footer className="w-full bg-blue-500 text-white py-3 px-10 flex justify-between items-center mt-auto">
         <div>IPS Universitaria de Colombia</div>
         <div>Atención al paciente: (60) 123-456-7890</div>
       </footer>
