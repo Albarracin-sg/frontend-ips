@@ -1,8 +1,15 @@
 import { useState, useEffect } from "react";
 import ipsLogo from "../../assets/ipsBlack.png";
 
+/**
+ * Componente Screen que maneja la interfaz del sistema de turnos
+ * para una IPS (Institución Prestadora de Servicios de Salud)
+ */
 const Screen = () => {
+  // Estado para almacenar la hora actual
   const [currentTime, setCurrentTime] = useState(new Date());
+  
+  // Estado para almacenar la lista de pacientes en espera
   const [patients, setPatients] = useState([
     { id: 1, name: "Javier Gomez", turn: "D290", module: 1 },
     { id: 2, name: "Camilo Albarracin", turn: "D291", module: 2 },
@@ -10,40 +17,45 @@ const Screen = () => {
     { id: 4, name: "Esteban Molina", turn: "D293", module: 2 },
     { id: 5, name: "Santiago Salazar", turn: "D294", module: 1 },
   ]);
+  
+  // Estado para almacenar el paciente actual que está siendo atendido
   const [currentPatient, setCurrentPatient] = useState({
     name: "Javier Alexander Gomez Quiroz",
     turn: "D290",
     module: 3
   });
 
-  // Update clock every second
+  // Actualizar el reloj cada segundo
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
+    // Limpiar el intervalo cuando el componente se desmonte
     return () => clearInterval(timer);
   }, []);
 
-  // Format date in Spanish
+  // Formatear fecha en español
   const formatDate = (date) => {
     const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
     const formattedDate = date.toLocaleDateString('es-ES', options);
+    // Capitalizar primera letra de la fecha
     return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
   };
 
   return (
+    // Contenedor principal que ocupa toda la pantalla
     <div className="w-screen h-screen bg-blue-50 overflow-hidden flex flex-col">
-      {/* Header */}
+      {/* Cabecera con logo y título */}
       <header className="w-full bg-white shadow-md flex justify-between items-center px-10 py-2">
         <h1 className="text-3xl font-bold text-blue-700">Sistema de Turnos</h1>
         <img src={ipsLogo} alt="IPS Logo" className="h-14" />
       </header>
       
-      {/* Main content */}
+      {/* Contenido principal */}
       <div className="flex px-10 py-4 gap-6 h-full">
-        {/* Left side (3/4 width) */}
+        {/* Lado izquierdo (3/4 del ancho) */}
         <div className="w-3/4 flex flex-col space-y-4">
-          {/* Current turn panel */}
+          {/* Panel del turno actual */}
           <div className="bg-white rounded-xl shadow-lg overflow-hidden">
             <div className="bg-blue-600 text-white py-3">
               <h2 className="text-2xl font-bold tracking-wide text-center">TURNO ACTUAL</h2>
@@ -66,11 +78,12 @@ const Screen = () => {
             </div>
           </div>
 
-          {/* Queue list */}
+          {/* Lista de turnos en espera */}
           <div className="bg-white rounded-xl shadow-lg overflow-hidden flex-grow">
             <div className="bg-blue-600 text-white py-3">
               <h2 className="text-2xl font-bold tracking-wide text-center">TURNOS ACTUALES</h2>
             </div>
+            {/* Panel con desplazamiento vertical para la tabla de turnos */}
             <div className="overflow-y-auto" style={{ maxHeight: "calc(100% - 48px)" }}>
               <table className="w-full text-left">
                 <thead className="bg-blue-100 text-blue-800 sticky top-0">
@@ -81,6 +94,7 @@ const Screen = () => {
                   </tr>
                 </thead>
                 <tbody>
+                  {/* Mapeo de la lista de pacientes para mostrarlos en la tabla */}
                   {patients.map((patient, index) => (
                     <tr 
                       key={patient.id} 
@@ -97,48 +111,40 @@ const Screen = () => {
           </div>
         </div>
 
-        {/* Right side (1/4 width) */}
+        {/* Lado derecho (1/4 del ancho) */}
         <div className="w-1/4 flex flex-col space-y-4">
-          {/* Clock panel */}
+          {/* Panel del reloj */}
           <div className="bg-white rounded-xl shadow-lg p-6 text-center">
             <p className="text-gray-600 mb-1">Hora actual</p>
             <div className="text-6xl font-bold text-gray-800">
+              {/* Formateo de la hora actual en formato 24h */}
               {currentTime.toLocaleTimeString("es-ES", {
                 hour: "2-digit",
                 minute: "2-digit",
               })}
             </div>
             <div className="mt-3 text-lg text-gray-600">
+              {/* Muestra la fecha formateada con saltos de línea */}
               {formatDate(currentTime).split(' de ').join(' de\n')}
             </div>
           </div>
 
-          {/* Information panel */}
+          {/* Panel de publicidad */}
           <div className="bg-white rounded-xl shadow-lg p-6 flex-grow">
-            <h3 className="text-xl font-bold text-blue-700 mb-5">Información</h3>
+            <h3 className="text-xl font-bold text-blue-700 mb-5">Publicidad</h3>
             <ul className="space-y-5">
-              <li className="flex items-start">
-                <span className="bg-blue-100 text-blue-800 p-1 rounded-full mr-3 mt-0.5 flex-shrink-0"> </span>
-                <span className="text-gray-700">Por favor, esté atento a su turno</span>
-              </li>
-              <li className="flex items-start">
-                <span className="bg-blue-100 text-blue-800 p-1 rounded-full mr-3 mt-0.5 flex-shrink-0">✓</span>
-                <span className="text-gray-700">Tenga sus documentos preparados</span>
-              </li>
-              <li className="flex items-start">
-                <span className="bg-blue-100 text-blue-800 p-1 rounded-full mr-3 mt-0.5 flex-shrink-0">✓</span>
-                <span className="text-gray-700">Recuerde mantener su distancia en la sala de espera</span>
-              </li>
+              
             </ul>
           </div>
         </div>
       </div>
 
-      {/* Footer */}
+      {/* Pie de página */}
       <footer className="w-full bg-blue-600 text-white py-3 px-10 flex justify-between items-center mt-auto">
         <div>IPS Universitaria de Colombia</div>
         <div>Atención al paciente: (60) 123-456-7890</div>
       </footer>
+      
     </div>
   );
 };
