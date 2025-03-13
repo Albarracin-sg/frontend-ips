@@ -11,7 +11,7 @@ const TicketCard = () => {
     useEffect(() => {
         const obtenerDatos = async () => {
             try {
-                const response = await api.get('http://localhost:3000/api/Envioform')
+                const response = await api.get('http://192.168.1.78:3000/api/Envioform')
                 const data = response.data
 
                 // Aquí mapea según tu estructura de datos real
