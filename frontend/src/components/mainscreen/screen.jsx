@@ -1,46 +1,78 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
+// Revisa si esta ruta es correcta para tu estructura de archivos
 import ipsLogo from "../../assets/ipsBlack.png";
 
-/**
- * Componente Screen que maneja la interfaz del sistema de turnos
- * para una IPS (Institución Prestadora de Servicios de Salud)
- */
 const Screen = () => {
-  // Estado para almacenar la hora actual
   const [currentTime, setCurrentTime] = useState(new Date());
-  
-  // Estado para almacenar la lista de pacientes en espera
-  const [patients, setPatients] = useState([
-    { id: 1, name: "Javier Gomez", turn: "D290", module: 1 },
-    { id: 2, name: "Camilo Albarracin", turn: "D291", module: 2 },
-    { id: 3, name: "Alex Quiroz", turn: "D292", module: 3 },
-    { id: 4, name: "Esteban Molina", turn: "D293", module: 2 },
-    { id: 5, name: "Santiago Salazar", turn: "D294", module: 1 },
-  ]);
-  
-  // Estado para almacenar el paciente actual que está siendo atendido
+  const [patients, setPatients] = useState([]);
   const [currentPatient, setCurrentPatient] = useState({
-    name: "Javier Alexander Gomez Quiroz",
-    turn: "D290",
-    module: 3
+    name: "Sin paciente",
+    turn: "---",
+    module: "--"
   });
+  const [error, setError] = useState(null);
 
-  // Actualizar el reloj cada segundo
+  // Efecto para cargar los datos iniciales
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Obtener lista de pacientes en espera
+        const patientsResponse = await axios.get('http://localhost:1337/api/pacientesEspera');
+        
+        // Verifica la estructura de la respuesta y ajusta según sea necesario
+        if (patientsResponse.data && patientsResponse.data.data) {
+          setPatients(patientsResponse.data.data);
+        } else if (Array.isArray(patientsResponse.data)) {
+          setPatients(patientsResponse.data);
+        } else {
+          console.warn("Formato de respuesta de pacientes inesperado:", patientsResponse.data);
+          setPatients([]);
+        }
+
+        // Obtener paciente actual
+        const currentPatientResponse = await axios.get('http://localhost:1337/api/pacientesActual');
+        
+        // Verifica la estructura de la respuesta y ajusta según sea necesario
+        if (currentPatientResponse.data && currentPatientResponse.data.data) {
+          setCurrentPatient(currentPatientResponse.data.data);
+        } else if (typeof currentPatientResponse.data === 'object' && currentPatientResponse.data !== null) {
+          setCurrentPatient(currentPatientResponse.data);
+        } else {
+          console.warn("Formato de respuesta de paciente actual inesperado:", currentPatientResponse.data);
+          // Mantén el estado predeterminado si no hay datos válidos
+        }
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError("Error al cargar los datos: " + (err.message || err));
+      }
+    };
+
+    fetchData();
+    
+    // Configurar actualización periódica de datos
+    const dataInterval = setInterval(fetchData, 5000); // Actualizar cada 5 segundos
+
+    return () => clearInterval(dataInterval);
+  }, []);
+
+  // Efecto para el reloj
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
-    // Limpiar el intervalo cuando el componente se desmonte
     return () => clearInterval(timer);
   }, []);
 
-  // Formatear fecha en español
+  // Función para formatear la fecha
   const formatDate = (date) => {
     const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
     const formattedDate = date.toLocaleDateString('es-ES', options);
-    // Capitalizar primera letra de la fecha
     return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
   };
+
+  // Si hay error, mostrar mensaje
+  
 
   return (
     // Contenedor principal que ocupa toda la pantalla
@@ -63,16 +95,16 @@ const Screen = () => {
             <div className="p-6 flex flex-col items-center">
               <div className="mb-2 text-center">
                 <p className="text-gray-600 text-lg">Paciente</p>
-                <h3 className="text-3xl font-bold text-gray-800">{currentPatient.name}</h3>
+                <h3 className="text-3xl font-bold text-gray-800">{currentPatient?.name || "Sin paciente"}</h3>
               </div>
               <div className="flex items-center justify-center gap-32 w-full mt-4">
                 <div className="text-center">
                   <p className="text-gray-600 text-lg">Turno</p>
-                  <h3 className="text-7xl font-bold text-red-700">{currentPatient.turn}</h3>
+                  <h3 className="text-7xl font-bold text-red-700">{currentPatient?.turn || "---"}</h3>
                 </div>
                 <div className="text-center">
                   <p className="text-gray-600 text-lg">Módulo</p>
-                  <h3 className="text-7xl font-bold text-blue-500">{currentPatient.module}</h3>
+                  <h3 className="text-7xl font-bold text-blue-500">{currentPatient?.module || "--"}</h3>
                 </div>
               </div>
             </div>
@@ -95,16 +127,24 @@ const Screen = () => {
                 </thead>
                 <tbody>
                   {/* Mapeo de la lista de pacientes para mostrarlos en la tabla */}
-                  {patients.map((patient, index) => (
-                    <tr 
-                      key={patient.id} 
-                      className={`${index % 2 === 0 ? 'bg-blue-50' : 'bg-white'} border-b border-gray-200`}
-                    >
-                      <td className="py-4 px-6 text-center font-medium text-lg">{patient.module}</td>
-                      <td className="py-4 px-6 font-medium text-lg">{patient.name}</td>
-                      <td className="py-4 px-6 text-center font-medium text-lg">{patient.turn}</td>
+                  {patients.length > 0 ? (
+                    patients.map((patient, index) => (
+                      <tr 
+                        key={patient.id || index} 
+                        className={`${index % 2 === 0 ? 'bg-blue-50' : 'bg-white'} border-b border-gray-200`}
+                      >
+                        <td className="py-4 px-6 text-center font-medium text-lg">{patient.module || "--"}</td>
+                        <td className="py-4 px-6 font-medium text-lg">{patient.name || "Sin nombre"}</td>
+                        <td className="py-4 px-6 text-center font-medium text-lg">{patient.turn || "--"}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="3" className="py-4 px-6 text-center text-gray-500">
+                        No hay pacientes en espera
+                      </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>
@@ -124,17 +164,17 @@ const Screen = () => {
               })}
             </div>
             <div className="mt-3 text-lg text-gray-600">
-              {/* Muestra la fecha formateada con saltos de línea */}
-              {formatDate(currentTime).split(' de ').join(' de\n')}
+              {/* Muestra la fecha formateada */}
+              {formatDate(currentTime)}
             </div>
           </div>
 
           {/* Panel de información */}
           <div className="bg-white rounded-xl shadow-lg p-6 flex-grow">
             <h3 className="text-xl font-bold text-blue-500 mb-5">Publicidad</h3>
-            <ul className="space-y-5">
-              
-            </ul>
+            <div className="space-y-5">
+              {/* Contenido de publicidad */}
+            </div>
           </div>
         </div>
       </div>
