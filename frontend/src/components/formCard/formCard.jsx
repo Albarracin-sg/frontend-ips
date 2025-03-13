@@ -78,10 +78,9 @@ const FormCard = ({ modo = 'normal' }) => {
 			})
 			setIsOpen(true)
 		} catch (error) {
-			console.error('Error al enviar debido a: ', error);
-			console.error('Error al enviar debido a: ', error);
+			console.error('Error al enviar debido a: ', error)
+			console.error('Error al enviar debido a: ', error)
 		}
-
 	}
 
 	// Función que se ejecuta al cerrar el modal
@@ -236,9 +235,7 @@ const FormCard = ({ modo = 'normal' }) => {
                             2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px] focus:outline-none focus:shadow-none"
 							required
 						>
-							<option value="" disabled>
-								Seleccione su localidad
-							</option>
+							<option value="">Seleccione su localidad</option>
 							<option value="usaquen">Usaquén</option>
 							<option value="chapinero">Chapinero</option>
 							<option value="santa_fe">Santa Fe</option>
@@ -307,7 +304,7 @@ const FormCard = ({ modo = 'normal' }) => {
 						onChange={handleChange}
 						required
 					>
-						<option value="" disabled className="text-gray-400 text-[12.4px]">
+						<option value="" className="text-gray-400 text-[12.4px]">
 							Seleccione un tipo
 						</option>
 						<option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
@@ -361,15 +358,14 @@ const FormCard = ({ modo = 'normal' }) => {
 					</label>
 					<input
 						className="text-[12.4px] placeholder:uppercase placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-	sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-	lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
-	2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]
-	focus:outline-none focus:shadow-none"
+                        sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+                        2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]
+                        focus:outline-none focus:shadow-none"
 						type="date"
-						name="fecha"
-						value={form.fecha}
+						name="fechaNacimiento"
+						value={form.fechaNacimiento}
 						onChange={handleChange}
-						placeholder="DD/MM/AAAA"
 						required
 					/>
 				</div>
