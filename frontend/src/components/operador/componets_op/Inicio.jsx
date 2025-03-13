@@ -224,10 +224,8 @@ const InicioOp = () => {
 					className="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 					>
 					<option value="">Seleccione...</option>
-					<option value="medica">Médica</option>
-					<option value="odontologica">Odontológica</option>
-					<option value="especialista">Especialista</option>
-					<option value="control">Control</option>
+					<option value="Prioritaria">Prioritaria</option>
+					<option value="No_Prioritaria">No Prioritaria</option>
 					</select>
 				</div>
 				</div>
