@@ -1,7 +1,27 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import NewTurn from "./newForm";
+import axios from 'axios';
 
 const TurnoOp = ({ setComponenteActual }) => {
+  //declaracion de los turnos de los pacientes con un array vacio
+  const [turnos,setTurnos] = useState([])
+
+  useEffect(()=>{
+    //Funcion asincrona que hace la peticion de los turnos
+    const obtenerTurnos = async () =>{
+      try {
+        const response = await axios.get('http://localhost:3000/api/turnos');
+        //La respuesta del back lo implementa en turnos mediante setTurnos por lo que turnos quedaria con todo el array de objetos que tenga el back
+        setTurnos(response.data);
+      } catch (error) {
+        console.error("Error al obtener los turnos:", error);
+      }
+    }
+    //se llama la funcion
+    obtenerTurnos();
+  },[])
+
   return (
     //contenedor de fondo
     <div className="w-full h-screen flex flex-col bg-[#c3d9fa]">
@@ -38,19 +58,7 @@ const TurnoOp = ({ setComponenteActual }) => {
               </thead>
               <tbody>
                 {/* Creación de array de objetos que representará la lista de turnos en cola */}
-                {[
-                  //Cada objeto dentro del array representa un turno individual y tiene estos datos (id,nombre,turno,modulo)
-                  { id: 1, nombre: "Juan Pablo Ramírez Mora", turno: "G129", modulo: "Prioritario" },
-                  { id: 2, nombre: "Javier Alexander Gómez Delgado", turno: "N223", modulo: "No Prioritario" },
-                  { id: 3, nombre: "Ramiro Felipe Troches Martínez", turno: "N554", modulo: "Prioritario" },
-                  { id: 4, nombre: "Juan Pablo Ramírez Mora", turno: "G129", modulo: "Prioritario" },
-                  { id: 5, nombre: "Javier Alexander Gómez Delgado", turno: "N223", modulo: "No Prioritario" },
-                  { id: 6, nombre: "Ramiro Felipe Troches Martínez", turno: "N554", modulo: "Prioritario" },
-                  { id: 7, nombre: "Juan Pablo Ramírez Mora", turno: "G129", modulo: "Prioritario" },
-                  { id: 8, nombre: "Ramiro Felipe Troches Martínez", turno: "N554", modulo: "No Prioritario" },
-                  { id: 9, nombre: "Juan Pablo Ramírez Mora", turno: "G129", modulo: "Prioritario" },
-                  { id: 10, nombre: "Javier Alexander Gómez Delgado", turno: "N223", modulo: "No Prioritario" }                  
-                ].map((paciente, index) => (
+                {turnos.map((paciente, index) => (
                   /*en la funcion map a cada objeto se asigna una variable paciente y como es un objeto se puede acceder usando paciente.id etc
                   y el index especifica el posicionamiento del array, por lo que (paciente.nombre con index==0 = Juan Pablo Ramirez Mora)*/
                   
@@ -99,7 +107,7 @@ const TurnoOp = ({ setComponenteActual }) => {
           
           <footer className="p-5 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
             <div className="text-sm text-gray-500">
-              Mostrando 10 de 10 turnos
+              Mostrando {turnos.length} de {turnos.length} turnos
             </div>
             <button
               onClick={() => setComponenteActual(<NewTurn />)}
