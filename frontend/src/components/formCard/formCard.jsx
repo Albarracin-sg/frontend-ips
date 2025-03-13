@@ -70,14 +70,13 @@ const FormCard = ({ modo = 'normal' }) => {
 				TipoDeCitas_ID: form.tipoDeCitas,
 			},
 		}
-
-		console.log(JSON.stringify(datos, null, 2)); // Verificar el formato antes de enviar
+		console.log(JSON.stringify(datos, null, 2))
 		try {
-			// Envío de datos al backend
-			await api.post(modo === 'op' ? '/' : '/Envioform', datos, {
-				headers: { 'Content-Type': 'application/json' }, // Axios maneja JSON automáticamente
-			});
-			setIsOpen(true);
+			// Envío de datos al backend según el modo actual
+			await api.post(modo === 'op' ? '/' : '/Envioform', JSON.stringify(datos), {
+				headers: { 'Content-Type': 'application/json' },
+			})
+			setIsOpen(true)
 		} catch (error) {
 			console.error('Error al enviar debido a: ', error);
 			console.error('Error al enviar debido a: ', error);
@@ -95,7 +94,6 @@ const FormCard = ({ modo = 'normal' }) => {
 			navigate('/ticket') // Redirige a la página de ticket
 		}
 	}
-
 
 	return (
 		<>
@@ -135,15 +133,16 @@ const FormCard = ({ modo = 'normal' }) => {
 							Primer Nombre
 						</label>
 						<input
-							className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+							className="text-[12.4px]  placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                             sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
-                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
+                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px] focus:outline-none focus:shadow-none"
 							type="text"
 							name="primerNombre"
 							value={form.primerNombre}
 							onChange={handleChange}
 							placeholder="Primer Nombre"
+							autoComplete="off"
 							required
 						/>
 					</div>
@@ -156,14 +155,15 @@ const FormCard = ({ modo = 'normal' }) => {
 							Segundo Nombre
 						</label>
 						<input
-							className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+							className="text-[12.4px]  placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                             sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
-                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
+                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px] focus:outline-none focus:shadow-none"
 							type="text"
 							name="segundoNombre"
 							value={form.segundoNombre}
 							onChange={handleChange}
+							autoComplete="off"
 							placeholder="Segundo Nombre"
 						/>
 					</div>
@@ -180,15 +180,16 @@ const FormCard = ({ modo = 'normal' }) => {
 							Primer Apellido
 						</label>
 						<input
-							className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+							className="text-[12.4px]  placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                             sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
-                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
+                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px] focus:outline-none focus:shadow-none"
 							type="text"
 							name="primerApellido"
 							value={form.primerApellido}
 							onChange={handleChange}
 							placeholder="Primer Apellido"
+							autoComplete="off"
 							required
 						/>
 					</div>
@@ -201,14 +202,15 @@ const FormCard = ({ modo = 'normal' }) => {
 							Segundo Apellido
 						</label>
 						<input
-							className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+							className="text-[12.4px]  placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                             sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
-                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
+                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px] focus:outline-none focus:shadow-none"
 							type="text"
 							name="segundoApellido"
 							value={form.segundoApellido}
 							onChange={handleChange}
+							autoComplete="off"
 							placeholder="Segundo Apellido"
 						/>
 					</div>
@@ -228,10 +230,10 @@ const FormCard = ({ modo = 'normal' }) => {
 							name="localidad"
 							value={form.localidad}
 							onChange={handleChange}
-							className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+							className="text-[12.4px]  placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                             sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
-                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
+                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px] focus:outline-none focus:shadow-none"
 							required
 						>
 							<option value="" disabled>
@@ -278,11 +280,12 @@ const FormCard = ({ modo = 'normal' }) => {
 							onChange={handleChange}
 							placeholder="Número de Teléfono"
 							pattern="[0-9]{10}"
+							autoComplete="off"
 							aria-label="Ingrese su número de teléfono"
-							className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+							className="text-[12.4px]  placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
                             sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
-                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
+                            2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px] focus:outline-none focus:shadow-none"
 							required
 						/>
 					</div>
@@ -294,15 +297,19 @@ const FormCard = ({ modo = 'normal' }) => {
 						Tipo de Documento
 					</label>
 					<select
-						className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+						className="text-[12.4px] placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+	sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+	lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+	2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]
+	focus:outline-none focus:shadow-none"
 						name="tipoDocumento"
 						value={form.tipoDocumento}
 						onChange={handleChange}
 						required
 					>
-						<option value="">Seleccione un tipo</option>
+						<option value="" disabled className="text-gray-400 text-[12.4px]">
+							Seleccione un tipo
+						</option>
 						<option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
 						<option value="Pasaporte">Pasaporte</option>
 						<option value="Tarjeta de identidad">Tarjeta de identidad</option>
@@ -324,15 +331,21 @@ const FormCard = ({ modo = 'normal' }) => {
 						Documento
 					</label>
 					<input
-						className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                        sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
-                        2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
+						style={{
+							WebkitAppearance: 'none',
+							MozAppearance: 'textfield',
+						}}
+						className="text-[12.4px] placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+	sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+	lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+	2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]
+	focus:outline-none focus:shadow-none"
 						type="number"
 						name="numeroDocumento"
 						value={form.numeroDocumento}
 						onChange={handleChange}
 						placeholder="Numero de Documento"
+						autoComplete="off"
 						required
 					/>
 				</div>
@@ -347,14 +360,16 @@ const FormCard = ({ modo = 'normal' }) => {
 						Fecha de Nacimiento
 					</label>
 					<input
-						className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                        sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                        lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
-                        2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]"
+						className="text-[12.4px] placeholder:uppercase placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+	sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+	lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+	2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]
+	focus:outline-none focus:shadow-none"
 						type="date"
-						name="fechaNacimiento"
-						value={form.fechaNacimiento}
+						name="fecha"
+						value={form.fecha}
 						onChange={handleChange}
+						placeholder="DD/MM/AAAA"
 						required
 					/>
 				</div>
@@ -371,12 +386,16 @@ const FormCard = ({ modo = 'normal' }) => {
 						name="tipoDeCitas"
 						value={form.tipoDeCitas}
 						onChange={handleChange}
-						className="text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
-                            lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]"
+						className="text-[12.4px] placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
+	sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+	lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
+	2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]
+	focus:outline-none focus:shadow-none"
 						required
 					>
-						<option value="">Seleccione un tipo</option>
+						<option value="" disabled className="text-gray-400 text-[12.4px]">
+							Seleccione un tipo
+						</option>
 						<option value="prioritaria">Prioritaria</option>
 						<option value="no prioritaria">No prioritaria</option>
 					</select>

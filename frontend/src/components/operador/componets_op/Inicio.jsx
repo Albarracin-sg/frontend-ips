@@ -47,7 +47,7 @@ const InicioOp = () => {
 			//muestra la constante con los datos que se van a enviar al back para la consulta
 			console.log(JSON.stringify(datosBusq, null, 2));
 			//la respuesta del back se almacena en una constante llamada response en caso de que se necesite para mostrar datos (se va a hacer)
-			await axios.post('http://localhost:3000/api/datoX', datosBusq);
+			await axios.post('http://192.168.1.78:3000/api/', datosBusq);
 			
 		} catch (error) {
 			console.error("ERROR", error);
