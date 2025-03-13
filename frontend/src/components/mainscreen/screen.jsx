@@ -129,7 +129,7 @@ const Screen = () => {
             </div>
           </div>
 
-          {/* Panel de información */}
+          {/* Panel de publicidad */}
           <div className="bg-white rounded-xl shadow-lg p-6 flex-grow">
             <h3 className="text-xl font-bold text-blue-700 mb-5">Publicidad</h3>
             <ul className="space-y-5">
