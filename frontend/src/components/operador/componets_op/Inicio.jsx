@@ -79,22 +79,22 @@ const InicioOp = () => {
 	}
 
 	return (
-		<div className="relative min-h-screen bg-[#c3d9fa] flex justify-center items-center overflow-auto py-4 px-4 sm:py-10">
+		<div className="relative min-h-screen bg-[#c3d9fa] flex justify-center items-center overflow-auto py-4 px-4 lg:py-8">
 			<div className="max-w-5xl w-full mx-auto bg-white rounded-lg shadow-xl border border-gray-200">
-				<div className="p-4 sm:p-6">
-					<h2 className="text-xl sm:text-2xl font-bold text-blue-500 mb-4 sm:mb-6 text-center">
-						Sistema de Actualizacion de Datos
+				<div className="p-4 lg:p-6 max-h-screen overflow-y-auto">
+					<h2 className="text-xl lg:text-2xl font-bold text-blue-500 mb-4 lg:mb-6 text-center">
+						Sistema de Actualización de Datos
 					</h2>
 
-					{/* Barra de búsqueda - Mejorada para móviles */}
+					{/* Barra de búsqueda */}
 					<form
 						onSubmit={handleSubmit}
-						className="flex flex-col gap-3 mb-6 pb-6 border-b-2 border-gray-200"
+						className="flex flex-col gap-3 mb-4 lg:mb-5 pb-6 border-b-2 border-gray-200"
 					>
-						<div className="flex flex-col sm:flex-row gap-3">
-							<div className="w-full sm:w-1/2">
+						<div className="flex flex-col lg:flex-row gap-3">
+							<div className="w-full lg:w-1/2">
 								<select
-									className="w-full p-2 sm:p-3 rounded-lg border border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 									value={dato.opcionSeleccionada}
 									onChange={(e) =>
 										setDato({ ...dato, opcionSeleccionada: e.target.value })
@@ -104,7 +104,7 @@ const InicioOp = () => {
 									<option value="cedula">Cédula</option>
 								</select>
 							</div>
-							<div className="w-full sm:w-1/2">
+							<div className="w-full lg:w-1/2">
 								<input
 									type="text"
 									name="datoEnviado"
@@ -113,23 +113,23 @@ const InicioOp = () => {
 									onChange={(e) =>
 										setDato({ ...dato, datoEnviado: e.target.value })
 									}
-									className="w-full p-2 sm:p-3 rounded-lg border border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 						</div>
-						<div className="flex justify-center sm:justify-end">
+						<div className="flex justify-center lg:justify-end">
 							<button
 								type="submit"
-								className="w-full sm:w-auto px-6 py-2 sm:py-3 bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg flex items-center justify-center"
+								className="cursor-pointer w-full lg:w-auto px-6 py-2 lg:py-3 bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg flex items-center justify-center"
 							>
 								Buscar
 							</button>
 						</div>
 					</form>
 
-					{/* Formulario - Mejorado para móviles */}
-					<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-						<div className="space-y-3 sm:space-y-4">
+					{/* Formulario */}
+					<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+						<div className="space-y-3 lg:space-y-4">
 							<div>
 								<label
 									htmlFor="primerNombre"
@@ -143,7 +143,7 @@ const InicioOp = () => {
 									name="primerNombre"
 									value={formData.primerNombre}
 									onChange={handleInputChange}
-									className="w-full p-2 sm:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 							<div>
@@ -159,7 +159,7 @@ const InicioOp = () => {
 									name="primerApellido"
 									value={formData.primerApellido}
 									onChange={handleInputChange}
-									className="w-full p-2 sm:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 							<div>
@@ -175,7 +175,7 @@ const InicioOp = () => {
 									name="localidad"
 									value={formData.localidad}
 									onChange={handleInputChange}
-									className="w-full p-2 sm:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 									required
 								>
 									<option value="" disabled>
@@ -217,7 +217,7 @@ const InicioOp = () => {
 									name="tipoDocumento"
 									value={formData.tipoDocumento}
 									onChange={handleInputChange}
-									className="w-full p-2 sm:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								>
 									<option value="">Seleccione un tipo</option>
 									<option value="Cédula de ciudadanía">
@@ -249,12 +249,12 @@ const InicioOp = () => {
 									name="fechaNacimiento"
 									value={formData.fechaNacimiento}
 									onChange={handleInputChange}
-									className="w-full p-2 sm:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 						</div>
 
-						<div className="space-y-3 sm:space-y-4">
+						<div className="space-y-3 lg:space-y-4">
 							<div>
 								<label
 									htmlFor="segundoNombre"
@@ -268,7 +268,7 @@ const InicioOp = () => {
 									name="segundoNombre"
 									value={formData.segundoNombre}
 									onChange={handleInputChange}
-									className="w-full p-2 sm:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 							<div>
@@ -284,7 +284,7 @@ const InicioOp = () => {
 									name="segundoApellido"
 									value={formData.segundoApellido}
 									onChange={handleInputChange}
-									className="w-full p-2 sm:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 							<div>
@@ -300,7 +300,7 @@ const InicioOp = () => {
 									name="telefono"
 									value={formData.telefono}
 									onChange={handleInputChange}
-									className="w-full p-2 sm:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 							<div>
@@ -316,7 +316,7 @@ const InicioOp = () => {
 									name="documento"
 									value={formData.documento}
 									onChange={handleInputChange}
-									className="w-full p-2 sm:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 							<div>
@@ -332,7 +332,7 @@ const InicioOp = () => {
 									name="tipoCita"
 									value={formData.tipoCita}
 									onChange={handleInputChange}
-									className="w-full p-2 sm:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								>
 									<option value="">Seleccione un tipo</option>
 									<option value="prioritaria">Prioritaria</option>
@@ -341,10 +341,10 @@ const InicioOp = () => {
 							</div>
 						</div>
 
-						<div className="col-span-1 sm:col-span-2 flex justify-center mt-4 sm:mt-6">
+						<div className="col-span-1 lg:col-span-2 flex justify-center mt-4 lg:mt-6">
 							<button
 								onClick={handleSave}
-								className="px-8 sm:px-10 py-2 sm:py-3 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-105"
+								className="cursor-pointer px-8 lg:px-10 py-2 lg:py-3 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-105"
 							>
 								GUARDAR
 							</button>

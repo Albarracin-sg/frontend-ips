@@ -203,7 +203,7 @@ const FormCard = ({ modo = 'normal' }) => {
 						</label>
 						<input
 							className="text-[12.4px]  placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
+                            sm:text-[13px] sm:w-full sm:p-[8px _7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
                             2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px] focus:outline-none focus:shadow-none"
 							type="text"

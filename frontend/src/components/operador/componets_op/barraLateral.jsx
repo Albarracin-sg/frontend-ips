@@ -18,7 +18,7 @@ const BarraLateral = () => {
 
 				{/* Navegación */}
 				<nav className="flex-1 space-y-2">
-					<a
+				<a
 						href="#"
 						onClick={() => setComponenteActual(<InicioOp />)}
 						className="block py-2 px-4 rounded hover:bg-gray-700 transition-colors cursor-pointer"
