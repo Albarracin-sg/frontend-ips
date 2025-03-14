@@ -27,7 +27,7 @@ const FormCard = ({ modo = 'normal' }) => {
 	const [isOpen, setIsOpen] = useState(false)
 
 	// Función para manejar los cambios en los inputs del formulario
-	const handleChange = (e) => {
+	const handleChange = (e) => { 
 		setForm({ ...form, [e.target.name]: e.target.value })
 	}
 
@@ -71,13 +71,14 @@ const FormCard = ({ modo = 'normal' }) => {
 			},
 		}
 		try {
+			console.log(typeof form.fechaNacimiento)
 			console.log('Enviando datos:', JSON.stringify(datos, null, 2))
 			// Simplifica la llamada al API
 			const response = await api.post('/api/Envioform', datos)
 			console.log('Respuesta:', response.data)
 			setIsOpen(true)
 		} catch (error) {
-			console.error('Error al enviar debido a:', {
+			console.error('Maldito Error al enviar debido a:', {
 				message: error.message,
 				status: error.response?.status,
 				data: error.response?.data,
