@@ -32,9 +32,9 @@ const TicketCard = () => {
         <>
             {/* Contenedor del formulario */}
             <div>
-                <form className="bg-[#d9d9d9] border-[7px] border-[#3c3c3c] p-[0_15px] max-w-[320px] min-w-[400px]h-[500px] min-h-[680px]
+                <form className="bg-[#d9d9d9] border-[7px] border-[#3c3c3c] p-[0_15px] max-w-[320px] min-w-[400px] h-[500px] min-h-[200px]
                 sm:bg-[#d9d9d9] sm:border-[10px] sm:border-[#3c3c3c] sm:p-[0_30px] sm:w-[90%] sm:max-w-[500px] sm:min-w-[400px] sm:h-[550px]
-                lg:bg-[#d9d9d9] lg:border-[12px] lg:border-[#3c3c3c] lg:p-[0_40px] lg:w-[90%] lg:max-w-[500px] lg:min-w-[400px] lg:h-[600px]">
+                lg:bg-[#d9d9d9] lg:border-[12px] lg:border-[#3c3c3c] lg:p-[0_40px] lg:w-[90%] lg:max-w-[500px] lg:min-w-[200px] lg:h-[600px]">
 
                     <div className="relative w-[142px] h-[45px] left-[55px] mt-[-20px] bg-[#1E1E1E] rounded-[10px]
                     sm:relative sm:w-[192px] sm:h-[45px] sm:left-[50px] sm:mt-[-20px]
