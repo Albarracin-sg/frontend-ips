@@ -83,19 +83,17 @@ const InicioOp = () => {
 	}
 
 	return (
-		<div className="relative min-h-screen bg-[#c3d9fa] flex justify-center items-center overflow-auto py-10">
+		<div className="relative min-h-screen bg-[#c3d9fa] flex justify-center items-center overflow-hidden py-10">
 			<div className="max-w-5xl w-full mx-auto bg-white rounded-lg shadow-xl border border-gray-200">
 				<div className="p-6">
-					<h2 className="text-2xl font-bold text-blue-500 mb-6 text-center
-					2xl:text-2xl 2xl:mb-6 2xl:text-center">
+					<h2 className="text-2xl font-bold text-blue-500 mb-6 text-center">
 						Sistema de Actualizacion de Datos
 					</h2>
 
 					{/* Barra de búsqueda */}
 					<form
 						onSubmit={handleSubmit}
-						className="flex flex-col md:flex-row gap-4 mb-8 pb-6 border-b-2 border-gray-200
-						2xl:flex 2xl:flex-col 2xl:gap-4 2xl:mb-8 2xl:pb-6 2xl:border-b-2 2xl:border-gray-200"
+						className="flex flex-col md:flex-row gap-4 mb-8 pb-6 border-b-2 border-gray-200"
 					>
 						<div className="flex-1">
 							<select
