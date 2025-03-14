@@ -10,7 +10,7 @@ const InicioOp = () => {
 
 	//informacion de formulario de actualizacion de datos
 	const [formData, setFormData] = useState({
-		primerNombre: '',
+		primerNombre: '', //es el name del input del formulario
 		segundoNombre: '',
 		primerApellido: '',
 		segundoApellido: '',
@@ -26,23 +26,27 @@ const InicioOp = () => {
 	const handleInputChange = (e) => {
 		const { name, value } = e.target
 		setFormData({
-			...formData,
-			[name]: value,
+			//altera el FormData
+			...formData, //mantiene los datos actuales
+			[name]: value, //extrae el name y el value del campo que activo el e.target
 		})
 	}
 
 	const handleSubmit = async (e) => {
-		e.preventDefault()
+		e.preventDefault() //evita que se recargue
 
 		//seccion de busqueda
 		const datosBusq = {
 			data: {
+				//el back recibira el valor de 'busqueda' con la opcion seleccionada y el dato a enviar [cedula:"12345"]
 				[dato.opcionSeleccionada]: dato.datoEnviado,
 			},
 		}
 
 		try {
-			console.log(JSON.stringify(datosBusq, null, 2)) // Fixed: changed 'datos' to 'datosBusq'
+			//muestra la constante con los datos que se van a enviar al back para la consulta
+			console.log(JSON.stringify(datos, null, 2))
+			//la respuesta del back se almacena en una constante llamada response en caso de que se necesite para mostrar datos (se va a hacer)
 			await axios.post('http://localhost:3000/api/datoX', datosBusq)
 		} catch (error) {
 			console.error('ERROR', error)
@@ -66,10 +70,10 @@ const InicioOp = () => {
 				console.error('Error al mostrar los datos del Paciente ', error)
 			})
 	}, [])
-
 	//Funcion que guarda los datos actualizados y los manda nuevamente al back
 	const handleSave = async () => {
 		try {
+			//se ejecuta el endpoint que guardara los datos actualizados y se mandan los nuevos datos
 			const response = await axios.post('http://localhost:3000/api/guardarDatos', formData)
 			alert('Datos guardados correctamente')
 		} catch (error) {
@@ -79,48 +83,44 @@ const InicioOp = () => {
 	}
 
 	return (
-		<div className="relative min-h-screen bg-[#c3d9fa] flex justify-center items-center overflow-auto py-4 px-4 lg:py-8">
+		<div className="relative min-h-screen bg-[#c3d9fa] flex justify-center items-center overflow-auto py-10">
 			<div className="max-w-5xl w-full mx-auto bg-white rounded-lg shadow-xl border border-gray-200">
-				<div className="p-4 lg:p-6 max-h-screen overflow-y-auto">
-					<h2 className="text-xl lg:text-2xl font-bold text-blue-500 mb-4 lg:mb-6 text-center">
-						Sistema de Actualización de Datos
+				<div className="p-6">
+					<h2 className="text-2xl font-bold text-blue-500 mb-6 text-center">
+						Sistema de Actualizacion de Datos
 					</h2>
 
 					{/* Barra de búsqueda */}
 					<form
 						onSubmit={handleSubmit}
-						className="flex flex-col gap-3 mb-4 lg:mb-5 pb-6 border-b-2 border-gray-200"
+						className="flex flex-col md:flex-row gap-4 mb-8 pb-6 border-b-2 border-gray-200"
 					>
-						<div className="flex flex-col lg:flex-row gap-3">
-							<div className="w-full lg:w-1/2">
-								<select
-									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
-									value={dato.opcionSeleccionada}
-									onChange={(e) =>
-										setDato({ ...dato, opcionSeleccionada: e.target.value })
-									}
-								>
-									<option value="">Opción a Buscar</option>
-									<option value="cedula">Cédula</option>
-								</select>
-							</div>
-							<div className="w-full lg:w-1/2">
-								<input
-									type="text"
-									name="datoEnviado"
-									placeholder="Digita la búsqueda..."
-									value={dato.datoEnviado}
-									onChange={(e) =>
-										setDato({ ...dato, datoEnviado: e.target.value })
-									}
-									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
-								/>
-							</div>
+						<div className="flex-1">
+							<select
+								className="w-full p-3 rounded-lg border border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+								value={dato.opcionSeleccionada}
+								onChange={(e) =>
+									setDato({ ...dato, opcionSeleccionada: e.target.value })
+								}
+							>
+								<option value="">Opción a Buscar</option>
+								<option value="cedula">Cédula</option>
+							</select>
 						</div>
-						<div className="flex justify-center lg:justify-end">
+						<div className="flex-1">
+							<input
+								type="text"
+								name="datoEnviado"
+								placeholder="Digita la búsqueda..."
+								value={dato.datoEnviado}
+								onChange={(e) => setDato({ ...dato, datoEnviado: e.target.value })}
+								className="w-full p-3 rounded-lg border border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+							/>
+						</div>
+						<div>
 							<button
 								type="submit"
-								className="cursor-pointer w-full lg:w-auto px-6 py-2 lg:py-3 bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg flex items-center justify-center"
+								className="w-full md:w-auto px-6 py-3 bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg flex items-center justify-center"
 							>
 								Buscar
 							</button>
@@ -128,8 +128,8 @@ const InicioOp = () => {
 					</form>
 
 					{/* Formulario */}
-					<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-						<div className="space-y-3 lg:space-y-4">
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div className="space-y-4">
 							<div>
 								<label
 									htmlFor="primerNombre"
@@ -140,10 +140,10 @@ const InicioOp = () => {
 								<input
 									type="text"
 									id="primerNombre"
-									name="primerNombre"
-									value={formData.primerNombre}
+									name="primerNombre" //nompre del input especificado dentro del formData
+									value={formData.primerNombre} //valor del formData especificado formData.primerNombre para acceder a el
 									onChange={handleInputChange}
-									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 							<div>
@@ -159,7 +159,7 @@ const InicioOp = () => {
 									name="primerApellido"
 									value={formData.primerApellido}
 									onChange={handleInputChange}
-									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 							<div>
@@ -174,8 +174,7 @@ const InicioOp = () => {
 									id="localidad"
 									name="localidad"
 									value={formData.localidad}
-									onChange={handleInputChange}
-									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 									required
 								>
 									<option value="" disabled>
@@ -217,7 +216,7 @@ const InicioOp = () => {
 									name="tipoDocumento"
 									value={formData.tipoDocumento}
 									onChange={handleInputChange}
-									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								>
 									<option value="">Seleccione un tipo</option>
 									<option value="Cédula de ciudadanía">
@@ -249,12 +248,12 @@ const InicioOp = () => {
 									name="fechaNacimiento"
 									value={formData.fechaNacimiento}
 									onChange={handleInputChange}
-									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 						</div>
 
-						<div className="space-y-3 lg:space-y-4">
+						<div className="space-y-4">
 							<div>
 								<label
 									htmlFor="segundoNombre"
@@ -268,7 +267,7 @@ const InicioOp = () => {
 									name="segundoNombre"
 									value={formData.segundoNombre}
 									onChange={handleInputChange}
-									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 							<div>
@@ -284,7 +283,7 @@ const InicioOp = () => {
 									name="segundoApellido"
 									value={formData.segundoApellido}
 									onChange={handleInputChange}
-									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 							<div>
@@ -300,7 +299,7 @@ const InicioOp = () => {
 									name="telefono"
 									value={formData.telefono}
 									onChange={handleInputChange}
-									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 							<div>
@@ -316,7 +315,7 @@ const InicioOp = () => {
 									name="documento"
 									value={formData.documento}
 									onChange={handleInputChange}
-									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								/>
 							</div>
 							<div>
@@ -332,7 +331,7 @@ const InicioOp = () => {
 									name="tipoCita"
 									value={formData.tipoCita}
 									onChange={handleInputChange}
-									className="w-full p-2 lg:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
 								>
 									<option value="">Seleccione un tipo</option>
 									<option value="prioritaria">Prioritaria</option>
@@ -341,10 +340,10 @@ const InicioOp = () => {
 							</div>
 						</div>
 
-						<div className="col-span-1 lg:col-span-2 flex justify-center mt-4 lg:mt-6">
+						<div className="col-span-1 md:col-span-2 flex justify-center mt-6">
 							<button
 								onClick={handleSave}
-								className="cursor-pointer px-8 lg:px-10 py-2 lg:py-3 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-105"
+								className="px-10 py-3 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-105"
 							>
 								GUARDAR
 							</button>
