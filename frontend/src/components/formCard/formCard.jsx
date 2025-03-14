@@ -98,15 +98,15 @@ const FormCard = ({ modo = 'normal' }) => {
 	return (
 		<>
 			<form
-				className="bg-[#d9d9d9] border-[7px] border-[#3c3c3c] p-[0_15px] max-w-[320px] mx-auto
-                sm:bg-[#d9d9d9] sm:border-[10px] sm:border-[#3c3c3c] sm:p-[0_30px] sm:w-[90%] sm:max-w-[500px]
-                lg:bg-[#d9d9d9] lg:border-[12px] lg:border-[#3c3c3c] lg:p-[0_30px] lg:w-[90%] lg:max-w-[400px]
-                2xl:bg-[#d9d9d9] 2xl:border-[10px] 2xl:border-[#3c3c3c] 2xl:p-[0_30px] 2xl:w-[90%] 2xl:max-w-[500px]"
+				className="bg-[#d9d9d9] border-[7px] border-[#3c3c3c] p-[0_15px] max-w-[320px] min-w-[350px] mx-auto
+                sm:bg-[#d9d9d9] sm:border-[10px] sm:border-[#3c3c3c] sm:p-[0_30px] sm:w-[90%] sm:min-w-[400px] sm:max-w-[500px]
+                lg:bg-[#d9d9d9] lg:border-[12px] lg:border-[#3c3c3c] lg:p-[0_30px] lg:w-[90%] lg:min-w-[400px] lg:max-w-[400px]
+                2xl:bg-[#d9d9d9] 2xl:border-[10px] 2xl:border-[#3c3c3c] 2xl:p-[0_30px] 2xl:w-[90%] 2xl:min-w-[400px] 2xl:max-w-[500px]"
 				onSubmit={handleSubmit}
 			>
 				{/* Contenedor adicional para el formulario (rectángulo negro) */}
 				<div
-					className="relative w-[142px] h-[45px] left-[70px] mt-[-20px] bg-[#1E1E1E] rounded-[10px]
+					className="relative w-[142px] h-[45px] left-[85px] mt-[-20px] bg-[#1E1E1E] rounded-[10px]
                 sm:relative sm:w-[192px] sm:h-[45px] sm:left-[110px] sm:mt-[-20px]
                 lg:relative lg:w-[180px] lg:h-[40px] lg:left-[70px] lg:mt-[-15px]
                 2xl:relative 2xl:w-[192px] 2xl:h-[45px] 2xl:left-[110px] 2xl:mt-[-20px]"
