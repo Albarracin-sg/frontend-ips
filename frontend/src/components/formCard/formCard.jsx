@@ -62,7 +62,7 @@ const FormCard = ({ modo = 'normal' }) => {
 				SegundoNombre: form.segundoNombre,
 				PrimerApellido: form.primerApellido,
 				SegundoApellido: form.segundoApellido,
-				Localidad: form.localidad,
+				localidad: form.localidad,
 				NumeroDocumento: form.numeroDocumento,
 				FechaNacimiento: form.fechaNacimiento,
 				TipoDeDocumento_ID: form.tipoDocumento,
@@ -73,7 +73,7 @@ const FormCard = ({ modo = 'normal' }) => {
 		try {
 			console.log('Enviando datos:', JSON.stringify(datos, null, 2))
 			// Simplifica la llamada al API
-			const response = await api.post('/api/Envioform', datos)  // Remove JSON.stringify
+			const response = await api.post('/api/Envioform', datos)  
 			console.log('Respuesta:', response.data)
 			setIsOpen(true)
 		} catch (error) {
