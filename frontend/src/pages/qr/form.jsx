@@ -1,4 +1,4 @@
-import FormCard from '../formCard/formCard' // Importa el modal
+import FormCard from '../../components/formCard/formCard' // Importa el modal
 import ipsLogo from '../../assets/ips.png' // Importa el logo de la IPS
 
 const Form = () => {

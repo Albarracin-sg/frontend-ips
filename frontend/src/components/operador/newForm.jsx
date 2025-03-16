@@ -1,5 +1,5 @@
-import TicketCard from '../../ticketCard/ticketCard';
-import FormCard from '../../formCard/formCard';
+import TicketCard from '../ticketCard/ticketCard';
+import FormCard from '../formCard/formCard';
 
 const NewTurn = () => {
     return (

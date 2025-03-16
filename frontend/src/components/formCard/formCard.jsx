@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ModalOp from './ventanaModal/modalOP'
-import api from '../../api'
+import api from "../../services/api"
 
 const FormCard = ({ modo = 'normal' }) => {
 	// Hook para redireccionar a otras rutas

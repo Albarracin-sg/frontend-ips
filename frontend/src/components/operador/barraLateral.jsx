@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Ipslogo from './../../../assets/ips.png' // Ruta corregida
+import Ipslogo from './../../assets/ips.png' // Ruta corregida
 import InicioOp from './Inicio'
 import TurnoOp from './turnos'
 import NewTurn from './newForm'

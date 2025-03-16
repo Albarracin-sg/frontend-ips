@@ -1,4 +1,4 @@
-import BarraLateral from './componets_op/barraLateral';
+import BarraLateral from '../../components/operador/barraLateral';
 const mainOperador = () => {
 	return (
 		<BarraLateral/>

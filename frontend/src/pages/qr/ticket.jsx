@@ -1,5 +1,5 @@
 import ipsLogo from "../../assets/ips.png";
-import TicketCard from "../ticketCard/ticketCard";
+import TicketCard from "../../components/ticketCard/ticketCard";
 
 export default function Ticket() {
     return (
