@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
 import ErrorModal from '../formCard/ventanaModal/ErrorModal' // Importa el componente de la modal
-
 const TicketCard = () => {
 	const [datos, setDatos] = useState({
 		nombre: '',
@@ -53,15 +52,11 @@ const TicketCard = () => {
 
 		obtenerDatos()
 	}, [])
-
-	// Función para cerrar la modal
 	const handleCloseModal = () => {
 		setIsModalOpen(false)
 	}
-
 	// Función para determinar si debemos mostrar el spinner
 	const mostrarSpinner = loading || (!datos.nombre && !datos.fecha && !datos.numero)
-
 	return (
 		<>
 			{/* Modal de error */}
@@ -157,7 +152,7 @@ const TicketCard = () => {
 									fontSize="24"
 									dy=".3em"
 								>
-									{datos.fecha}
+									{datos.hora}
 								</text>
 
 								<text
@@ -169,7 +164,7 @@ const TicketCard = () => {
 									fontWeight="bold"
 									dy=".3em"
 								>
-									{datos.numero}
+									{datos.turno}
 								</text>
 							</>
 						)}
