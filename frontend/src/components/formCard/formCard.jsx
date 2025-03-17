@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ModalOp from './ventanaModal/modalOP'
+import TicketCard from '../ticketCard/ticketCard'
 import api from "../../services/api"
 
 const FormCard = ({ modo = 'normal' }) => {
-	// Hook para redireccionar a otras rutas
 	const navigate = useNavigate()
 
-	// Estado inicial del formulario con todos los campos vacíos
 	const formInicial = {
 		primerNombre: '',
 		segundoNombre: '',
@@ -21,17 +20,15 @@ const FormCard = ({ modo = 'normal' }) => {
 		tipoDeCitas: '',
 	}
 
-	// Estado del formulario
 	const [form, setForm] = useState(formInicial)
-	// Estado para controlar si el modal está abierto
 	const [isOpen, setIsOpen] = useState(false)
+	const [mostrarTicket, setMostrarTicket] = useState(false)
+	const [respuestaTurno, setRespuestaTurno] = useState(null)
 
-	// Función para manejar los cambios en los inputs del formulario
-	const handleChange = (e) => { 
+	const handleChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value })
 	}
 
-	// Función para validar que los campos obligatorios no estén vacíos
 	const validarCamposRequeridos = () => {
 		return (
 			form.primerNombre.trim() !== '' &&
@@ -45,17 +42,14 @@ const FormCard = ({ modo = 'normal' }) => {
 		)
 	}
 
-	// Función que se ejecuta al enviar el formulario
 	const handleSubmit = async (e) => {
-		e.preventDefault() // Previene el comportamiento por defecto del formulario
+		e.preventDefault()
 
-		// Si los campos requeridos no están completos, muestra una alerta
 		if (!validarCamposRequeridos()) {
 			alert('Por favor, completa todos los campos requeridos.')
 			return
 		}
 
-		// Objeto con los datos formateados para enviar a la API
 		const datos = {
 			data: {
 				PrimerNombre: form.primerNombre,
@@ -67,37 +61,34 @@ const FormCard = ({ modo = 'normal' }) => {
 				FechaNacimiento: form.fechaNacimiento,
 				TipoDeDocumento_ID: form.tipoDocumento,
 				NumeroTelefono: form.numeroTelefono,
-				TipoDeCitas_ID: form.tipoDeCitas,	
+				TipoDeCitas_ID: form.tipoDeCitas,
 			},
-
 		}
+
 		try {
-			console.log(typeof form.fechaNacimiento)
-			console.log('Enviando datos:', JSON.stringify(datos, null, 2))
-			// Simplifica la llamada al API
 			const response = await api.post('/api/Envioform', datos)
-			const respuesta = response.data
-			console.log('Respuesta:', respuesta)
-			setIsOpen(true)
+			setRespuestaTurno(response.data)
+			setMostrarTicket(true)
 		} catch (error) {
-			console.error('Maldito Error al enviar debido a:', {
+			console.error('Error al enviar:', {
 				message: error.message,
 				status: error.response?.status,
 				data: error.response?.data,
 			})
 		}
-		// Y luego renderiza
-		{isOpen && <TicketCard respuestaTurno={respuestaTurno} />}
 	}
 
-	// Función que se ejecuta al cerrar el modal
 	const handleSubmitModal = () => {
-		setIsOpen(false) // Cierra el modal
+		setIsOpen(false)
 		if (modo === 'op') {
-			setForm(formInicial) // Reinicia el formulario
+			setForm(formInicial)
 		} else {
-			navigate('/ticket') // Redirige a la página de ticket
+			navigate('/ticket')
 		}
+	}
+
+	if (mostrarTicket && respuestaTurno) {
+		return <TicketCard respuestaTurno={respuestaTurno} />
 	}
 
 	return (
