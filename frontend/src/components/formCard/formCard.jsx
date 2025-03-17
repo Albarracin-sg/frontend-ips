@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ModalOp from './ventanaModal/modalOP'
+import api from '../../services/api'
 import TicketCard from '../ticketCard/ticketCard'
-import api from "../../services/api"
 
 const FormCard = ({ modo = 'normal' }) => {
 	const navigate = useNavigate()
@@ -50,8 +50,14 @@ const FormCard = ({ modo = 'normal' }) => {
 			return
 		}
 
+		setIsOpen(true)
+		// Y luego renderiza
+		{isOpen && <TicketCard respuestaTurno={respuestaTurno} />}
+	}
+	const handleConfirm = async(e)=>{
+		// Objeto con los datos formateados para enviar a la API
 		const datos = {
-			data: {
+			
 				PrimerNombre: form.primerNombre,
 				SegundoNombre: form.segundoNombre,
 				PrimerApellido: form.primerApellido,
@@ -61,11 +67,14 @@ const FormCard = ({ modo = 'normal' }) => {
 				FechaNacimiento: form.fechaNacimiento,
 				TipoDeDocumento_ID: form.tipoDocumento,
 				NumeroTelefono: form.numeroTelefono,
-				TipoDeCitas_ID: form.tipoDeCitas,
-			},
+				TipoDeCitas_ID: form.tipoDeCitas,	
+			
+	
 		}
 
 		try {
+			console.log('Enviando datos:', JSON.stringify(datos, null, 2))
+			// Simplifica la llamada al API
 			const response = await api.post('/api/Envioform', datos)
 			setRespuestaTurno(response.data)
 			setMostrarTicket(true)
@@ -76,20 +85,15 @@ const FormCard = ({ modo = 'normal' }) => {
 				data: error.response?.data,
 			})
 		}
-	}
-
-	const handleSubmitModal = () => {
-		setIsOpen(false)
+		
+		setIsOpen(false) // Cierra el modal
 		if (modo === 'op') {
 			setForm(formInicial)
 		} else {
 			navigate('/ticket')
 		}
 	}
-
-	if (mostrarTicket && respuestaTurno) {
-		return <TicketCard respuestaTurno={respuestaTurno} />
-	}
+	
 
 	return (
 		<>
@@ -416,7 +420,7 @@ const FormCard = ({ modo = 'normal' }) => {
 			<ModalOp
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
-				onConfirm={handleSubmitModal}
+				onConfirm={handleConfirm}
 			/>
 		</>
 	)
