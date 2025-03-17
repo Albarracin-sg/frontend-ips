@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import ModalOp from './ventanaModal/modalOP'
 import api from '../../services/api'
 import TicketCard from '../ticketCard/ticketCard'
+import { guardarRespuesta } from './ventanaModal/respuestaStorage'
+
 
 const FormCard = ({ modo = 'normal' }) => {
 	// Hook para redireccionar a otras rutas
@@ -82,6 +84,7 @@ const FormCard = ({ modo = 'normal' }) => {
 			// Simplifica la llamada al API
 			const response = await api.post('/api/Envioform', datos)
 			const respuesta = response.data
+			guardarRespuesta(respuesta)
 			console.log('Respuesta:', respuesta)
 			setIsOpen(true)
 		} catch (error) {
