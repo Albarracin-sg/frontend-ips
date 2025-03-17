@@ -56,25 +56,29 @@ const FormCard = ({ modo = 'normal' }) => {
 		}
 
 		// Objeto con los datos formateados para enviar a la API
-		const datos = {			
-			PrimerNombre: form.primerNombre,
-			SegundoNombre: form.segundoNombre,
-			PrimerApellido: form.primerApellido,
-			SegundoApellido: form.segundoApellido,
-			Localidad: form.localidad,
-			NumeroDocumento: form.numeroDocumento,
-			FechaNacimiento: form.fechaNacimiento,
-			TipoDeDocumento_ID: form.tipoDocumento,
-			NumeroTelefono: form.numeroTelefono,
-			TipoDeCitas_ID: form.tipoDeCitas,
-			
+		const datos = {
+			data: {
+				PrimerNombre: form.primerNombre,
+				SegundoNombre: form.segundoNombre,
+				PrimerApellido: form.primerApellido,
+				SegundoApellido: form.segundoApellido,
+				Localidad: form.localidad,
+				NumeroDocumento: form.numeroDocumento,
+				FechaNacimiento: form.fechaNacimiento,
+				TipoDeDocumento_ID: form.tipoDocumento,
+				NumeroTelefono: form.numeroTelefono,
+				TipoDeCitas_ID: form.tipoDeCitas,	
+			},
+
 		}
 		setIsOpen(true)
 		try {
 			console.log('Enviando datos:', JSON.stringify(datos, null, 2))
 			// Simplifica la llamada al API
 			const response = await api.post('/api/Envioform', datos)
-			console.log('Respuesta:', response.data)
+			const respuesta = response.data
+			console.log('Respuesta:', respuesta)
+			setIsOpen(true)
 		} catch (error) {
 			console.error('Maldito Error al enviar debido a:', {
 				message: error.message,
