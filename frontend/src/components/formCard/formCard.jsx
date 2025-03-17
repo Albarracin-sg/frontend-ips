@@ -56,7 +56,7 @@ const FormCard = ({ modo = 'normal' }) => {
 		}
 
 		// Objeto con los datos formateados para enviar a la API
-		const datos = {
+		 const datos = {
 			data: {
 				PrimerNombre: form.primerNombre,
 				SegundoNombre: form.segundoNombre,
