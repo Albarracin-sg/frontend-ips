@@ -59,8 +59,6 @@ const FormCard = ({ modo = 'normal' }) => {
 		}
 
 		setIsOpen(true)
-		// Y luego renderiza
-		{isOpen && <TicketCard respuestaTurno={respuestaTurno} />}
 	}
 	const handleConfirm = async(e)=>{
 		// Objeto con los datos formateados para enviar a la API
