@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ModalOp from './ventanaModal/modalOP'
-import api from "../../services/api"
+import api from '../../services/api'
 
 const FormCard = ({ modo = 'normal' }) => {
 	// Hook para redireccionar a otras rutas
@@ -56,27 +56,25 @@ const FormCard = ({ modo = 'normal' }) => {
 		}
 
 		// Objeto con los datos formateados para enviar a la API
-		const datos = {
-			data: {
-				PrimerNombre: form.primerNombre,
-				SegundoNombre: form.segundoNombre,
-				PrimerApellido: form.primerApellido,
-				SegundoApellido: form.segundoApellido,
-				localidad: form.localidad,
-				NumeroDocumento: form.numeroDocumento,
-				FechaNacimiento: form.fechaNacimiento,
-				TipoDeDocumento_ID: form.tipoDocumento,
-				NumeroTelefono: form.numeroTelefono,
-				TipoDeCitas_ID: form.tipoDeCitas,
-			},
+		const datos = {			
+			PrimerNombre: form.primerNombre,
+			SegundoNombre: form.segundoNombre,
+			PrimerApellido: form.primerApellido,
+			SegundoApellido: form.segundoApellido,
+			Localidad: form.localidad,
+			NumeroDocumento: form.numeroDocumento,
+			FechaNacimiento: form.fechaNacimiento,
+			TipoDeDocumento_ID: form.tipoDocumento,
+			NumeroTelefono: form.numeroTelefono,
+			TipoDeCitas_ID: form.tipoDeCitas,
+			
 		}
+		setIsOpen(true)
 		try {
-			console.log(typeof form.fechaNacimiento)
 			console.log('Enviando datos:', JSON.stringify(datos, null, 2))
 			// Simplifica la llamada al API
 			const response = await api.post('/api/Envioform', datos)
 			console.log('Respuesta:', response.data)
-			setIsOpen(true)
 		} catch (error) {
 			console.error('Maldito Error al enviar debido a:', {
 				message: error.message,
@@ -85,7 +83,9 @@ const FormCard = ({ modo = 'normal' }) => {
 			})
 		}
 	}
-
+	const handleConfirm =()=>{
+		
+	}
 	// Función que se ejecuta al cerrar el modal
 	const handleSubmitModal = () => {
 		setIsOpen(false) // Cierra el modal
