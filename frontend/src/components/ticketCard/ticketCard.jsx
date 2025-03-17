@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
+import ErrorModal from '../formCard/ventanaModal/ErrorModal' // Importa el componente de la modal
 
 const TicketCard = () => {
 	const [datos, setDatos] = useState({
@@ -9,6 +10,8 @@ const TicketCard = () => {
 	})
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(false)
+	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [errorMessage, setErrorMessage] = useState('')
 
 	useEffect(() => {
 		const obtenerDatos = async () => {
@@ -28,6 +31,8 @@ const TicketCard = () => {
 					!data.numeroDocumento
 				) {
 					setError(true)
+					setErrorMessage('No se encontraron datos para mostrar.')
+					setIsModalOpen(true)
 				} else {
 					// Aquí mapea según tu estructura de datos real
 					setDatos({
@@ -39,6 +44,8 @@ const TicketCard = () => {
 			} catch (error) {
 				console.error('Error al obtener los datos del ticket:', error)
 				setError(true)
+				setErrorMessage('Error al conectar con el servidor. Por favor, intente nuevamente.')
+				setIsModalOpen(true)
 			} finally {
 				setLoading(false)
 			}
@@ -47,11 +54,19 @@ const TicketCard = () => {
 		obtenerDatos()
 	}, [])
 
+	// Función para cerrar la modal
+	const handleCloseModal = () => {
+		setIsModalOpen(false)
+	}
+
 	// Función para determinar si debemos mostrar el spinner
-	const mostrarSpinner = loading || error || (!datos.nombre && !datos.fecha && !datos.numero)
+	const mostrarSpinner = loading || (!datos.nombre && !datos.fecha && !datos.numero)
 
 	return (
 		<>
+			{/* Modal de error */}
+			<ErrorModal isOpen={isModalOpen} onClose={handleCloseModal} message={errorMessage} />
+
 			{/* Contenedor del formulario */}
 			<div>
 				<form
@@ -88,12 +103,12 @@ const TicketCard = () => {
 						/>
 
 						{mostrarSpinner ? (
-							// Spinner SVG
+							// Spinner SVG - solo mostramos el spinner, sin el mensaje de error
 							<g>
 								<circle
 									cx="180"
-									cy="300"
-									r="60"
+									cy="250"
+									r="70"
 									fill="none"
 									stroke="#3c3c3c"
 									strokeWidth="8"
@@ -101,8 +116,8 @@ const TicketCard = () => {
 								/>
 								<circle
 									cx="180"
-									cy="300"
-									r="60"
+									cy="250"
+									r="70"
 									fill="none"
 									stroke="#3c3c3c"
 									strokeWidth="8"
@@ -112,8 +127,8 @@ const TicketCard = () => {
 									<animateTransform
 										attributeName="transform"
 										type="rotate"
-										from="0 180 300"
-										to="360 180 300"
+										from="0 180 250"
+										to="360 180 250"
 										dur="1s"
 										repeatCount="indefinite"
 									/>
