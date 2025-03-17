@@ -4,8 +4,8 @@ import api from '../../services/api'
 const TicketCard = () => {
     const [datos, setDatos] = useState({
         nombre: '',
-        fecha: '',
-        numero: '',
+        hora: '',
+        turno: '',
     })
 
     useEffect(() => {
@@ -17,8 +17,8 @@ const TicketCard = () => {
                 // Aquí mapea según tu estructura de datos real
                 setDatos({
                     nombre: `${data.primerNombre} ${data.primerApellido}`,
-                    fecha: data.fechaNacimiento,
-                    numero: data.numeroDocumento, 
+                    hora: data.hora,
+                    turno: data.turno,
                 })
             } catch (error) {
                 console.error('Error al obtener los datos del ticket:', error)
@@ -80,7 +80,7 @@ const TicketCard = () => {
                             fontSize="24"
                             dy=".3em"
                         >
-                            {datos.fecha}
+                            {datos.hora}
                         </text>
 
                         <text
@@ -92,7 +92,7 @@ const TicketCard = () => {
                             fontWeight="bold"
                             dy=".3em"
                         >
-                            {datos.numero}
+                            {datos.turno}
                         </text>
                     </svg>
 
