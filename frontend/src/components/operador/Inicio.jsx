@@ -83,21 +83,21 @@ const InicioOp = () => {
 	}
 
 	return (
-		<div className="relative min-h-screen bg-[#c3d9fa] flex justify-center items-center overflow-hidden py-2 ">
-			<div className="lg:h-[85%] max-w-5xl w-full mx-auto bg-white rounded-lg shadow-xl border border-gray-200 ">
-				<div className="p-6">
-					<h2 className="text-2xl font-bold text-blue-500 mb-6 text-center">
+		<div className="relative min-h-screen bg-[#c3d9fa] flex justify-center items-center overflow-hidden ">
+			<div className="lg:h-[85%] xl:h-[90%] max-w-5xl w-full mx-auto bg-white rounded-lg shadow-xl border border-gray-200">
+				<div className="p-2 md:p-4">
+					<h2 className="text-xl md:text-2xl font-bold text-blue-500 mb-4 md:mb-6 text-center">
 						Sistema de Actualizacion de Datos
 					</h2>
 
 					{/* Barra de búsqueda */}
 					<form
 						onSubmit={handleSubmit}
-						className="flex flex-col md:flex-row gap-4 mb-8 pb-6 border-b-2 border-gray-200"
+						className="flex flex-col md:flex-row gap-3 md:gap-4 mb-6 md:mb-8 pb-4 md:pb-6 border-b-2 border-gray-200"
 					>
 						<div className="flex-1">
 							<select
-								className="w-full lg:w-[85%] p-3 rounded-lg border border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+								className="w-full p-2 md:p-3 rounded-lg border border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 								value={dato.opcionSeleccionada}
 								onChange={(e) =>
 									setDato({ ...dato, opcionSeleccionada: e.target.value })
@@ -114,13 +114,13 @@ const InicioOp = () => {
 								placeholder="Digita la búsqueda..."
 								value={dato.datoEnviado}
 								onChange={(e) => setDato({ ...dato, datoEnviado: e.target.value })}
-								className="w-full lg:w-[85%] p-3 rounded-lg border border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+								className="w-full p-2 md:p-3 rounded-lg border border-gray-300 bg-gray-50 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 							/>
 						</div>
 						<div>
 							<button
 								type="submit"
-								className="cursor-pointer w-full md:w-auto px-6 py-3 bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg flex items-center justify-center"
+								className="cursor-pointer w-full md:w-auto px-4 md:px-6 py-2 md:py-3 bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg flex items-center justify-center text-sm md:text-base"
 							>
 								Buscar
 							</button>
@@ -128,12 +128,12 @@ const InicioOp = () => {
 					</form>
 
 					{/* Formulario */}
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-						<div className="space-y-4">
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+						<div className="space-y-3 md:space-y-4">
 							<div>
 								<label
 									htmlFor="primerNombre"
-									className="block text-sm font-medium text-gray-700 mb-1"
+									className="block text-xs md:text-sm font-medium text-gray-700 mb-1"
 								>
 									Primer Nombre
 								</label>
@@ -143,13 +143,13 @@ const InicioOp = () => {
 									name="primerNombre"
 									value={formData.primerNombre}
 									onChange={handleInputChange}
-									className="w-full lg:w-[85%] p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 md:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 								/>
 							</div>
 							<div>
 								<label
 									htmlFor="primerApellido"
-									className="block text-sm font-medium text-gray-700 mb-1"
+									className="block text-xs md:text-sm font-medium text-gray-700 mb-1"
 								>
 									Primer Apellido
 								</label>
@@ -159,13 +159,13 @@ const InicioOp = () => {
 									name="primerApellido"
 									value={formData.primerApellido}
 									onChange={handleInputChange}
-									className="w-full lg:w-[85%] p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 md:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 								/>
 							</div>
 							<div>
 								<label
 									htmlFor="localidad"
-									className="block text-sm font-medium text-gray-700 mb-1"
+									className="block text-xs md:text-sm font-medium text-gray-700 mb-1"
 								>
 									Localidad
 								</label>
@@ -174,7 +174,8 @@ const InicioOp = () => {
 									id="localidad"
 									name="localidad"
 									value={formData.localidad}
-									className="w-full lg:w-[85%] p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									onChange={handleInputChange}
+									className="w-full p-2 md:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 									required
 								>
 									<option value="" disabled>
@@ -206,7 +207,7 @@ const InicioOp = () => {
 							<div>
 								<label
 									htmlFor="tipoDocumento"
-									className="block text-sm font-medium text-gray-700 mb-1"
+									className="block text-xs md:text-sm font-medium text-gray-700 mb-1"
 								>
 									Tipo de Documento
 								</label>
@@ -216,7 +217,7 @@ const InicioOp = () => {
 									name="tipoDocumento"
 									value={formData.tipoDocumento}
 									onChange={handleInputChange}
-									className="w-full lg:w-[85%] p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 md:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 								>
 									<option value="">Seleccione un tipo</option>
 									<option value="Cédula de ciudadanía">
@@ -238,7 +239,7 @@ const InicioOp = () => {
 							<div>
 								<label
 									htmlFor="fechaNacimiento"
-									className="block text-sm font-medium text-gray-700 mb-1"
+									className="block text-xs md:text-sm font-medium text-gray-700 mb-1"
 								>
 									Fecha de Nacimiento
 								</label>
@@ -248,16 +249,16 @@ const InicioOp = () => {
 									name="fechaNacimiento"
 									value={formData.fechaNacimiento}
 									onChange={handleInputChange}
-									className="w-full lg:w-[85%] p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 md:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 								/>
 							</div>
 						</div>
 
-						<div className="space-y-4">
+						<div className="space-y-3 md:space-y-4">
 							<div>
 								<label
 									htmlFor="segundoNombre"
-									className="block text-sm font-medium text-gray-700 mb-1"
+									className="block text-xs md:text-sm font-medium text-gray-700 mb-1"
 								>
 									Segundo Nombre
 								</label>
@@ -267,13 +268,13 @@ const InicioOp = () => {
 									name="segundoNombre"
 									value={formData.segundoNombre}
 									onChange={handleInputChange}
-									className="w-full lg:w-[85%] p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 md:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 								/>
 							</div>
 							<div>
 								<label
 									htmlFor="segundoApellido"
-									className="block text-sm font-medium text-gray-700 mb-1"
+									className="block text-xs md:text-sm font-medium text-gray-700 mb-1"
 								>
 									Segundo Apellido
 								</label>
@@ -283,13 +284,13 @@ const InicioOp = () => {
 									name="segundoApellido"
 									value={formData.segundoApellido}
 									onChange={handleInputChange}
-									className="w-full lg:w-[85%] p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 md:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 								/>
 							</div>
 							<div>
 								<label
 									htmlFor="telefono"
-									className="block text-sm font-medium text-gray-700 mb-1"
+									className="block text-xs md:text-sm font-medium text-gray-700 mb-1"
 								>
 									Número de Teléfono
 								</label>
@@ -299,13 +300,13 @@ const InicioOp = () => {
 									name="telefono"
 									value={formData.telefono}
 									onChange={handleInputChange}
-									className="w-full lg:w-[85%] p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 md:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 								/>
 							</div>
 							<div>
 								<label
 									htmlFor="documento"
-									className="block text-sm font-medium text-gray-700 mb-1"
+									className="block text-xs md:text-sm font-medium text-gray-700 mb-1"
 								>
 									Documento
 								</label>
@@ -315,13 +316,13 @@ const InicioOp = () => {
 									name="documento"
 									value={formData.documento}
 									onChange={handleInputChange}
-									className="w-full lg:w-[85%] p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 md:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 								/>
 							</div>
 							<div>
 								<label
 									htmlFor="tipoCita"
-									className="block text-sm font-medium text-gray-700 mb-1"
+									className="block text-xs md:text-sm font-medium text-gray-700 mb-1"
 								>
 									Tipo de Cita
 								</label>
@@ -331,7 +332,7 @@ const InicioOp = () => {
 									name="tipoCita"
 									value={formData.tipoCita}
 									onChange={handleInputChange}
-									className="w-full lg:w-[85%] p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+									className="w-full p-2 md:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 								>
 									<option value="">Seleccione un tipo</option>
 									<option value="prioritaria">Prioritaria</option>
@@ -340,10 +341,10 @@ const InicioOp = () => {
 							</div>
 						</div>
 
-						<div className="col-span-1 md:col-span-2 flex justify-center mt-6">
+						<div className="col-span-1 md:col-span-2 flex justify-center mt-1 md:mt-2">
 							<button
 								onClick={handleSave}
-								className="px-10 py-3 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all transform cursor-pointer hover:scale-105"
+								className="px-8 md:px-10 py-2 md:py-3 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all transform cursor-pointer hover:scale-105 text-sm md:text-base"
 							>
 								GUARDAR
 							</button>
