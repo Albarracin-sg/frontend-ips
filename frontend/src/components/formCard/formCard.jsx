@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ModalOp from './ventanaModal/modalOP'
 import api from '../../services/api'
+import TicketCard from '../ticketCard/ticketCard'
 
 const FormCard = ({ modo = 'normal' }) => {
 	// Hook para redireccionar a otras rutas
@@ -55,6 +56,11 @@ const FormCard = ({ modo = 'normal' }) => {
 			return
 		}
 
+		setIsOpen(true)
+		// Y luego renderiza
+		{isOpen && <TicketCard respuestaTurno={respuestaTurno} />}
+	}
+	const handleConfirm = async(e)=>{
 		// Objeto con los datos formateados para enviar a la API
 		const datos = {
 			
@@ -69,9 +75,8 @@ const FormCard = ({ modo = 'normal' }) => {
 				NumeroTelefono: form.numeroTelefono,
 				TipoDeCitas_ID: form.tipoDeCitas,	
 			
-
+	
 		}
-		setIsOpen(true)
 		try {
 			console.log('Enviando datos:', JSON.stringify(datos, null, 2))
 			// Simplifica la llamada al API
@@ -86,12 +91,7 @@ const FormCard = ({ modo = 'normal' }) => {
 				data: error.response?.data,
 			})
 		}
-	}
-	const handleConfirm =()=>{
 		
-	}
-	// Función que se ejecuta al cerrar el modal
-	const handleSubmitModal = () => {
 		setIsOpen(false) // Cierra el modal
 		if (modo === 'op') {
 			setForm(formInicial) // Reinicia el formulario
@@ -99,6 +99,7 @@ const FormCard = ({ modo = 'normal' }) => {
 			navigate('/ticket') // Redirige a la página de ticket
 		}
 	}
+	
 
 	return (
 		<>
@@ -425,7 +426,7 @@ const FormCard = ({ modo = 'normal' }) => {
 			<ModalOp
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
-				onConfirm={handleSubmitModal}
+				onConfirm={handleConfirm}
 			/>
 		</>
 	)
