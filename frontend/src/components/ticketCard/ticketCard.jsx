@@ -1,56 +1,37 @@
 import React, { useEffect, useState } from 'react'
-import api from '../../services/api'
 
-const TicketCard = () => {
-	const [datos, setDatos] = useState({
-		nombre: '',
-		hora: '',
-		turno: '',
-	})
-	const [loading, setLoading] = useState(true)
-	const [error, setError] = useState(false)
+const TicketCard = ({ respuestaTurno }) => {
+    const [datos, setDatos] = useState({
+        nombre: '',
+        hora: '',
+        turno: '',
+    })
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
 
-	useEffect(() => {
-        const obtenerDatos = async () => {
-            setLoading(true)
-            setError(false)
-            
-        try {
-            const response = await api.get('http://192.168.1.78:3000/api/Envioform')
-            const responseData = response.data
-            
-            // Verificar si los datos están vacíos o tienen la estructura correcta
-            if (
-                !responseData ||
-                !responseData.data ||
-                !responseData.data.PrimerNombre ||
-                !responseData.data.PrimerApellido ||
-                !responseData.datosTurno || 
-                !responseData.datosTurno.Turno
-            ) {
+    useEffect(() => {
+        if (respuestaTurno) {
+            try {
+            if (!respuestaTurno.datosTurno) {
                 setError(true)
             } else {
-              // Mapear los datos según la estructura que muestra la imagen
                 setDatos({
-                    nombre: `${responseData.data.PrimerNombre} ${responseData.data.PrimerApellido}`,
-                    hora: responseData.datosTurno.HoraTurno || '',
-                    turno: responseData.datosTurno.Turno || '',
+                nombre: `${respuestaTurno.data?.PrimerNombre || ''} ${respuestaTurno.data?.PrimerApellido || ''}`,
+                hora: respuestaTurno.datosTurno?.HoraTurno || '',
+                turno: respuestaTurno.datosTurno?.Turno || '',
                 })
             }
-        } catch (error) {
-            console.error('Error al obtener los datos del ticket:', error)
+            } catch (e) {
             setError(true)
-        } finally {
+            } finally {
             setLoading(false)
+            }
         }
-        }
+    }, [respuestaTurno])
 
-        obtenerDatos()
-    }, [])
-
-	// Función para determinar si debemos mostrar el spinner
-	const mostrarSpinner = loading || error || (!datos.nombre && !datos.fecha && !datos.numero)
-
+     // Aquí estaba faltando la definición de mostrarSpinner
+    const mostrarSpinner = loading || error || (!datos.nombre && !datos.hora && !datos.turno)
+	
 	return (
 		<>
 			{/* Contenedor del formulario */}

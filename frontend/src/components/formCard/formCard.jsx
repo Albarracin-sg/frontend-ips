@@ -86,6 +86,8 @@ const FormCard = ({ modo = 'normal' }) => {
 				data: error.response?.data,
 			})
 		}
+		// Y luego renderiza
+		{isOpen && <TicketCard respuestaTurno={respuestaTurno} />}
 	}
 
 	// Función que se ejecuta al cerrar el modal
