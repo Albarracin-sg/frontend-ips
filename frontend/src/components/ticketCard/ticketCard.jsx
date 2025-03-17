@@ -11,41 +11,42 @@ const TicketCard = () => {
 	const [error, setError] = useState(false)
 
 	useEffect(() => {
-		const obtenerDatos = async () => {
-			setLoading(true)
-			setError(false)
+        const obtenerDatos = async () => {
+            setLoading(true)
+            setError(false)
+            
+        try {
+            const response = await api.get('http://192.168.1.78:3000/api/Envioform')
+            const responseData = response.data
+            
+            // Verificar si los datos están vacíos o tienen la estructura correcta
+            if (
+                !responseData ||
+                !responseData.data ||
+                !responseData.data.PrimerNombre ||
+                !responseData.data.PrimerApellido ||
+                !responseData.datosTurno || 
+                !responseData.datosTurno.Turno
+            ) {
+                setError(true)
+            } else {
+              // Mapear los datos según la estructura que muestra la imagen
+                setDatos({
+                    nombre: `${responseData.data.PrimerNombre} ${responseData.data.PrimerApellido}`,
+                    hora: responseData.datosTurno.HoraTurno || '',
+                    turno: responseData.datosTurno.Turno || '',
+                })
+            }
+        } catch (error) {
+            console.error('Error al obtener los datos del ticket:', error)
+            setError(true)
+        } finally {
+            setLoading(false)
+        }
+        }
 
-			try {
-				const response = await api.get('http://192.168.1.78:3000/api/Envioform')
-				const data = response.data
-
-				// Verificar si los datos están vacíos
-				if (
-					!data ||
-					!data.primerNombre ||
-					!data.primerApellido ||
-					!data.fechaNacimiento ||
-					!data.numeroDocumento
-				) {
-					setError(true)
-				} else {
-					// Aquí mapea según tu estructura de datos real
-					setDatos({
-						nombre: `${data.primerNombre} ${data.primerApellido}`,
-						hora: data.hora,
-						turno: data.turno,
-					})
-				}
-			} catch (error) {
-				console.error('Error al obtener los datos del ticket:', error)
-				setError(true)
-			} finally {
-				setLoading(false)
-			}
-		}
-
-		obtenerDatos()
-	}, [])
+        obtenerDatos()
+    }, [])
 
 	// Función para determinar si debemos mostrar el spinner
 	const mostrarSpinner = loading || error || (!datos.nombre && !datos.fecha && !datos.numero)

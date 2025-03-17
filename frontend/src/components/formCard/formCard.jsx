@@ -56,7 +56,8 @@ const FormCard = ({ modo = 'normal' }) => {
 		}
 
 		// Objeto con los datos formateados para enviar a la API
-		const datos = {			
+		const datos = {
+			
 				PrimerNombre: form.primerNombre,
 				SegundoNombre: form.segundoNombre,
 				PrimerApellido: form.primerApellido,
@@ -67,6 +68,8 @@ const FormCard = ({ modo = 'normal' }) => {
 				TipoDeDocumento_ID: form.tipoDocumento,
 				NumeroTelefono: form.numeroTelefono,
 				TipoDeCitas_ID: form.tipoDeCitas,	
+			
+
 		}
 		setIsOpen(true)
 		try {
