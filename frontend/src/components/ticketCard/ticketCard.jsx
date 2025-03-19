@@ -1,39 +1,67 @@
 import React, { useEffect, useState } from 'react'
+import api from '../../services/api'
+import ErrorModal from '../formCard/ventanaModal/ErrorModal' // Importa el componente de la modal
+const TicketCard = () => {
+	const [datos, setDatos] = useState({
+		nombre: '',
+		fecha: '',
+		numero: '',
+	})
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState(false)
+	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [errorMessage, setErrorMessage] = useState('')
 
-const TicketCard = ({ respuestaTurno }) => {
-    const [datos, setDatos] = useState({
-        nombre: '',
-        hora: '',
-        turno: '',
-    })
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(false)
+	useEffect(() => {
+		const obtenerDatos = async () => {
+			setLoading(true)
+			setError(false)
 
-    useEffect(() => {
-        if (respuestaTurno) {
-            try {
-            if (!respuestaTurno.datosTurno) {
-                setError(true)
-            } else {
-                setDatos({
-                nombre: `${respuestaTurno.data?.PrimerNombre || ''} ${respuestaTurno.data?.PrimerApellido || ''}`,
-                hora: respuestaTurno.datosTurno?.HoraTurno || '',
-                turno: respuestaTurno.datosTurno?.Turno || '',
-                })
-            }
-            } catch (e) {
-            setError(true)
-            } finally {
-            setLoading(false)
-            }
-        }
-    }, [respuestaTurno])
+			try {
+				const response = await api.get('http://192.168.1.78:3000/api/Envioform')
+				const data = response.data
 
-     // Aquí estaba faltando la definición de mostrarSpinner
-    const mostrarSpinner = loading || error || (!datos.nombre && !datos.hora && !datos.turno)
-	
+				// Verificar si los datos están vacíos
+				if (
+					!data ||
+					!data.primerNombre ||
+					!data.primerApellido ||
+					!data.fechaNacimiento ||
+					!data.numeroDocumento
+				) {
+					setError(true)
+					setErrorMessage('No se encontraron datos para mostrar.')
+					setIsModalOpen(true)
+				} else {
+					// Aquí mapea según tu estructura de datos real
+					setDatos({
+						nombre: `${data.primerNombre} ${data.primerApellido}`,
+						fecha: data.fechaNacimiento,
+						numero: data.numeroDocumento,
+					})
+				}
+			} catch (error) {
+				console.error('Error al obtener los datos del ticket:', error)
+				setError(true)
+				setErrorMessage('Error al conectar con el servidor. Por favor, intente nuevamente.')
+				setIsModalOpen(true)
+			} finally {
+				setLoading(false)
+			}
+		}
+
+		obtenerDatos()
+	}, [])
+	const handleCloseModal = () => {
+		setIsModalOpen(false)
+	}
+	// Función para determinar si debemos mostrar el spinner
+	const mostrarSpinner = loading || (!datos.nombre && !datos.fecha && !datos.numero)
 	return (
 		<>
+			{/* Modal de error */}
+			<ErrorModal isOpen={isModalOpen} onClose={handleCloseModal} message={errorMessage} />
+
 			{/* Contenedor del formulario */}
 			<div>
 				<form
@@ -70,12 +98,12 @@ const TicketCard = ({ respuestaTurno }) => {
 						/>
 
 						{mostrarSpinner ? (
-							// Spinner SVG
+							// Spinner SVG - solo mostramos el spinner, sin el mensaje de error
 							<g>
 								<circle
 									cx="180"
-									cy="300"
-									r="60"
+									cy="250"
+									r="70"
 									fill="none"
 									stroke="#3c3c3c"
 									strokeWidth="8"
@@ -83,8 +111,8 @@ const TicketCard = ({ respuestaTurno }) => {
 								/>
 								<circle
 									cx="180"
-									cy="300"
-									r="60"
+									cy="250"
+									r="70"
 									fill="none"
 									stroke="#3c3c3c"
 									strokeWidth="8"
@@ -94,8 +122,8 @@ const TicketCard = ({ respuestaTurno }) => {
 									<animateTransform
 										attributeName="transform"
 										type="rotate"
-										from="0 180 300"
-										to="360 180 300"
+										from="0 180 250"
+										to="360 180 250"
 										dur="1s"
 										repeatCount="indefinite"
 									/>
