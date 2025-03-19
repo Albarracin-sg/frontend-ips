@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import ModalOp from './ventanaModal/modalOP'
 import api from '../../services/api'
 import TicketCard from '../ticketCard/ticketCard'
+import { guardarRespuesta } from './ventanaModal/respuestaStorage'
+
 
 const FormCard = ({ modo = 'normal' }) => {
 	const navigate = useNavigate()
@@ -51,8 +53,6 @@ const FormCard = ({ modo = 'normal' }) => {
 		}
 
 		setIsOpen(true)
-		// Y luego renderiza
-		{isOpen && <TicketCard respuestaTurno={respuestaTurno} />}
 	}
 	const handleConfirm = async(e)=>{
 		// Objeto con los datos formateados para enviar a la API
@@ -76,8 +76,10 @@ const FormCard = ({ modo = 'normal' }) => {
 			console.log('Enviando datos:', JSON.stringify(datos, null, 2))
 			// Simplifica la llamada al API
 			const response = await api.post('/api/Envioform', datos)
-			setRespuestaTurno(response.data)
-			setMostrarTicket(true)
+			const respuesta = response.data
+			guardarRespuesta(respuesta)
+			console.log('Respuesta:', respuesta)
+			setIsOpen(true)
 		} catch (error) {
 			console.error('Error al enviar:', {
 				message: error.message,

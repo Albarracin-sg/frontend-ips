@@ -1,62 +1,79 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
-import ErrorModal from '../formCard/ventanaModal/ErrorModal' // Importa el componente de la modal
+import { obtenerRespuesta } from '../formCard/ventanaModal/respuestaStorage'
+import ErrorModal from '../formCard/ventanaModal/ErrorModal'
+
 const TicketCard = () => {
-	const [datos, setDatos] = useState({
-		nombre: '',
-		fecha: '',
-		numero: '',
-	})
-	const [loading, setLoading] = useState(true)
+	// Estados combinados de ambas versiones
+	const [respuesta, setRespuesta] = useState(null)
+	const [mostrarSpinner, setMostrarSpinner] = useState(true)
 	const [error, setError] = useState(false)
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [errorMessage, setErrorMessage] = useState('')
 
 	useEffect(() => {
-		const obtenerDatos = async () => {
-			setLoading(true)
-			setError(false)
+		// Primero intentamos obtener datos del almacenamiento local
+		const datosGuardados = obtenerRespuesta()
 
-			try {
-				const response = await api.get('http://192.168.1.78:3000/api/Envioform')
-				const data = response.data
+		if (datosGuardados) {
+			setRespuesta(datosGuardados)
+			setMostrarSpinner(false)
+		} else {
+			// Si no hay datos guardados, intentamos obtenerlos de la API
+			const obtenerDatos = async () => {
+				setMostrarSpinner(true)
+				setError(false)
 
-				// Verificar si los datos están vacíos
-				if (
-					!data ||
-					!data.primerNombre ||
-					!data.primerApellido ||
-					!data.fechaNacimiento ||
-					!data.numeroDocumento
-				) {
+				try {
+					const response = await api.get('http://192.168.1.78:3000/api/Envioform')
+					const data = response.data
+
+					// Verificar si los datos están vacíos
+					if (
+						!data ||
+						!data.primerNombre ||
+						!data.primerApellido ||
+						!data.fechaNacimiento ||
+						!data.numeroDocumento
+					) {
+						setError(true)
+						setErrorMessage('No se encontraron datos para mostrar.')
+						setIsModalOpen(true)
+					} else {
+						// Formatear los datos recibidos al formato esperado por el componente
+						const datosFormateados = {
+							PrimerNombre: data.primerNombre,
+							PrimerApellido: data.primerApellido,
+							Hora: data.hora || new Date().toLocaleTimeString(),
+							Turno: data.turno || data.numeroDocumento,
+						}
+
+						setRespuesta(datosFormateados)
+					}
+				} catch (error) {
+					console.error('Error al obtener los datos del ticket:', error)
 					setError(true)
-					setErrorMessage('No se encontraron datos para mostrar.')
+					setErrorMessage(
+						'Error al conectar con el servidor. Por favor, intente nuevamente.'
+					)
 					setIsModalOpen(true)
-				} else {
-					// Aquí mapea según tu estructura de datos real
-					setDatos({
-						nombre: `${data.primerNombre} ${data.primerApellido}`,
-						fecha: data.fechaNacimiento,
-						numero: data.numeroDocumento,
-					})
+				} finally {
+					setMostrarSpinner(false)
 				}
-			} catch (error) {
-				console.error('Error al obtener los datos del ticket:', error)
-				setError(true)
-				setErrorMessage('Error al conectar con el servidor. Por favor, intente nuevamente.')
-				setIsModalOpen(true)
-			} finally {
-				setLoading(false)
 			}
-		}
 
-		obtenerDatos()
+			obtenerDatos()
+		}
 	}, [])
+
+	// Manejador para cerrar la modal
 	const handleCloseModal = () => {
 		setIsModalOpen(false)
 	}
-	// Función para determinar si debemos mostrar el spinner
-	const mostrarSpinner = loading || (!datos.nombre && !datos.fecha && !datos.numero)
+
+	// Solo calcular nombre si respuesta existe
+	const nombre = respuesta ? respuesta.PrimerNombre + ' ' + respuesta.PrimerApellido : ''
+
 	return (
 		<>
 			{/* Modal de error */}
@@ -66,19 +83,19 @@ const TicketCard = () => {
 			<div>
 				<form
 					className="bg-[#d9d9d9] border-[7px] border-[#3c3c3c] p-[0_15px] max-w-[320px] min-w-[400px] h-[500px] min-h-[200px]
-                sm:bg-[#d9d9d9] sm:border-[10px] sm:border-[#3c3c3c] sm:p-[0_30px] sm:w-[90%] sm:max-w-[500px] sm:min-w-[400px] sm:h-[550px]
-                lg:bg-[#d9d9d9] lg:border-[12px] lg:border-[#3c3c3c] lg:p-[0_40px] lg:w-[90%] lg:max-w-[500px] lg:min-w-[200px] lg:h-[600px]"
+                    sm:bg-[#d9d9d9] sm:border-[10px] sm:border-[#3c3c3c] sm:p-[0_30px] sm:w-[90%] sm:max-w-[500px] sm:min-w-[400px] sm:h-[550px]
+                    lg:bg-[#d9d9d9] lg:border-[12px] lg:border-[#3c3c3c] lg:p-[0_40px] lg:w-[90%] lg:max-w-[500px] lg:min-w-[200px] lg:h-[600px]"
 				>
 					<div
 						className="relative w-[142px] h-[45px] left-[55px] mt-[-20px] bg-[#1E1E1E] rounded-[10px]
-                    sm:relative sm:w-[192px] sm:h-[45px] sm:left-[50px] sm:mt-[-20px]
-                    lg:relative lg:w-[192px] lg:h-[45px] lg:left-[60px] lg:mt-[-10px]"
+                        sm:relative sm:w-[192px] sm:h-[45px] sm:left-[50px] sm:mt-[-20px]
+                        lg:relative lg:w-[192px] lg:h-[45px] lg:left-[60px] lg:mt-[-10px]"
 					></div>
 
 					<h1
 						className="text-center text-[17px] mt-3 mb-5 font-extrabold tracking-[2.53px] leading-5.1
-                    sm:text-[23.1px] sm:mt-[10px] sm:mb-[10px] sm:font-extrabold sm:tracking-[4px] px-[10px] sm:leading-normal
-                    lg:text-[24px] lg:mt-[5px] lg:mb-[10px] lg:ml-1 lg:font-extrabold lg:tracking-widest lg:px-[20px] lg:leading-5.1"
+                        sm:text-[23.1px] sm:mt-[10px] sm:mb-[10px] sm:font-extrabold sm:tracking-[4px] px-[10px] sm:leading-normal
+                        lg:text-[24px] lg:mt-[5px] lg:mb-[10px] lg:ml-1 lg:font-extrabold lg:tracking-widest lg:px-[20px] lg:leading-5.1"
 					>
 						TURNO GENERADO
 					</h1>
@@ -98,7 +115,7 @@ const TicketCard = () => {
 						/>
 
 						{mostrarSpinner ? (
-							// Spinner SVG - solo mostramos el spinner, sin el mensaje de error
+							// Spinner SVG con posición mejorada
 							<g>
 								<circle
 									cx="180"
@@ -132,40 +149,44 @@ const TicketCard = () => {
 						) : (
 							// Contenido normal cuando los datos están disponibles
 							<>
-								<text
-									x="50%"
-									y="38%"
-									textAnchor="middle"
-									fill="black"
-									fontSize="36"
-									fontWeight="bold"
-									dy=".3em"
-								>
-									{datos.nombre}
-								</text>
+								{respuesta && (
+									<>
+										<text
+											x="50%"
+											y="38%"
+											textAnchor="middle"
+											fill="black"
+											fontSize="36"
+											fontWeight="bold"
+											dy=".3em"
+										>
+											{nombre}
+										</text>
 
-								<text
-									x="50%"
-									y="50%"
-									textAnchor="middle"
-									fill="black"
-									fontSize="24"
-									dy=".3em"
-								>
-									{datos.hora}
-								</text>
+										<text
+											x="50%"
+											y="50%"
+											textAnchor="middle"
+											fill="black"
+											fontSize="24"
+											dy=".3em"
+										>
+											{respuesta.Hora}
+										</text>
 
-								<text
-									x="50%"
-									y="74%"
-									textAnchor="middle"
-									fill="black"
-									fontSize="84"
-									fontWeight="bold"
-									dy=".3em"
-								>
-									{datos.turno}
-								</text>
+										<text
+											x="50%"
+											y="74%"
+											textAnchor="middle"
+											fill="black"
+											fontSize="84"
+											fontWeight="bold"
+											dy=".3em"
+										>
+											{respuesta.Turno}
+										</text>
+									</>
+								)}
 							</>
 						)}
 					</svg>
@@ -173,8 +194,8 @@ const TicketCard = () => {
 					<div className="mt-2 text-center">
 						<label
 							className="text-[12.5px] tracking-widest font-bold
-                        sm:text-[16px] sm:tracking-widest
-                        lg:text-[18px] lg:tracking-widest"
+                            sm:text-[16px] sm:tracking-widest
+                            lg:text-[18px] lg:tracking-widest"
 						>
 							ESPERA AL LLAMADO DEL NÚMERO
 						</label>
