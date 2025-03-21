@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
-import { obtenerRespuesta } from '../formCard/ventanaModal/respuestaStorage'
+import { obtenerRespuesta } from '../../services/localStore/respuestaStorage'
 import ErrorModal from '../formCard/ventanaModal/ErrorModal'
 
 const TicketCard = () => {

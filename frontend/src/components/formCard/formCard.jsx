@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import ModalOp from './ventanaModal/modalOP'
 import api from '../../services/api'
 import TicketCard from '../ticketCard/ticketCard'
-import { guardarRespuesta } from './ventanaModal/respuestaStorage'
+import { guardarRespuesta } from '../../services/localStore/respuestaStorage'
 
 
 const FormCard = ({ modo = 'normal' }) => {
