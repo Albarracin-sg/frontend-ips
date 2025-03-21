@@ -102,7 +102,7 @@ const TicketCard = () => {
 
 					<svg
 						width="100%"
-						height="65%"
+						height="70%"
 						viewBox="0 0 359 527"
 						fill="none"
 						xmlns="http://www.w3.org/2000/svg"
@@ -151,39 +151,42 @@ const TicketCard = () => {
 							<>
 								{respuesta && (
 									<>
+
 										<text
 											x="50%"
-											y="38%"
+											y="41%"
+											textAnchor="middle"
+											fill="black"
+											fontSize="40"
+											fontWeight="bold"
+											dy=".3em"
+											textLength="350"
+											lengthAdjust="spacingAndGlyphs"
+										>
+											Sebastian Albarracin
+										</text>
+
+										<text
+											x="50%"
+											y="56%"
 											textAnchor="middle"
 											fill="black"
 											fontSize="36"
-											fontWeight="bold"
 											dy=".3em"
 										>
-											{nombre}
+											12:55:45
 										</text>
 
 										<text
 											x="50%"
-											y="50%"
+											y="78%"
 											textAnchor="middle"
 											fill="black"
-											fontSize="24"
-											dy=".3em"
-										>
-											{respuesta.Hora}
-										</text>
-
-										<text
-											x="50%"
-											y="74%"
-											textAnchor="middle"
-											fill="black"
-											fontSize="84"
+											fontSize="70"
 											fontWeight="bold"
 											dy=".3em"
 										>
-											{respuesta.Turno}
+											C100
 										</text>
 									</>
 								)}
