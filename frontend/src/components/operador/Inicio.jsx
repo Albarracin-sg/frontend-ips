@@ -42,10 +42,8 @@ const InicioOp = () => {
 				[dato.opcionSeleccionada]: dato.datoEnviado,
 			},
 		}
-
+		console.log(datosBusq)
 		try {
-			//muestra la constante con los datos que se van a enviar al back para la consulta
-			console.log(JSON.stringify(datos, null, 2))
 			//la respuesta del back se almacena en una constante llamada response en caso de que se necesite para mostrar datos (se va a hacer)
 			await axios.post('http://localhost:3000/api/datoX', datosBusq)
 		} catch (error) {
@@ -61,8 +59,7 @@ const InicioOp = () => {
 
 	//MOSTRAR DATOS DEL BACK EN LOS INPUTS
 	useEffect(() => {
-		axios
-			.get('http://localhost:3000/api/datoX')
+		axios.get('http://localhost:3000/api/datoX')
 			.then((response) => {
 				setFormData(response.data)
 			})

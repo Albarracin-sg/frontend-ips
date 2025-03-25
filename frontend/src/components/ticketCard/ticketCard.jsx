@@ -19,55 +19,12 @@ const TicketCard = () => {
 			setRespuesta(datosGuardados) //el hook de respuesta almacenara los datos del localStorage
 			setMostrarSpinner(false)
 		} else {
-		//_________________________RARA VEZ SE UTILIZARA_____________________________
-            
-            
-			// Si no hay datos guardados, intentamos obtenerlos de la API
-			const obtenerDatos = async () => {
-				setMostrarSpinner(true)
-				setError(false)
-
-				try {
-					const response = await api.get('/api/Envioform')
-					const data = response.data
-
-					// Verificar si los datos están vacíos
-					if (
-						!data ||
-						!data.primerNombre ||
-						!data.primerApellido ||
-						!data.fechaNacimiento ||
-						!data.numeroDocumento
-					) {
-						setError(true)
-						setErrorMessage('No se encontraron datos para mostrar.')
-						setIsModalOpen(true)
-					} else {
-						// Formatear los datos recibidos al formato esperado por el componente
-						const datosFormateados = {
-							PrimerNombre: data.primerNombre,
-							PrimerApellido: data.primerApellido,
-							Hora: data.hora || new Date().toLocaleTimeString(),
-							Turno: data.turno || data.numeroDocumento,
-						}
-
-						setRespuesta(datosFormateados)
-					}
-				} catch (error) {
-					console.error('Error al obtener los datos del ticket:', error)
-					setError(true)
-					setErrorMessage(
-						'Error al conectar con el servidor. Por favor, intente nuevamente.'
-					)
-					setIsModalOpen(true)
-				} finally {
-					setMostrarSpinner(false)
-				}
-			}
-			obtenerDatos()
-            
-            
-		//___________________________________________________________________________
+			console.error('Error al obtener los datos del ticket:', error)
+			setError(true)
+			setErrorMessage(
+				'Error al conectar con el servidor. Por favor, intente nuevamente.'
+			)
+			setIsModalOpen(true)
 		}
 	}, [])
 
