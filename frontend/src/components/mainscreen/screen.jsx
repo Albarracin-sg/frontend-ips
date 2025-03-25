@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { obtenerRespuesta } from '../formCard/ventanaModal/respuestaStorage'
+import { obtenerRespuesta } from '../../services/localStorage/respuestaStorage'
 import ipsLogo from "../../assets/ipsBlack.png";
 
 const Screen = () => {
