@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-// Revisa si esta ruta es correcta para tu estructura de archivos
+import { obtenerRespuesta } from '../../services/localStorage/respuestaStorage'
 import ipsLogo from "../../assets/ipsBlack.png";
 
 const Screen = () => {
@@ -11,51 +10,22 @@ const Screen = () => {
     turn: "---",
     module: "--"
   });
-  const [error, setError] = useState(null);
-
-  // Efecto para cargar los datos iniciales
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Obtener lista de pacientes en espera
-        const patientsResponse = await axios.get('http://localhost:1337/api/pacientesEspera');
-        
-        // Verifica la estructura de la respuesta y ajusta según sea necesario
-        if (patientsResponse.data && patientsResponse.data.data) {
-          setPatients(patientsResponse.data.data);
-        } else if (Array.isArray(patientsResponse.data)) {
-          setPatients(patientsResponse.data);
-        } else {
-          console.warn("Formato de respuesta de pacientes inesperado:", patientsResponse.data);
-          setPatients([]);
-        }
-
-        // Obtener paciente actual
-        const currentPatientResponse = await axios.get('http://localhost:1337/api/pacientesActual');
-        
-        // Verifica la estructura de la respuesta y ajusta según sea necesario
-        if (currentPatientResponse.data && currentPatientResponse.data.data) {
-          setCurrentPatient(currentPatientResponse.data.data);
-        } else if (typeof currentPatientResponse.data === 'object' && currentPatientResponse.data !== null) {
-          setCurrentPatient(currentPatientResponse.data);
-        } else {
-          console.warn("Formato de respuesta de paciente actual inesperado:", currentPatientResponse.data);
-          // Mantén el estado predeterminado si no hay datos válidos
-        }
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setError("Error al cargar los datos: " + (err.message || err));
-      }
-    };
-
-    fetchData();
-    
-    // Configurar actualización periódica de datos
-    const dataInterval = setInterval(fetchData, 5000); // Actualizar cada 5 segundos
-
-    return () => clearInterval(dataInterval);
-  }, []);
-
+    const datosGuardados = obtenerRespuesta()
+    if (datosGuardados) {
+      // Convertir el objeto a un array con un solo elemento
+      setPatients([datosGuardados]);
+      
+      // Actualizar también el paciente actual
+      setCurrentPatient({
+        name: datosGuardados.PrimerNombre + ' ' + datosGuardados.PrimerApellido,
+        turn: datosGuardados.Turno || "---",
+        module: datosGuardados.module || "--"
+      });
+    }
+  }, [])
+  // Si respuesta NO es null entonces se guardara primer nombre y apellido, si es NULL en 'nombre' se guardara 'no hay datos'
+	const nombre = patients && patients.length > 0 ? patients[0].PrimerNombre + ' ' + patients[0].PrimerApellido : 'No hay datos'
   // Efecto para el reloj
   useEffect(() => {
     const timer = setInterval(() => {
@@ -71,8 +41,6 @@ const Screen = () => {
     return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
   };
 
-  // Si hay error, mostrar mensaje
-  
 
   return (
     // Contenedor principal que ocupa toda la pantalla
@@ -127,16 +95,16 @@ const Screen = () => {
                 </thead>
                 <tbody>
                   {/* Mapeo de la lista de pacientes para mostrarlos en la tabla */}
-                  {patients.length > 0 ? (
+                  {patients && patients.length > 0 ? (
                     patients.map((patient, index) => (
-                      <tr 
-                        key={patient.id || index} 
-                        className={`${index % 2 === 0 ? 'bg-blue-50' : 'bg-white'} border-b border-gray-200`}
-                      >
-                        <td className="py-4 px-6 text-center font-medium text-lg">{patient.module || "--"}</td>
-                        <td className="py-4 px-6 font-medium text-lg">{patient.name || "Sin nombre"}</td>
-                        <td className="py-4 px-6 text-center font-medium text-lg">{patient.turn || "--"}</td>
-                      </tr>
+                        <tr 
+                          key={patient.id || index} 
+                          className={`${index % 2 === 0 ? 'bg-blue-50' : 'bg-white'} border-b border-gray-200`}
+                        >
+                          <td className="py-4 px-6 text-center font-medium text-lg">{patient.module || "--"}</td>
+                          <td className="py-4 px-6 font-medium text-lg">{`${patient.PrimerNombre || ''} ${patient.PrimerApellido || ''}`}</td>
+                          <td className="py-4 px-6 text-center font-medium text-lg">{patient.Turno || "--"}</td>
+                        </tr>
                     ))
                   ) : (
                     <tr>

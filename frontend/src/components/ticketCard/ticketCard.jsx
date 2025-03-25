@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
-import { obtenerRespuesta } from '../formCard/ventanaModal/respuestaStorage'
+import { obtenerRespuesta } from '../../services/localStorage/respuestaStorage'
 import ErrorModal from '../formCard/ventanaModal/ErrorModal'
 
 const TicketCard = () => {
@@ -12,20 +12,23 @@ const TicketCard = () => {
 	const [errorMessage, setErrorMessage] = useState('')
 
 	useEffect(() => {
-		// Primero intentamos obtener datos del almacenamiento local
+		// Obtemenos el almacenamiento dentro del local Storage y lo guardamos en una constante
 		const datosGuardados = obtenerRespuesta()
 
 		if (datosGuardados) {
-			setRespuesta(datosGuardados)
+			setRespuesta(datosGuardados) //el hook de respuesta almacenara los datos del localStorage
 			setMostrarSpinner(false)
 		} else {
+		//_________________________RARA VEZ SE UTILIZARA_____________________________
+            
+            
 			// Si no hay datos guardados, intentamos obtenerlos de la API
 			const obtenerDatos = async () => {
 				setMostrarSpinner(true)
 				setError(false)
 
 				try {
-					const response = await api.get('http://192.168.1.78:3000/api/Envioform')
+					const response = await api.get('/api/Envioform')
 					const data = response.data
 
 					// Verificar si los datos están vacíos
@@ -61,8 +64,10 @@ const TicketCard = () => {
 					setMostrarSpinner(false)
 				}
 			}
-
 			obtenerDatos()
+            
+            
+		//___________________________________________________________________________
 		}
 	}, [])
 
@@ -71,8 +76,8 @@ const TicketCard = () => {
 		setIsModalOpen(false)
 	}
 
-	// Solo calcular nombre si respuesta existe
-	const nombre = respuesta ? respuesta.PrimerNombre + ' ' + respuesta.PrimerApellido : ''
+	// Si respuesta NO es null entonces se guardara primer nombre y apellido, si es NULL en 'nombre' se guardara 'no hay datos'
+	const nombre = respuesta ? respuesta.PrimerNombre + ' ' + respuesta.PrimerApellido : 'No hay datos'
 
 	return (
 		<>
@@ -149,6 +154,7 @@ const TicketCard = () => {
 						) : (
 							// Contenido normal cuando los datos están disponibles
 							<>
+							{/*Se evalua si respueta es verdadero entonces mostrara todo lo siguiente de &&, si es falso no renderiza nada*/}
 								{respuesta && (
 									<>
 										<text
