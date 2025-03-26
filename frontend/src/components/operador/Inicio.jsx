@@ -10,16 +10,16 @@ const InicioOp = () => {
 
 	//informacion de formulario de actualizacion de datos
 	const [formData, setFormData] = useState({
-		primerNombre: '', //es el name del input del formulario
+		primerNombre: '',
 		segundoNombre: '',
 		primerApellido: '',
 		segundoApellido: '',
 		localidad: '',
-		telefono: '',
-		tipoDocumento: '',
-		documento: '',
+		numeroDocumento: '',
 		fechaNacimiento: '',
-		tipoCita: '',
+		tipoDocumento: '',
+		numeroTelefono: '',
+		tipoDeCitas: '',
 	})
 
 	//ALTERACION DE INPUTS
@@ -42,10 +42,9 @@ const InicioOp = () => {
 				[dato.opcionSeleccionada]: dato.datoEnviado,
 			},
 		}
-
+		console.log(datosBusq)
 		try {
 			//muestra la constante con los datos que se van a enviar al back para la consulta
-			console.log(JSON.stringify(datos, null, 2))
 			//la respuesta del back se almacena en una constante llamada response en caso de que se necesite para mostrar datos (se va a hacer)
 			await axios.post('http://localhost:3000/api/datoX', datosBusq)
 		} catch (error) {
@@ -61,8 +60,7 @@ const InicioOp = () => {
 
 	//MOSTRAR DATOS DEL BACK EN LOS INPUTS
 	useEffect(() => {
-		axios
-			.get('http://localhost:3000/api/datoX')
+		axios.get('http://localhost:3000/api/datoX')
 			.then((response) => {
 				setFormData(response.data)
 			})
@@ -74,7 +72,7 @@ const InicioOp = () => {
 	const handleSave = async () => {
 		try {
 			//se ejecuta el endpoint que guardara los datos actualizados y se mandan los nuevos datos
-			const response = await axios.post('http://localhost:3000/api/guardarDatos', formData)
+			await axios.post('http://localhost:3000/api/guardarDatos', formData)
 			alert('Datos guardados correctamente')
 		} catch (error) {
 			console.error('Error al guardar:', error)
@@ -296,41 +294,40 @@ const InicioOp = () => {
 								</label>
 								<input
 									type="tel"
-									id="telefono"
-									name="telefono"
-									value={formData.telefono}
+									id="numeroTelefono"
+									name="numeroTelefono"
+									value={formData.numeroTelefono}
 									onChange={handleInputChange}
 									className="w-full p-2 md:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 								/>
 							</div>
 							<div>
 								<label
-									htmlFor="documento"
+									htmlFor="document"
 									className="block text-xs md:text-sm font-medium text-gray-700 mb-1"
 								>
 									Documento
 								</label>
 								<input
 									type="text"
-									id="documento"
-									name="documento"
-									value={formData.documento}
+									name="numeroDocumento"
+									value={formData.numeroDocumento}
 									onChange={handleInputChange}
 									className="w-full p-2 md:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 								/>
 							</div>
 							<div>
 								<label
-									htmlFor="tipoCita"
+									htmlFor="tipoDeCitas"
 									className="block text-xs md:text-sm font-medium text-gray-700 mb-1"
 								>
 									Tipo de Cita
 								</label>
 
 								<select
-									id="tipoCita"
-									name="tipoCita"
-									value={formData.tipoCita}
+									id="tipoDeCitas"
+									name="tipoDeCitas"
+									value={formData.tipoDeCitas}
 									onChange={handleInputChange}
 									className="w-full p-2 md:p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-sm md:text-base"
 								>

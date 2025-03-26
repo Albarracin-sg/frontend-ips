@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../services/api'
-import { obtenerRespuesta } from '../../services/localStore/respuestaStorage'
+import { obtenerRespuesta } from '../../services/localStorage/respuestaStorage'
 import ErrorModal from '../formCard/ventanaModal/ErrorModal'
 
 const TicketCard = () => {
@@ -12,57 +12,19 @@ const TicketCard = () => {
 	const [errorMessage, setErrorMessage] = useState('')
 
 	useEffect(() => {
-		// Primero intentamos obtener datos del almacenamiento local
+		// Obtemenos el almacenamiento dentro del local Storage y lo guardamos en una constante
 		const datosGuardados = obtenerRespuesta()
 
 		if (datosGuardados) {
-			setRespuesta(datosGuardados)
+			setRespuesta(datosGuardados) //el hook de respuesta almacenara los datos del localStorage
 			setMostrarSpinner(false)
 		} else {
-			// Si no hay datos guardados, intentamos obtenerlos de la API
-			const obtenerDatos = async () => {
-				setMostrarSpinner(true)
-				setError(false)
-
-				try {
-					const response = await api.get('http://192.168.1.78:3000/api/Envioform')
-					const data = response.data
-
-					// Verificar si los datos están vacíos
-					if (
-						!data ||
-						!data.primerNombre ||
-						!data.primerApellido ||
-						!data.fechaNacimiento ||
-						!data.numeroDocumento
-					) {
-						setError(true)
-						setErrorMessage('No se encontraron datos para mostrar.')
-						setIsModalOpen(true)
-					} else {
-						// Formatear los datos recibidos al formato esperado por el componente
-						const datosFormateados = {
-							PrimerNombre: data.primerNombre,
-							PrimerApellido: data.primerApellido,
-							Hora: data.hora || new Date().toLocaleTimeString(),
-							Turno: data.turno || data.numeroDocumento,
-						}
-
-						setRespuesta(datosFormateados)
-					}
-				} catch (error) {
-					console.error('Error al obtener los datos del ticket:', error)
-					setError(true)
-					setErrorMessage(
-						'Error al conectar con el servidor. Por favor, intente nuevamente.'
-					)
-					setIsModalOpen(true)
-				} finally {
-					setMostrarSpinner(false)
-				}
-			}
-
-			obtenerDatos()
+			console.error('Error al obtener los datos del ticket:', error)
+			setError(true)
+			setErrorMessage(
+				'Error al conectar con el servidor. Por favor, intente nuevamente.'
+			)
+			setIsModalOpen(true)
 		}
 	}, [])
 
@@ -71,8 +33,8 @@ const TicketCard = () => {
 		setIsModalOpen(false)
 	}
 
-	// Solo calcular nombre si respuesta existe
-	const nombre = respuesta ? respuesta.PrimerNombre + ' ' + respuesta.PrimerApellido : ''
+	// Si respuesta NO es null entonces se guardara primer nombre y apellido, si es NULL en 'nombre' se guardara 'no hay datos'
+	const nombre = respuesta ? respuesta.PrimerNombre + ' ' + respuesta.PrimerApellido : 'No hay datos'
 
 	return (
 		<>
@@ -149,6 +111,7 @@ const TicketCard = () => {
 						) : (
 							// Contenido normal cuando los datos están disponibles
 							<>
+							{/*Se evalua si respueta es verdadero entonces mostrara todo lo siguiente de &&, si es falso no renderiza nada*/}
 								{respuesta && (
 									<>
 
