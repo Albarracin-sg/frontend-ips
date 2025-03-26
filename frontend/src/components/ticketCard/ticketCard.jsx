@@ -163,7 +163,7 @@ const TicketCard = () => {
 											textLength="350"
 											lengthAdjust="spacingAndGlyphs"
 										>
-											Sebastian Albarracin
+											{nombre}
 										</text>
 
 										<text
@@ -174,7 +174,7 @@ const TicketCard = () => {
 											fontSize="36"
 											dy=".3em"
 										>
-											12:55:45
+											{respuesta.Hora}
 										</text>
 
 										<text
@@ -186,7 +186,7 @@ const TicketCard = () => {
 											fontWeight="bold"
 											dy=".3em"
 										>
-											C100
+											{respuesta.Turno}
 										</text>
 									</>
 								)}
@@ -196,9 +196,9 @@ const TicketCard = () => {
 
 					<div className="mt-2 text-center">
 						<label
-							className="text-[12.5px] tracking-widest font-bold
-                            sm:text-[16px] sm:tracking-widest
-                            lg:text-[18px] lg:tracking-widest"
+							className="text-[12px] tracking-widest font-bold
+                            sm:text-[14px] sm:tracking-widest
+                            lg:text-[16px] lg:tracking-widest"
 						>
 							ESPERA AL LLAMADO DEL NÚMERO
 						</label>
