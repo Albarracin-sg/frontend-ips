@@ -16,8 +16,8 @@ const Screen = () => {
 
     if (datosGuardados && Array.isArray(datosGuardados) && datosGuardados.length > 0) {
       setPatients(datosGuardados);
-
-      // Tomar el primer paciente como el actual
+      
+      // Tomar el prImer paciente como el actual
       const pacienteActual = datosGuardados[0];
       setCurrentPatient({
         name: `${pacienteActual.PrimerNombre || ''} ${pacienteActual.PrimerApellido || ''}`.trim() || "Sin paciente",

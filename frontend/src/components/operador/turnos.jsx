@@ -1,26 +1,24 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import NewTurn from './newForm'
-import axios from 'axios'
+import { obtenerRespuesta } from '../../services/localStorage/respuestaStorage'
 
 const TurnoOp = ({ setComponenteActual }) => {
 	//declaracion de los turnos de los pacientes con un array vacio
-	const [turnos, setTurnos] = useState([])
+	const [patients,setPatients] = useState([])
 
 	useEffect(() => {
-		//Funcion asincrona que hace la peticion de los turnos
-		const obtenerTurnos = async () => {
-			try {
-				const response = await axios.get('http://localhost:3000/api/turnos')
-				//La respuesta del back lo implementa en turnos mediante setTurnos por lo que turnos quedaria con todo el array de objetos que tenga el back
-				setTurnos(response.data)
-			} catch (error) {
-				console.error('Error al obtener los turnos:', error)
+			const datosGuardados = obtenerRespuesta();
+
+			if (datosGuardados && Array.isArray(datosGuardados) && datosGuardados.length > 0) {
+				setPatients(datosGuardados);
+				
+				
+			
+			} else {
+				setPatients([]);
 			}
-		}
-		//se llama la funcion
-		obtenerTurnos()
-	}, [])
+		}, []);
 
 	return (
 		//contenedor de fondo - made full size with responsive padding
@@ -73,14 +71,13 @@ const TurnoOp = ({ setComponenteActual }) => {
 							</thead>
 							<tbody>
 								{/* Creación de array de objetos que representará la lista de turnos en cola */}
-								{turnos.map((paciente, index) => (
+								{patients.map((patient, index) => (
 									<tr
-										key={paciente.id}
+										key={patient.id}
 										className={`
-                      border-b border-gray-100 hover:bg-blue-50 transition-colors
-                      ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-                      ${index === 0 ? 'bg-blue-100 hover:bg-blue-100' : ''}
-                    `}
+										border-b border-gray-100 hover:bg-blue-50 transition-colors
+										${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+										${index === 0 ? 'bg-blue-100 hover:bg-blue-100' : ''}`}
 									>
 										{/* COLUMNA PARA EL ID - responsive padding */}
 										<th
@@ -88,19 +85,19 @@ const TurnoOp = ({ setComponenteActual }) => {
 											className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 font-medium whitespace-nowrap"
 										>
 											<span className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full">
-												{paciente.id}
+												ACA VA ID
 											</span>
 										</th>
 
 										{/* COLUMNA PARA EL NOMRBE - responsive padding */}
 										<td className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 font-medium truncate max-w-[140px] sm:max-w-[200px] md:max-w-none">
-											{paciente.nombre}
+										{`${patient.PrimerNombre || ''} ${patient.PrimerApellido || ''}`.trim()}
 										</td>
 
 										{/* COLUMNA PARA EL TURNO - responsive padding and sizing */}
 										<td className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4">
-											<span className="inline-flex items-center rounded-full bg-sky-100 px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-xs font-medium text-sky-800">
-												{paciente.turno}
+											<span className={`inline-flex items-center rounded-full bg-blue-100 px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-xs font-medium text-blue-800`}> 
+												{patient.Turno || "--"}
 											</span>
 										</td>
 
@@ -108,16 +105,16 @@ const TurnoOp = ({ setComponenteActual }) => {
 										<td className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4">
 											<span
 												className={`inline-flex items-center rounded-md px-1.5 sm:px-2 py-0.5 sm:py-1 text-xs font-medium
-                        ${
-							paciente.modulo === 'No Prioritario'
-								? 'bg-blue-100 text-blue-800'
-								: paciente.modulo === 'Prioritario'
-								? 'bg-red-100 text-red-800'
-								: ''
-						}
-                      `}
-											>
-												{paciente.modulo}
+												${
+													patient.modulo === 'No Prioritario'
+														? 'bg-blue-100 text-blue-800'
+														: patient.modulo === 'Prioritario'
+														? 'bg-red-100 text-red-800'
+														: ''
+												}
+											`}
+												>
+												{patient.module || "--"}
 											</span>
 										</td>
 									</tr>
@@ -129,7 +126,7 @@ const TurnoOp = ({ setComponenteActual }) => {
 					{/* Responsive footer */}
 					<footer className="p-3 sm:p-4 md:p-5 bg-gray-50 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-3">
 						<div className="text-xs sm:text-sm text-gray-500 w-full sm:w-auto text-center sm:text-left">
-							Mostrando {turnos.length} de {turnos.length} turnos
+							Mostrando {patients.length} de {patients.length} turnos
 						</div>
 						<button
 							onClick={() => setComponenteActual(<NewTurn />)}
