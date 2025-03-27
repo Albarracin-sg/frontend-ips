@@ -63,19 +63,16 @@ const FormCard = ({ modo = 'normal' }) => {
 	const handleConfirm = async(e)=>{
 		// Objeto con los datos formateados para enviar a la API
 		const datos = {
-			
-				PrimerNombre: form.primerNombre,
-				SegundoNombre: form.segundoNombre,
-				PrimerApellido: form.primerApellido,
-				SegundoApellido: form.segundoApellido,
-				Localidad: form.localidad,
-				NumeroDocumento: form.numeroDocumento,
-				FechaNacimiento: form.fechaNacimiento,
-				TipoDeDocumento_ID: form.tipoDocumento,
-				NumeroTelefono: form.numeroTelefono,
-				TipoDeCitas_ID: form.tipoDeCitas,	
-			
-	
+			PrimerNombre: form.primerNombre,
+			SegundoNombre: form.segundoNombre,
+			PrimerApellido: form.primerApellido,
+			SegundoApellido: form.segundoApellido,
+			Localidad: form.localidad,
+			NumeroDocumento: form.numeroDocumento,
+			FechaNacimiento: form.fechaNacimiento,
+			TipoDeDocumento_ID: form.tipoDocumento,
+			NumeroTelefono: form.numeroTelefono,
+			TipoDeCitas_ID: form.tipoDeCitas,		
 		}
 		try {
 			console.log('Enviando datos:', JSON.stringify(datos, null, 2))

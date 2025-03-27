@@ -4,13 +4,16 @@ export const guardarRespuesta = (nuevaRespuesta) => {
         // Obtener respuestas previas o inicializar como array vacío
         let respuestas = JSON.parse(localStorage.getItem('respuestaAPI')) || [];
 
+        // Verificar que respuestas sea un array (por si hay datos corruptos)
+        if (!Array.isArray(respuestas)) {
+            respuestas = [];
+        }
+
         // Agregar nueva respuesta al inicio
         respuestas.unshift(nuevaRespuesta);
 
-        // Limitar a 10 elementos
-        if (respuestas.length > 10) {
-            respuestas.pop(); // Elimina el más antiguo
-        }
+        // Limitar a máximo 10 elementos
+        respuestas = respuestas.slice(0, 30); // Esto garantiza que solo haya 10
 
         // Guardar nuevamente en localStorage
         localStorage.setItem('respuestaAPI', JSON.stringify(respuestas));
@@ -24,7 +27,10 @@ export const guardarRespuesta = (nuevaRespuesta) => {
 // Función para obtener las respuestas desde localStorage
 export const obtenerRespuesta = () => {
     try {
-        return JSON.parse(localStorage.getItem('respuestaAPI')) || [];
+        let respuestas = JSON.parse(localStorage.getItem('respuestaAPI')) || [];
+
+        // Verificar que respuestas sea un array (por si hay datos corruptos)
+        return Array.isArray(respuestas) ? respuestas : [];
     } catch (error) {
         console.error('Error al obtener de localStorage:', error);
         return [];
