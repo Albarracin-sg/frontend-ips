@@ -1,14 +1,43 @@
 import React, { useState, useEffect } from "react";
 import NewTurn from "./newForm";
-import { obtenerRespuesta } from "../../services/localStorage/respuestaStorage";
+import {
+  obtenerRespuesta,
+  guardarRespuesta,
+} from "../../services/localStorage/respuestaStorage";
 
 const TurnoOp = ({ setComponenteActual }) => {
-  // State for patients and pagination
+  // State for patients, pagination and screen size
   const [patients, setPatients] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const patientsPerPage = 10;
+  const [patientsPerPage, setPatientsPerPage] = useState(5);
 
-  // Load patients from local storage
+  // Effect to handle screen resize
+  useEffect(() => {
+    const handleResize = () => {
+      const { innerHeight } = window;
+      // Adjust patients per page based on screen height
+      if (innerHeight <= 622) {
+        setPatientsPerPage(5);
+      } else if (innerHeight <= 768) {
+        setPatientsPerPage(7);
+      } else if (innerHeight <= 900) {
+        setPatientsPerPage(8);
+      } else {
+        setPatientsPerPage(10);
+      }
+    };
+
+    // Initial setup
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Effect to load patients
   useEffect(() => {
     const datosGuardados = obtenerRespuesta();
 
@@ -41,6 +70,23 @@ const TurnoOp = ({ setComponenteActual }) => {
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // Función para manejar el siguiente turno
+  const handleSiguienteTurno = () => {
+    if (patients.length > 0) {
+      const siguientePaciente = patients[0];
+      const updatedPatients = patients.slice(1);
+
+      // Actualizar el turno actual en localStorage
+      localStorage.setItem("currentTurn", JSON.stringify(siguientePaciente));
+
+      setPatients(updatedPatients);
+      guardarRespuesta(updatedPatients);
+
+      // Disparar evento para actualizar otras pantallas
+      window.dispatchEvent(new Event("storage"));
     }
   };
 
@@ -197,12 +243,29 @@ const TurnoOp = ({ setComponenteActual }) => {
                 Siguiente
               </button>
             </div>
-            <button
-              onClick={() => setComponenteActual(<NewTurn />)}
-              className="flex items-center justify-center cursor-pointer gap-2 py-2 sm:py-2.5 px-3 sm:px-4 rounded bg-blue-500 hover:bg-blue-700 text-white transition-colors font-medium shadow-sm w-full sm:w-auto"
-            >
-              Nuevo Turno
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleSiguienteTurno}
+                disabled={patients.length === 0}
+                className={`
+                  flex items-center justify-center cursor-pointer gap-2 py-2 sm:py-2.5 px-3 sm:px-4 
+                  rounded transition-colors font-medium shadow-sm w-full sm:w-auto
+                  ${
+                    patients.length === 0
+                      ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                      : "bg-green-500 hover:bg-green-700 text-white"
+                  }
+                `}
+              >
+                Siguiente Turno
+              </button>
+              <button
+                onClick={() => setComponenteActual(<NewTurn />)}
+                className="flex items-center justify-center cursor-pointer gap-2 py-2 sm:py-2.5 px-3 sm:px-4 rounded bg-blue-500 hover:bg-blue-700 text-white transition-colors font-medium shadow-sm w-full sm:w-auto"
+              >
+                Nuevo Turno
+              </button>
+            </div>
           </footer>
         </div>
       </div>
