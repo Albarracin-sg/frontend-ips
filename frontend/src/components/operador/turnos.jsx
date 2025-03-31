@@ -83,7 +83,9 @@ const TurnoOp = ({ setComponenteActual }) => {
       localStorage.setItem("currentTurn", JSON.stringify(siguientePaciente));
 
       setPatients(updatedPatients);
-      guardarRespuesta(updatedPatients);
+      
+      // Guardar directamente la lista actualizada, no como parte de un historial
+      localStorage.setItem('respuestaAPI', JSON.stringify(updatedPatients));
 
       // Disparar evento para actualizar otras pantallas
       window.dispatchEvent(new Event("storage"));
@@ -91,7 +93,7 @@ const TurnoOp = ({ setComponenteActual }) => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col bg-[#c3d9fa] p-2 sm:p-4 md:p-6">
+    <div className="w-full min-h-screen flex flex-col bg-[#c3d9fa] p-2 sm:p-4 md:p-6">  
       <div className="flex-1 flex items-center justify-center">
         <div className="w-full max-w-6xl bg-white rounded-lg shadow-lg overflow-hidden">
           <header className="p-3 sm:p-4 md:p-5 bg-blue-500 text-white">
