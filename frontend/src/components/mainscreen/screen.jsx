@@ -12,15 +12,16 @@ const Screen = () => {
     module: "--"
   });
   const cargarTurnoActual = () => {
-  const turnoGuardado = localStorage.getItem("currentTurn");
-  if (turnoGuardado) {
-    const paciente = JSON.parse(turnoGuardado);
-    setCurrentPatient({
-      name: `${paciente.PrimerNombre || ""} ${paciente.PrimerApellido || ""}`.trim() || "Sin paciente",
-      turn: paciente.Turno || "---",
-      module: paciente.module || paciente.modulo || "--"
-    });
-  }
+    let turnoGuardado = localStorage.getItem("currentTurn");
+    if (turnoGuardado) {
+      const paciente = JSON.parse(turnoGuardado);
+      
+      setCurrentPatient({
+        name: `${paciente.PrimerNombre || ""} ${paciente.PrimerApellido || ""}`.trim() || "Sin paciente",
+        turn: paciente.Turno || "---",
+        module: paciente.module || paciente.modulo || "--"
+      });
+    }
   };
 
   useEffect(() => {
@@ -42,8 +43,10 @@ const Screen = () => {
   useEffect(() => {
     // Cargar los pacientes atendidos
     const loadAttendedPatients = () => {
-      const attendedList = JSON.parse(localStorage.getItem("pacientesAtendidos") || "[]");
+      let attendedList = JSON.parse(localStorage.getItem("pacientesAtendidos") || "[]");
+      attendedList = attendedList.slice(0,6); // Limitar a 8 pacientes atendidos
       setPatientsAttended(attendedList);
+
     };
     
     loadAttendedPatients();

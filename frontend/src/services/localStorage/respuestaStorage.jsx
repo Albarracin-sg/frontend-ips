@@ -13,7 +13,7 @@ export const guardarRespuesta = (nuevaRespuesta) => {
         respuestas.unshift(nuevaRespuesta);
 
         // Limitar a máximo 10 elementos
-        respuestas = respuestas.slice(0, 30); // Esto garantiza que solo haya 10
+        respuestas = respuestas.slice(0, 30); // Esto garantiza que solo haya 30
 
         // Guardar nuevamente en localStorage
         localStorage.setItem('respuestaAPI', JSON.stringify(respuestas));
