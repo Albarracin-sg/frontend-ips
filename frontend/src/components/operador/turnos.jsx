@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NewTurn from "./newForm";
+import api from "../../services/api";
+
 import {
   obtenerRespuesta,
   guardarRespuesta,
@@ -71,14 +73,16 @@ const TurnoOp = ({ setComponenteActual }) => {
   useEffect(() => {
     loadTurnos();
   }, []);
+    // Invertir la lista para mostrar los más recientes primero
+    const reversedPatients = [...patients].reverse();
 
-  // Calculate pagination
-  const indexOfLastPatient = currentPage * patientsPerPage;
-  const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
-  const currentPatients = patients.slice(
+    // Calculate pagination con la lista invertida
+    const indexOfLastPatient = currentPage * patientsPerPage;
+    const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
+    const currentPatients = reversedPatients.slice(
     indexOfFirstPatient,
     indexOfLastPatient
-  );
+    );
 
   // Pagination handlers
   const nextPage = () => {
@@ -94,20 +98,33 @@ const TurnoOp = ({ setComponenteActual }) => {
   };
 
   // Función para manejar el siguiente turno
-  const handleSiguienteTurno = () => {
+  const handleSiguienteTurno = async (e) => {
     if (patients.length > 0) {
-      const siguientePaciente = patients[0];
-      const updatedPatients = patients.slice(1);
-  
+      const siguientePaciente = patients[patients.length - 1];
+      const updatedPatients = patients.slice(0,-1);
+      
       // Actualizar el turno actual en localStorage
       localStorage.setItem("currentTurn", JSON.stringify(siguientePaciente));
-  
+      
       // Guardar el paciente en la lista de pacientes atendidos
       const pacientesAtendidos = JSON.parse(localStorage.getItem("pacientesAtendidos") || "[]");
       pacientesAtendidos.unshift(siguientePaciente); // Agregar al inicio de la lista
       localStorage.setItem("pacientesAtendidos", JSON.stringify(pacientesAtendidos));
       console.log(pacientesAtendidos[0])
-      console.log(pacientesAtendidos[0].Hora)
+      const documento = pacientesAtendidos[0].NumeroDocumento
+      const datosEnviados ={
+        NumeroDocumento: documento,
+      }
+      console.log("Datos enviados:", datosEnviados);
+      try {
+        await api.post("/api/ActualizacionAtencion", datosEnviados);        
+      } catch (error) {
+        console.error("Maldito Error al enviar debido a:", {
+          message: error.message,
+          status: error.response?.status,
+          data: error.response?.data,
+        });
+      }
       setPatients(updatedPatients);
       
       // Guardar directamente la lista actualizada de pacientes en espera
