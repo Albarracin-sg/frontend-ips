@@ -2,37 +2,18 @@ import { useState, useEffect } from "react";
 import { obtenerRespuesta } from '../../services/localStorage/respuestaStorage'
 import ipsLogo from "../../assets/ipsBlack.png";
 
-const Screen = () => {
+const Screen = ({ initialPatient, remainingPatients, onReturn, onNuevoTurno }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [patients, setPatients] = useState([]);
   const [currentPatient, setCurrentPatient] = useState({
-    name: "Sin paciente",
-    turn: "---",
-    module: "--"
+    name: initialPatient ? 
+      [initialPatient.PrimerNombre, initialPatient.PrimerApellido]
+        .filter(Boolean)
+        .join(' ') : 
+      "Sin paciente",
+    turn: initialPatient?.Turno || "---",
+    module: initialPatient?.module || "--"
   });
-
-  useEffect(() => {
-    const datosGuardados = obtenerRespuesta();
-
-    if (datosGuardados && Array.isArray(datosGuardados) && datosGuardados.length > 0) {
-      setPatients(datosGuardados);
-      
-      // Tomar el prImer paciente como el actual
-      const pacienteActual = datosGuardados[0];
-      setCurrentPatient({
-        name: `${pacienteActual.PrimerNombre || ''} ${pacienteActual.PrimerApellido || ''}`.trim() || "Sin paciente",
-        turn: pacienteActual.Turno || "---",
-        module: pacienteActual.module || "--"
-      });
-    } else {
-      setPatients([]);
-      setCurrentPatient({
-        name: "Sin paciente",
-        turn: "---",
-        module: "--"
-      });
-    }
-  }, []);
+  const [patients, setPatients] = useState(remainingPatients || []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -40,6 +21,33 @@ const Screen = () => {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+        // Obtener el turno actual
+        const currentTurnData = JSON.parse(localStorage.getItem('currentTurn') || 'null');
+        if (currentTurnData) {
+            setCurrentPatient({
+                name: [currentTurnData.PrimerNombre, currentTurnData.PrimerApellido]
+                    .filter(Boolean)
+                    .join(' ') || "Sin paciente",
+                turn: currentTurnData.Turno || "---",
+                module: currentTurnData.module || "--"
+            });
+        }
+
+        // Obtener la lista de espera
+        const waitingList = obtenerRespuesta() || [];
+        setPatients(waitingList.slice(1, 6)); // Mostrar solo los siguientes 5 turnos
+    };
+
+    // Cargar datos iniciales
+    handleStorageChange();
+
+    // Escuchar cambios
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+}, []);
 
   const formatDate = (date) => {
     const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
