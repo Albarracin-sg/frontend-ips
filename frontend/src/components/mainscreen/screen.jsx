@@ -4,16 +4,57 @@ import ipsLogo from "../../assets/ipsBlack.png";
 
 const Screen = ({ initialPatient, remainingPatients, onReturn, onNuevoTurno }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [patients, setPatients] = useState([]);
+  const [patientsAttended, setPatientsAttended] = useState([]);
   const [currentPatient, setCurrentPatient] = useState({
-    name: initialPatient ? 
-      [initialPatient.PrimerNombre, initialPatient.PrimerApellido]
-        .filter(Boolean)
-        .join(' ') : 
-      "Sin paciente",
-    turn: initialPatient?.Turno || "---",
-    module: initialPatient?.module || "--"
+    name: "Sin paciente",
+    turn: "---",
+    module: "--"
   });
-  const [patients, setPatients] = useState(remainingPatients || []);
+  const cargarTurnoActual = () => {
+  const turnoGuardado = localStorage.getItem("currentTurn");
+  if (turnoGuardado) {
+    const paciente = JSON.parse(turnoGuardado);
+    setCurrentPatient({
+      name: `${paciente.PrimerNombre || ""} ${paciente.PrimerApellido || ""}`.trim() || "Sin paciente",
+      turn: paciente.Turno || "---",
+      module: paciente.module || paciente.modulo || "--"
+    });
+  }
+  };
+
+  useEffect(() => {
+    // Cargar el turno actual cuando el componente se monta
+    cargarTurnoActual();
+
+    // Escuchar cambios en el localStorage cuando se actualiza el turno
+    const actualizarTurno = () => {
+      cargarTurnoActual();
+    };
+
+    window.addEventListener("storage", actualizarTurno);
+
+    return () => {
+      window.removeEventListener("storage", actualizarTurno);
+    };
+  }, []);
+  //  PACIENTES ATENDIDOS
+  useEffect(() => {
+    // Cargar los pacientes atendidos
+    const loadAttendedPatients = () => {
+      const attendedList = JSON.parse(localStorage.getItem("pacientesAtendidos") || "[]");
+      setPatientsAttended(attendedList);
+    };
+    
+    loadAttendedPatients();
+    
+    // Actualizar cuando cambie el localStorage
+    window.addEventListener("storage", loadAttendedPatients);
+    
+    return () => {
+      window.removeEventListener("storage", loadAttendedPatients);
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -100,8 +141,8 @@ const Screen = ({ initialPatient, remainingPatients, onReturn, onNuevoTurno }) =
                   </tr>
                 </thead>
                 <tbody>
-                  {patients.length > 0 ? (
-                    patients.map((patient, index) => (
+                  {patientsAttended.length > 0 ? (
+                    patientsAttended.map((patient, index) => (
                       <tr key={index} className={`${index % 2 === 0 ? 'bg-blue-50' : 'bg-white'} border-b border-gray-200`}>
                         <td className="py-4 px-6 text-center font-medium text-lg">{patient.module || "--"}</td>
                         <td className="py-4 px-6 font-medium text-lg">{`${patient.PrimerNombre || ''} ${patient.PrimerApellido || ''}`.trim()}</td>

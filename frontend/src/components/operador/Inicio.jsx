@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import api from '../../services/api'
 
 const InicioOp = () => {
 	//datos de busqueda
@@ -37,17 +38,18 @@ const InicioOp = () => {
 
 		//seccion de busqueda
 		const datosBusq = {
-			data: {
 				//el back recibira el valor de 'busqueda' con la opcion seleccionada y el dato a enviar [cedula:"12345"]
-				[dato.opcionSeleccionada]: dato.datoEnviado,
-			},
+				NumeroDocumento_FK: dato.datoEnviado,
+
 		}
+		console.log('Enviando datos:', JSON.stringify(datosBusq, null, 2))
 
 		try {
 			//muestra la constante con los datos que se van a enviar al back para la consulta
-			console.log(JSON.stringify(datos, null, 2))
 			//la respuesta del back se almacena en una constante llamada response en caso de que se necesite para mostrar datos (se va a hacer)
-			await axios.post('http://localhost:3000/api/datoX', datosBusq)
+			const response = await api.post('/api/getActualizacion', datosBusq)
+			const respuesta = response.data
+			console.log('Respuesta:', respuesta)
 		} catch (error) {
 			console.error('ERROR', error)
 		}
@@ -73,7 +75,7 @@ const InicioOp = () => {
 	const handleSave = async () => {
 		try {
 			//se ejecuta el endpoint que guardara los datos actualizados y se mandan los nuevos datos
-			const response = await axios.post('http://localhost:3000/api/guardarDatos', formData)
+			await axios.post('http://localhost:3000/api/guardarDatos', formData)
 			alert('Datos guardados correctamente')
 		} catch (error) {
 			console.error('Error al guardar:', error)
@@ -103,7 +105,7 @@ const InicioOp = () => {
 								}
 							>
 								<option value="">Opción a Buscar</option>
-								<option value="cedula">Cédula</option>
+								<option value="Cedula">Cédula</option>
 							</select>
 						</div>
 						<div className="flex-1">
