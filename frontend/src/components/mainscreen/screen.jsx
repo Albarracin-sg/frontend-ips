@@ -5,21 +5,22 @@ import ipsLogo from "../../assets/ipsBlack.png";
 const Screen = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [patients, setPatients] = useState([]);
+  const [patientsAttended, setPatientsAttended] = useState([]);
   const [currentPatient, setCurrentPatient] = useState({
     name: "Sin paciente",
     turn: "---",
     module: "--"
   });
   const cargarTurnoActual = () => {
-    const turnoGuardado = localStorage.getItem("currentTurn");
-    if (turnoGuardado) {
-      const paciente = JSON.parse(turnoGuardado);
-      setCurrentPatient({
-        name: `${paciente.PrimerNombre || ""} ${paciente.PrimerApellido || ""}`.trim() || "Sin paciente",
-        turn: paciente.Turno || "---",
-        module: paciente.module || paciente.modulo || "--"
-      });
-    }
+  const turnoGuardado = localStorage.getItem("currentTurn");
+  if (turnoGuardado) {
+    const paciente = JSON.parse(turnoGuardado);
+    setCurrentPatient({
+      name: `${paciente.PrimerNombre || ""} ${paciente.PrimerApellido || ""}`.trim() || "Sin paciente",
+      turn: paciente.Turno || "---",
+      module: paciente.module || paciente.modulo || "--"
+    });
+  }
   };
 
   useEffect(() => {
@@ -35,6 +36,23 @@ const Screen = () => {
 
     return () => {
       window.removeEventListener("storage", actualizarTurno);
+    };
+  }, []);
+  //  PACIENTES ATENDIDOS
+  useEffect(() => {
+    // Cargar los pacientes atendidos
+    const loadAttendedPatients = () => {
+      const attendedList = JSON.parse(localStorage.getItem("pacientesAtendidos") || "[]");
+      setPatientsAttended(attendedList);
+    };
+    
+    loadAttendedPatients();
+    
+    // Actualizar cuando cambie el localStorage
+    window.addEventListener("storage", loadAttendedPatients);
+    
+    return () => {
+      window.removeEventListener("storage", loadAttendedPatients);
     };
   }, []);
 
@@ -96,8 +114,8 @@ const Screen = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {patients.length > 0 ? (
-                    patients.map((patient, index) => (
+                  {patientsAttended.length > 0 ? (
+                    patientsAttended.map((patient, index) => (
                       <tr key={index} className={`${index % 2 === 0 ? 'bg-blue-50' : 'bg-white'} border-b border-gray-200`}>
                         <td className="py-4 px-6 text-center font-medium text-lg">{patient.module || "--"}</td>
                         <td className="py-4 px-6 font-medium text-lg">{`${patient.PrimerNombre || ''} ${patient.PrimerApellido || ''}`.trim()}</td>
