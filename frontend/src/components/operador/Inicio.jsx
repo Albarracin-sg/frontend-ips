@@ -38,9 +38,8 @@ const InicioOp = () => {
 
 		//seccion de busqueda
 		const datosBusq = {
-				//el back recibira el valor de 'busqueda' con la opcion seleccionada y el dato a enviar [cedula:"12345"]
-				NumeroDocumento_FK: dato.datoEnviado,
-
+			//el back recibira el valor de 'busqueda' con la opcion seleccionada y el dato a enviar [cedula:"12345"]
+			NumeroDocumento_FK: dato.datoEnviado,
 		}
 		console.log('Enviando datos:', JSON.stringify(datosBusq, null, 2))
 
@@ -50,8 +49,29 @@ const InicioOp = () => {
 			const response = await api.post('/api/getActualizacion', datosBusq)
 			const respuesta = response.data
 			console.log('Respuesta:', respuesta)
+			
+			// Actualizar el formulario con los datos recibidos, mapeando correctamente los nombres de campos
+			if (respuesta && Object.keys(respuesta).length > 0) {
+				// Mapear los campos del backend a los nombres de los campos en el frontend
+				setFormData({
+					primerNombre: respuesta.PrimerNombre || '',
+					segundoNombre: respuesta.SegundoNombre || '',
+					primerApellido: respuesta.PrimerApellido || '',
+					segundoApellido: respuesta.SegundoApellido || '',
+					localidad: respuesta.Localidad || '',
+					numeroDocumento: respuesta.NumeroDocumento || '',
+					// Formatear la fecha para input type="date"
+					fechaNacimiento: respuesta.FechaNacimiento ? respuesta.FechaNacimiento.split('T')[0] : '',
+					tipoDocumento: respuesta.TipoDeDocumento_ID || '',
+					numeroTelefono: respuesta.NumeroTelefono || '',
+					tipoDeCitas: respuesta.TipoDeCitas || '',
+				})
+			} else {
+				alert('No se encontraron datos para este documento')
+			}
 		} catch (error) {
 			console.error('ERROR', error)
+			alert('Error al buscar los datos del paciente')
 		}
 
 		//formatea los campos a la hora de enviar
@@ -61,21 +81,25 @@ const InicioOp = () => {
 		})
 	}
 
-	//MOSTRAR DATOS DEL BACK EN LOS INPUTS
-	useEffect(() => {
-		axios.get('http://localhost:3000/api/datoX')
-			.then((response) => {
-				setFormData(response.data)
-			})
-			.catch((error) => {
-				console.error('Error al mostrar los datos del Paciente ', error)
-			})
-	}, [])
 	//Funcion que guarda los datos actualizados y los manda nuevamente al back
 	const handleSave = async () => {
 		try {
+			// Convertir formData a formato esperado por el backend
+			const dataToSend = {
+				PrimerNombre: formData.primerNombre,
+				SegundoNombre: formData.segundoNombre,
+				PrimerApellido: formData.primerApellido,
+				SegundoApellido: formData.segundoApellido,
+				Localidad: formData.localidad,
+				NumeroDocumento: formData.numeroDocumento,
+				FechaNacimiento: formData.fechaNacimiento,
+				TipoDeDocumento_ID: formData.tipoDocumento,
+				NumeroTelefono: formData.numeroTelefono,
+				TipoDeCitas: formData.tipoDeCitas
+			}
+			
 			//se ejecuta el endpoint que guardara los datos actualizados y se mandan los nuevos datos
-			await axios.post('http://localhost:3000/api/guardarDatos', formData)
+			await axios.post('http://localhost:3000/api/guardarDatos', dataToSend)
 			alert('Datos guardados correctamente')
 		} catch (error) {
 			console.error('Error al guardar:', error)

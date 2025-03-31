@@ -117,7 +117,7 @@ const TurnoOp = ({ setComponenteActual }) => {
       }
       console.log("Datos enviados:", datosEnviados);
       try {
-        await api.post("/api/ActualizacionAtencion", datosEnviados);        
+        await api.patch("/api/ActualizacionAtencion", datosEnviados);        
       } catch (error) {
         console.error("Maldito Error al enviar debido a:", {
           message: error.message,
