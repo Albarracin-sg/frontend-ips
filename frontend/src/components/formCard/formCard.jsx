@@ -105,7 +105,6 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
     <>
       <form
         className="bg-[#d9d9d9] border-[7px] border-[#3c3c3c] p-[0_15px] max-w-[320px] min-w-[350px] mx-auto
-                sm:bg-[#d9d9d9] sm:border-[10px] sm:border-[#3c3c3c] sm:p-[0_30px] sm:w-[90%]  sm:min-w-[400px] sm:max-w-[500px]
                 lg:bg-[#d9d9d9] lg:border-[12px] lg:border-[#3c3c3c] lg:p-[0_30px] lg:w-[90%] lg:min-w-[400px] lg:max-w-[400px]
                 2xl:bg-[#d9d9d9] 2xl:border-[10px] 2xl:border-[#3c3c3c] 2xl:p-[0_30px] 2xl:w-[90%] 2xl:min-w-[400px] 2xl:max-w-[500px]"
         onSubmit={handleSubmit}
@@ -113,7 +112,6 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
         {/* Contenedor adicional para el formulario (rectángulo negro) */}
         <div
           className="relative w-[142px] h-[45px] left-[85px] mt-[-20px] bg-[#1E1E1E] rounded-[10px]
-                sm:relative sm:w-[192px] sm:h-[45px] sm:left-[110px] sm:mt-[-20px]
                 lg:relative lg:w-[180px] lg:h-[40px] lg:left-[70px] lg:mt-[-15px]
                 2xl:relative 2xl:w-[192px] 2xl:h-[45px] 2xl:left-[110px] 2xl:mt-[-20px]"
         ></div>
@@ -121,7 +119,6 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
         {/* Título del formulario */}
         <h1
           className="text-center text-[17px] mt-[323] mb-[5px] font-extrabold tracking-[2.53px] leading-5.1
-                sm:text-[23.1px] sm:mt-[10px] sm:mb-[10px] sm:font-extrabold sm:tracking-[4px] px-[10px] sm:leading-normal
                 lg:text-[23px] lg:mt-[5px] lg:mb-[8px] lg:font-extrabold lg:tracking-[2px] lg:px-[20px] lg:leading-6
                 2xl:text-[23.1px] 2xl:mt-[10px] 2xl:mb-[10px] 2xl:font-extrabold 2xl:tracking-[4px] 2xl:px-[10px] 2xl:leading-normal"
         >
@@ -133,14 +130,12 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
           <div className="w-1/2">
             <label
               htmlFor="name"
-              className="text-[12.5px] font-bold
-                        sm:text-[14px] lg:text-[12px] 2xl:text-[14px]"
+              className="text-[12.5px] font-bold lg:text-[12px] 2xl:text-[14px]"
             >
               Primer Nombre
             </label>
             <input
               className="text-[12.4px]  placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
                             2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px] focus:outline-none focus:shadow-none"
               type="text"
@@ -156,13 +151,12 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
           <div className="w-1/2">
             <label
               className="text-[12.5px] font-bold
-                        sm:text-[14px] lg:text-[12px] 2xl:text-[14px]"
+                        lg:text-[12px] 2xl:text-[14px]"
             >
               Segundo Nombre
             </label>
             <input
               className="text-[12.4px]  placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
                             2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px] focus:outline-none focus:shadow-none"
               type="text"
@@ -180,14 +174,12 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
           <div className="w-1/2">
             <label
               htmlFor="lastname"
-              className="text-[12.5px] font-bold
-                        sm:text-[14px] lg:text-[12px] 2xl:text-[14px]"
+              className="text-[12.5px] font-bold lg:text-[12px] 2xl:text-[14px]"
             >
               Primer Apellido
             </label>
             <input
               className="text-[12.4px]  placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
                             2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px] focus:outline-none focus:shadow-none"
               type="text"
@@ -202,14 +194,12 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
 
           <div className="w-1/2">
             <label
-              className="text-[12.5px] font-bold
-                        sm:text-[14px] lg:text-[12px] 2xl:text-[14px]"
+              className="text-[12.5px] font-bold lg:text-[12px] 2xl:text-[14px]"
             >
               Segundo Apellido
             </label>
             <input
               className="text-[12.4px]  placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                            sm:text-[13px] sm:w-full sm:p-[8px _7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
                             2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px] focus:outline-none focus:shadow-none"
               type="text"
@@ -227,8 +217,7 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
           {/* Localidad */}
           <div className="w-1/2">
             <label
-              className="text-[12.5px] font-bold
-                        sm:text-[14px] lg:text-[12px] 2xl:text-[14px]"
+              className="text-[12.5px] font-bold lg:text-[12px] 2xl:text-[14px]"
             >
               Localidad
             </label>
@@ -237,7 +226,6 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
               value={form.localidad}
               onChange={handleChange}
               className="text-[12.4px]  placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
                             2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px] focus:outline-none focus:shadow-none"
               required
@@ -272,7 +260,7 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
             <label
               htmlFor="numeroTelefono"
               className="text-[12.5px] font-bold
-                        sm:text-[14px] lg:text-[12px] 2xl:text-[14px]"
+               lg:text-[12px] 2xl:text-[14px]"
             >
               Número de Teléfono
             </label>
@@ -287,7 +275,6 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
               autoComplete="off"
               aria-label="Ingrese su número de teléfono"
               className="text-[12.4px]  placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                            sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                             lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
                             2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px] focus:outline-none focus:shadow-none"
               required
@@ -297,12 +284,11 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
 
         {/* Campo para el TIPO DE DOCUMENTO */}
         <div className="mb-2">
-          <label className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px]">
+          <label className="text-[12.5px] font-bold lg:text-[12px]">
             Tipo de Documento
           </label>
           <select
             className="text-[12.4px] placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-	sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
 	lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
 	2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]
 	focus:outline-none focus:shadow-none"
@@ -340,7 +326,6 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
               MozAppearance: "textfield",
             }}
             className="text-[12.4px] placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-	sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
 	lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
 	2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]
 	focus:outline-none focus:shadow-none"
@@ -358,14 +343,12 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
         <div>
           <label
             htmlFor="document"
-            className="text-[12.5px] font-bold
-                    sm:text-[14px] lg:text-[12px] 2xl:text-[14px]"
+            className="text-[12.5px] font-bold lg:text-[12px] 2xl:text-[14px]"
           >
             Fecha de Nacimiento
           </label>
           <input
             className="text-[12.4px] placeholder:uppercase placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-                        sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
                         lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
                         2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]
                         focus:outline-none focus:shadow-none"
@@ -381,7 +364,7 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
         <div className="mb-3">
           <label
             htmlFor="tipoDeCitas"
-            className="text-[12.5px] font-bold sm:text-[14px] lg:text-[12px]"
+            className="text-[12.5px] font-bold lg:text-[12px]"
           >
             Tipo de Cita
           </label>
@@ -390,7 +373,6 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
             value={form.tipoDeCitas}
             onChange={handleChange}
             className="text-[12.4px] placeholder:text-[12.4px] w-[100%] p-[8px_6px] border-b-[1.6px] border-b-[#6EA3C7] bg-transparent
-		sm:text-[13px] sm:w-full sm:p-[8px_7px] sm:mb-[5px] sm:border-b-[2px]
 		lg:text-[12px] lg:w-full lg:p-[6px_5px] lg:border-b-[1.5px]
 		2xl:text-[13px] 2xl:w-full 2xl:p-[8px_7px] 2xl:mb-[5px] 2xl:border-b-[2px]
 		focus:outline-none focus:shadow-none"
@@ -408,7 +390,6 @@ const FormCard = ({ modo, onSubmitSuccess }) => {
         <button
           type="submit"
           className="bg-[#6EA3C7] text-[15px] font-bold cursor-pointer w-[90px] h-[35px] text-white mb-3 rounded-lg hover:bg-[#53709c] transition-colors mx-auto block
-                    sm:w-[130px] sm:h-[40px] sm:mb-3 sm:rounded-lg
                     lg:w-[100px] lg:h-[30px] lg:text-[13px]
                     2xl:w-[130px] 2xl:h-[40px] 2xl:mb-3 2xl:rounded-lg"
           onClick={() => {
