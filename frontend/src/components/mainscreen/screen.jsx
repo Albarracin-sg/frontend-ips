@@ -10,28 +10,32 @@ const Screen = () => {
     turn: "---",
     module: "--"
   });
-
-  useEffect(() => {
-    const datosGuardados = obtenerRespuesta();
-
-    if (datosGuardados && Array.isArray(datosGuardados) && datosGuardados.length > 0) {
-      setPatients(datosGuardados);
-      
-      // Tomar el prImer paciente como el actual
-      const pacienteActual = datosGuardados[0];
+  const cargarTurnoActual = () => {
+    const turnoGuardado = localStorage.getItem("currentTurn");
+    if (turnoGuardado) {
+      const paciente = JSON.parse(turnoGuardado);
       setCurrentPatient({
-        name: `${pacienteActual.PrimerNombre || ''} ${pacienteActual.PrimerApellido || ''}`.trim() || "Sin paciente",
-        turn: pacienteActual.Turno || "---",
-        module: pacienteActual.module || "--"
-      });
-    } else {
-      setPatients([]);
-      setCurrentPatient({
-        name: "Sin paciente",
-        turn: "---",
-        module: "--"
+        name: `${paciente.PrimerNombre || ""} ${paciente.PrimerApellido || ""}`.trim() || "Sin paciente",
+        turn: paciente.Turno || "---",
+        module: paciente.module || paciente.modulo || "--"
       });
     }
+  };
+
+  useEffect(() => {
+    // Cargar el turno actual cuando el componente se monta
+    cargarTurnoActual();
+
+    // Escuchar cambios en el localStorage cuando se actualiza el turno
+    const actualizarTurno = () => {
+      cargarTurnoActual();
+    };
+
+    window.addEventListener("storage", actualizarTurno);
+
+    return () => {
+      window.removeEventListener("storage", actualizarTurno);
+    };
   }, []);
 
   useEffect(() => {
