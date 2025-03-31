@@ -37,19 +37,39 @@ const TurnoOp = ({ setComponenteActual }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Función para cargar y actualizar la lista de turnos
+  const loadTurnos = () => {
+    // Obtener datos guardados del localStorage
+    const datosGuardados = obtenerRespuesta();
+    if (datosGuardados && Array.isArray(datosGuardados) && datosGuardados.length > 0) {
+        // Filtrar solo los turnos que tienen nombre y número de turno
+        const turnosValidos = datosGuardados.filter(patient => 
+            patient.Turno && (patient.PrimerNombre || patient.PrimerApellido)
+        );
+        // Ordenar los turnos numéricamente
+        const sortedPatients = turnosValidos.sort((a, b) => {
+            // Extraer solo los números del turno, ignorando letras
+            const numA = parseInt(a.Turno?.replace(/\D/g, '') || '0');
+            const numB = parseInt(b.Turno?.replace(/\D/g, '') || '0');
+            return numA - numB;
+        });
+        // Actualizar el estado y guardar en localStorage
+        setPatients(sortedPatients);
+        guardarRespuesta(sortedPatients);
+        // Guardar el turno actual separadamente
+        if (sortedPatients.length > 0) {
+            localStorage.setItem('currentTurn', JSON.stringify(sortedPatients[0]));
+        }
+    } else {
+        // Si no hay datos, reiniciar estados
+        setPatients([]);
+        localStorage.removeItem('currentTurn');
+    }
+  };
+
   // Effect to load patients
   useEffect(() => {
-    const datosGuardados = obtenerRespuesta();
-
-    if (
-      datosGuardados &&
-      Array.isArray(datosGuardados) &&
-      datosGuardados.length > 0
-    ) {
-      setPatients(datosGuardados);
-    } else {
-      setPatients([]);
-    }
+    loadTurnos();
   }, []);
 
   // Calculate pagination
@@ -137,64 +157,49 @@ const TurnoOp = ({ setComponenteActual }) => {
                   </th>
                 </tr>
               </thead>
+              {/* Cuerpo de la tabla */}
               <tbody>
+                {/* Mapeo de pacientes */}
                 {currentPatients.map((patient, index) => (
-                  <tr
-                    key={patient.id}
-                    className={`
-                                        border-b border-gray-100 hover:bg-blue-50 transition-colors
-                                        ${
-                                          index % 2 === 0
-                                            ? "bg-white"
-                                            : "bg-gray-50"
-                                        }
-                                        ${
-                                          index === 0
-                                            ? "bg-blue-100 hover:bg-blue-100"
-                                            : ""
-                                        }`}
-                  >
-                    <th
-                      scope="row"
-                      className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 font-medium whitespace-nowrap"
+                    <tr
+                        key={patient.id || index}
+                        className={`
+                        border-b border-gray-100 hover:bg-blue-50 transition-colors
+                        ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
+                        ${index === 0 ? 'bg-blue-100 hover:bg-blue-100' : ''}`}
                     >
-                      <span className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full">
-                        {indexOfFirstPatient + index + 1}
-                      </span>
-                    </th>
-
-                    <td className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 font-medium truncate max-w-[140px] sm:max-w-[200px] md:max-w-none">
-                      {`${patient.PrimerNombre || ""} ${
-                        patient.PrimerApellido || ""
-                      }`.trim()}
-                    </td>
-
-                    <td className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4">
-                      <span
-                        className={`inline-flex items-center rounded-full bg-blue-100 px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-xs font-medium text-blue-800`}
-                      >
-                        {patient.Turno || "--"}
-                      </span>
-                    </td>
-
-                    <td className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4">
-                      <span
-                        className={`inline-flex items-center rounded-md px-1.5 sm:px-2 py-0.5 sm:py-1 text-xs font-medium
-                                                ${
-                                                  patient.modulo ===
-                                                  "No Prioritario"
-                                                    ? "bg-blue-100 text-blue-800"
-                                                    : patient.modulo ===
-                                                      "Prioritario"
-                                                    ? "bg-red-100 text-red-800"
-                                                    : ""
-                                                }
-                                            `}
-                      >
-                        {patient.module || "--"}
-                      </span>
-                    </td>
-                  </tr>
+                        {/* Número de orden */}
+                        <th scope="row" className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 font-medium whitespace-nowrap">
+                            <span className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full">
+                                {index + 1}
+                            </span>
+                        </th>
+                        {/* Nombre del paciente */}
+                        <td className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 font-medium truncate max-w-[140px] sm:max-w-[200px] md:max-w-none">
+                            {`${patient.PrimerNombre || ''} ${patient.PrimerApellido || ''}`.trim()}
+                        </td>
+                        {/* Número de turno */}
+                        <td className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4">
+                            <span className={`inline-flex items-center rounded-full bg-blue-100 px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-xs font-medium text-blue-800`}>
+                                {patient.Turno || "--"}
+                            </span>
+                        </td>
+                        {/* Módulo asignado */}
+                        <td className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4">
+                            <span
+                                className={`inline-flex items-center rounded-md px-1.5 sm:px-2 py-0.5 sm:py-1 text-xs font-medium
+                                ${patient.modulo === 'No Prioritario'
+                                        ? 'bg-blue-100 text-blue-800'
+                                        : patient.modulo === 'Prioritario'
+                                            ? 'bg-red-100 text-red-800'
+                                            : ''
+                                    }
+                            `}
+                            >
+                                {patient.module || "--"}
+                            </span>
+                        </td>
+                    </tr>
                 ))}
               </tbody>
             </table>
