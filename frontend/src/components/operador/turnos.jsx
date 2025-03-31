@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NewTurn from "./newForm";
+import api from "../../services/api";
+
 import {
   obtenerRespuesta,
   guardarRespuesta,
@@ -51,17 +53,16 @@ const TurnoOp = ({ setComponenteActual }) => {
       setPatients([]);
     }
   }, []);
+    // Invertir la lista para mostrar los más recientes primero
+    const reversedPatients = [...patients].reverse();
 
-  // Invertir la lista para mostrar los más recientes primero
-  const reversedPatients = [...patients].reverse();
-
-  // Calculate pagination con la lista invertida
-  const indexOfLastPatient = currentPage * patientsPerPage;
-  const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
-  const currentPatients = reversedPatients.slice(
+    // Calculate pagination con la lista invertida
+    const indexOfLastPatient = currentPage * patientsPerPage;
+    const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
+    const currentPatients = reversedPatients.slice(
     indexOfFirstPatient,
     indexOfLastPatient
-  );
+    );
 
   // Pagination handlers
   const nextPage = () => {
@@ -76,23 +77,34 @@ const TurnoOp = ({ setComponenteActual }) => {
     }
   };
 
-  // Función para manejar el siguiente turno - toma el más antiguo (el primero que se ingresó)
-  const handleSiguienteTurno = () => {
+  // Función para manejar el siguiente turno
+  const handleSiguienteTurno = async (e) => {
     if (patients.length > 0) {
-      // Tomamos el último paciente del array (el más antiguo)
-      // Ya que los nuevos se están agregando al principio
       const siguientePaciente = patients[patients.length - 1];
-      const updatedPatients = patients.slice(0, -1); // Removemos el último elemento
-    
+      const updatedPatients = patients.slice(0,-1);
+      
       // Actualizar el turno actual en localStorage
       localStorage.setItem("currentTurn", JSON.stringify(siguientePaciente));
-    
+      
       // Guardar el paciente en la lista de pacientes atendidos
       const pacientesAtendidos = JSON.parse(localStorage.getItem("pacientesAtendidos") || "[]");
-      pacientesAtendidos.unshift(siguientePaciente);
+      pacientesAtendidos.unshift(siguientePaciente); // Agregar al inicio de la lista
       localStorage.setItem("pacientesAtendidos", JSON.stringify(pacientesAtendidos));
-      
-      // Actualizar el estado de los pacientes
+      console.log(pacientesAtendidos[0])
+      const documento = pacientesAtendidos[0].NumeroDocumento
+      const datosEnviados ={
+        NumeroDocumento: documento,
+      }
+      console.log("Datos enviados:", datosEnviados);
+      try {
+        await api.post("/api/ActualizacionAtencion", datosEnviados);        
+      } catch (error) {
+        console.error("Maldito Error al enviar debido a:", {
+          message: error.message,
+          status: error.response?.status,
+          data: error.response?.data,
+        });
+      }
       setPatients(updatedPatients);
       
       // Guardar directamente la lista actualizada de pacientes en espera
@@ -153,9 +165,17 @@ const TurnoOp = ({ setComponenteActual }) => {
                   <tr
                     key={patient.id}
                     className={`
-                      border-b border-gray-100 hover:bg-blue-50 transition-colors
-                      ${index % 2 === 0 ? "bg-white" : "bg-gray-50"}
-                      ${index === 0 ? "bg-blue-100 hover:bg-blue-100" : ""}`}
+                                        border-b border-gray-100 hover:bg-blue-50 transition-colors
+                                        ${
+                                          index % 2 === 0
+                                            ? "bg-white"
+                                            : "bg-gray-50"
+                                        }
+                                        ${
+                                          index === 0
+                                            ? "bg-blue-100 hover:bg-blue-100"
+                                            : ""
+                                        }`}
                   >
                     <th
                       scope="row"
@@ -183,14 +203,16 @@ const TurnoOp = ({ setComponenteActual }) => {
                     <td className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4">
                       <span
                         className={`inline-flex items-center rounded-md px-1.5 sm:px-2 py-0.5 sm:py-1 text-xs font-medium
-                          ${
-                            patient.modulo === "No Prioritario"
-                              ? "bg-blue-100 text-blue-800"
-                              : patient.modulo === "Prioritario"
-                              ? "bg-red-100 text-red-800"
-                              : ""
-                          }
-                        `}
+                                                ${
+                                                  patient.modulo ===
+                                                  "No Prioritario"
+                                                    ? "bg-blue-100 text-blue-800"
+                                                    : patient.modulo ===
+                                                      "Prioritario"
+                                                    ? "bg-red-100 text-red-800"
+                                                    : ""
+                                                }
+                                            `}
                       >
                         {patient.module || "--"}
                       </span>
@@ -210,14 +232,14 @@ const TurnoOp = ({ setComponenteActual }) => {
                 onClick={prevPage}
                 disabled={currentPage === 1}
                 className={`
-                  flex items-center justify-center cursor-pointer gap-2 py-2 sm:py-2.5 px-3 sm:px-4 
-                  rounded transition-colors font-medium shadow-sm w-full sm:w-auto
-                  ${
-                    currentPage === 1
-                      ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                      : "bg-blue-500 hover:bg-blue-700 text-white"
-                  }
-                `}
+                                    flex items-center justify-center cursor-pointer gap-2 py-2 sm:py-2.5 px-3 sm:px-4 
+                                    rounded transition-colors font-medium shadow-sm w-full sm:w-auto
+                                    ${
+                                      currentPage === 1
+                                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                        : "bg-blue-500 hover:bg-blue-700 text-white"
+                                    }
+                                `}
               >
                 Anterior
               </button>
@@ -231,14 +253,17 @@ const TurnoOp = ({ setComponenteActual }) => {
                   currentPage === Math.ceil(patients.length / patientsPerPage)
                 }
                 className={`
-                  flex items-center justify-center cursor-pointer gap-2 py-2 sm:py-2.5 px-3 sm:px-4 
-                  rounded transition-colors font-medium shadow-sm w-full sm:w-auto
-                  ${
-                    currentPage === Math.ceil(patients.length / patientsPerPage)
-                      ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                      : "bg-blue-500 hover:bg-blue-700 text-white"
-                  }
-                `}
+                                    flex items-center justify-center cursor-pointer gap-2 py-2 sm:py-2.5 px-3 sm:px-4 
+                                    rounded transition-colors font-medium shadow-sm w-full sm:w-auto
+                                    ${
+                                      currentPage ===
+                                      Math.ceil(
+                                        patients.length / patientsPerPage
+                                      )
+                                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                        : "bg-blue-500 hover:bg-blue-700 text-white"
+                                    }
+                                `}
               >
                 Siguiente
               </button>
