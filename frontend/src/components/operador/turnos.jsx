@@ -106,7 +106,8 @@ const TurnoOp = ({ setComponenteActual }) => {
       const pacientesAtendidos = JSON.parse(localStorage.getItem("pacientesAtendidos") || "[]");
       pacientesAtendidos.unshift(siguientePaciente); // Agregar al inicio de la lista
       localStorage.setItem("pacientesAtendidos", JSON.stringify(pacientesAtendidos));
-  
+      console.log(pacientesAtendidos[0])
+      console.log(pacientesAtendidos[0].Hora)
       setPatients(updatedPatients);
       
       // Guardar directamente la lista actualizada de pacientes en espera
