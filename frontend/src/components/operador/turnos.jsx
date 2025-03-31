@@ -98,15 +98,20 @@ const TurnoOp = ({ setComponenteActual }) => {
     if (patients.length > 0) {
       const siguientePaciente = patients[0];
       const updatedPatients = patients.slice(1);
-
+  
       // Actualizar el turno actual en localStorage
       localStorage.setItem("currentTurn", JSON.stringify(siguientePaciente));
-
+  
+      // Guardar el paciente en la lista de pacientes atendidos
+      const pacientesAtendidos = JSON.parse(localStorage.getItem("pacientesAtendidos") || "[]");
+      pacientesAtendidos.unshift(siguientePaciente); // Agregar al inicio de la lista
+      localStorage.setItem("pacientesAtendidos", JSON.stringify(pacientesAtendidos));
+  
       setPatients(updatedPatients);
       
-      // Guardar directamente la lista actualizada, no como parte de un historial
+      // Guardar directamente la lista actualizada de pacientes en espera
       localStorage.setItem('respuestaAPI', JSON.stringify(updatedPatients));
-
+  
       // Disparar evento para actualizar otras pantallas
       window.dispatchEvent(new Event("storage"));
     }
