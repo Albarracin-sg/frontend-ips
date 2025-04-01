@@ -85,33 +85,79 @@ const InicioOp = () => {
 	//Funcion que guarda los datos actualizados y los manda nuevamente al back
 // Replace this in your handleSave function
 const handleSave = async () => {
-	try {
-	  // Convertir formData a formato esperado por el backend
-	const dataToSend = {
-		PrimerNombre: formData.primerNombre,
-		SegundoNombre: formData.segundoNombre,
-		PrimerApellido: formData.primerApellido,
-		SegundoApellido: formData.segundoApellido,
-		Localidad: formData.localidad,
-		NumeroDocumento: formData.numeroDocumento,
-		FechaNacimiento: formData.fechaNacimiento,
-		TipoDeDocumento_ID: formData.tipoDocumento,
-		NumeroTelefono: formData.numeroTelefono,
-		TipoDeCitas_ID: formData.tipoDeCitas
-	}
+		try {
+		// Convertir formData a formato esperado por el backend
+		const dataToSend = {
+			PrimerNombre: formData.primerNombre,
+			SegundoNombre: formData.segundoNombre,
+			PrimerApellido: formData.primerApellido,
+			SegundoApellido: formData.segundoApellido,
+			Localidad: formData.localidad,
+			NumeroDocumento: formData.numeroDocumento,
+			FechaNacimiento: formData.fechaNacimiento,
+			TipoDeDocumento_ID: formData.tipoDocumento,
+			NumeroTelefono: formData.numeroTelefono,
+			TipoDeCitas_ID: formData.tipoDeCitas
+		};
 		
 		console.log('Enviando datos para actualizar:', dataToSend);
 		
-		// Cambiar de POST a PATCH y usar la ruta correcta
-		await api.patch('/api/ActualizacionForm', dataToSend)
+		// Actualizar en el backend
+		await api.patch('/api/ActualizacionForm', dataToSend);
 		
-		alert('Datos guardados correctamente')
-		} catch (error) {
-		console.error('Error al guardar:', error)
-		alert('Error al guardar los datos: ' + (error.response?.data?.error || error.message))
+		// Actualizar también en localStorage para TurnoOp
+		const respuestaAPI = localStorage.getItem('respuestaAPI');
+		if (respuestaAPI) {
+			let turnos = JSON.parse(respuestaAPI);
+			
+			// Encontrar y actualizar el paciente en la lista de turnos
+			const pacienteIndex = turnos.findIndex(
+			paciente => paciente.NumeroDocumento === dataToSend.NumeroDocumento
+			);
+			
+			if (pacienteIndex !== -1) {
+			// Actualizar los datos del paciente, manteniendo su turno y otra información específica
+			turnos[pacienteIndex] = {
+				...turnos[pacienteIndex],
+				PrimerNombre: dataToSend.PrimerNombre,
+				SegundoNombre: dataToSend.SegundoNombre,
+				PrimerApellido: dataToSend.PrimerApellido,
+				SegundoApellido: dataToSend.SegundoApellido,
+				Localidad: dataToSend.Localidad,
+				NumeroDocumento: dataToSend.NumeroDocumento,
+				FechaNacimiento: dataToSend.FechaNacimiento,
+				TipoDeDocumento_ID: dataToSend.TipoDeDocumento_ID,
+				NumeroTelefono: dataToSend.NumeroTelefono,
+				TipoDeCitas_ID: dataToSend.TipoDeCitas_ID
+			};
+			
+			// Guardar de vuelta en localStorage
+			localStorage.setItem('respuestaAPI', JSON.stringify(turnos));
+			
+			// Actualizar el turno actual si es el mismo paciente
+			const currentTurn = localStorage.getItem('currentTurn');
+			if (currentTurn) {
+				const currentTurnData = JSON.parse(currentTurn);
+				if (currentTurnData.NumeroDocumento === dataToSend.NumeroDocumento) {
+				const updatedCurrentTurn = {
+					...currentTurnData,
+					...dataToSend
+				};
+				localStorage.setItem('currentTurn', JSON.stringify(updatedCurrentTurn));
+				}
+			}
+			
+			// Disparar evento storage para que otros componentes se actualicen
+			window.dispatchEvent(new Event('storage'));
+			}
 		}
-	}
-
+		
+		alert('Datos guardados correctamente');
+		} catch (error) {
+		console.error('Error al guardar:', error);
+		alert('Error al guardar los datos: ' + (error.response?.data?.error || error.message));
+		}
+	};
 	return (
 		<div className="relative min-h-screen bg-[#c3d9fa] flex justify-center items-center overflow-hidden ">
 			<div className="lg:h-[85%] xl:h-[90%] max-w-5xl w-full mx-auto bg-white rounded-lg shadow-xl border border-gray-200">

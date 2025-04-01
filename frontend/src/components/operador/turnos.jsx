@@ -46,18 +46,43 @@ const TurnoOp = ({ setComponenteActual }) => {
     if (datosGuardados && Array.isArray(datosGuardados) && datosGuardados.length > 0) {
         // Filtrar solo los turnos que tienen nombre y número de turno
         const turnosValidos = datosGuardados.filter(patient => 
-            patient.Turno && (patient.PrimerNombre || patient.PrimerApellido)
+          patient.Turno && (patient.PrimerNombre || patient.PrimerApellido)
         );
-        // Ordenar los turnos numéricamente
-        const sortedPatients = turnosValidos.sort((a, b) => {
+        
+        // Primero separamos los turnos prioritarios y no prioritarios
+        const turnosPrioritarios = [];
+        const turnosNoPrioritarios = [];
+        
+        turnosValidos.forEach(turno => {
+          // Verificamos si el turno contiene una 'P' para identificarlo como prioritario
+          if (turno.Turno && turno.Turno.includes('P')) {
+            turnosPrioritarios.push(turno);
+          } else {
+            turnosNoPrioritarios.push(turno);
+          }
+        });
+        
+        // Ordenamos cada grupo numéricamente
+        const sortPriorityGroup = (turnos) => {
+          return turnos.sort((a, b) => {
             // Extraer solo los números del turno, ignorando letras
             const numA = parseInt(a.Turno?.replace(/\D/g, '') || '0');
             const numB = parseInt(b.Turno?.replace(/\D/g, '') || '0');
             return numA - numB;
-        });
+          });
+        };
+        
+        // Ordenamos ambos grupos
+        const sortedPrioritarios = sortPriorityGroup(turnosPrioritarios);
+        const sortedNoPrioritarios = sortPriorityGroup(turnosNoPrioritarios);
+        
+        // Combinamos los grupos: primero los prioritarios, luego los no prioritarios
+        const sortedPatients = [...sortedPrioritarios, ...sortedNoPrioritarios].reverse();
+        
         // Actualizar el estado y guardar en localStorage
         setPatients(sortedPatients);
         guardarRespuesta(sortedPatients);
+        
         // Guardar el turno actual separadamente
         if (sortedPatients.length > 0) {
             localStorage.setItem('currentTurn', JSON.stringify(sortedPatients[0]));
@@ -100,8 +125,8 @@ const TurnoOp = ({ setComponenteActual }) => {
   // Función para manejar el siguiente turno
   const handleSiguienteTurno = async (e) => {
     if (patients.length > 0) {
-      const siguientePaciente = patients[patients.length - 1];
-      const updatedPatients = patients.slice(0,-1);
+      const siguientePaciente = patients[0]; // Tomamos el primer paciente en la lista ordenada
+      const updatedPatients = patients.slice(1); // Quitamos el primer paciente
       
       // Actualizar el turno actual en localStorage
       localStorage.setItem("currentTurn", JSON.stringify(siguientePaciente));
@@ -110,11 +135,15 @@ const TurnoOp = ({ setComponenteActual }) => {
       const pacientesAtendidos = JSON.parse(localStorage.getItem("pacientesAtendidos") || "[]");
       pacientesAtendidos.unshift(siguientePaciente); // Agregar al inicio de la lista
       localStorage.setItem("pacientesAtendidos", JSON.stringify(pacientesAtendidos));
-      console.log(pacientesAtendidos[0])
-      const documento = pacientesAtendidos[0].NumeroDocumento
-      const datosEnviados ={
+
+      
+      console.log(pacientesAtendidos[0]);
+      const documento = pacientesAtendidos[0].NumeroDocumento;
+
+
+      const datosEnviados = {
         NumeroDocumento: documento,
-      }
+      };
       console.log("Datos enviados:", datosEnviados);
       try {
         await api.patch("/api/ActualizacionAtencion", datosEnviados);        
@@ -189,7 +218,8 @@ const TurnoOp = ({ setComponenteActual }) => {
                         className={`
                         border-b border-gray-100 hover:bg-blue-50 transition-colors
                         ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-                        ${index === 0 ? 'bg-blue-100 hover:bg-blue-100' : ''}`}
+                        ${index === 0 ? 'bg-blue-100 hover:bg-blue-100' : ''}
+                        ${patient.Turno && patient.Turno.includes('P') ? 'bg-red-50' : ''}`}
                     >
                         {/* Número de orden */}
                         <th scope="row" className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 font-medium whitespace-nowrap">
@@ -203,7 +233,7 @@ const TurnoOp = ({ setComponenteActual }) => {
                         </td>
                         {/* Número de turno */}
                         <td className="px-2 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4">
-                            <span className={`inline-flex items-center rounded-full bg-blue-100 px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-xs font-medium text-blue-800`}>
+                            <span className={`inline-flex items-center rounded-full ${patient.Turno && patient.Turno.includes('P') ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'} px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-xs font-medium`}>
                                 {patient.Turno || "--"}
                             </span>
                         </td>
