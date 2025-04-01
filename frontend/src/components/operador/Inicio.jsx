@@ -39,7 +39,7 @@ const InicioOp = () => {
 		//seccion de busqueda
 		const datosBusq = {
 			//el back recibira el valor de 'busqueda' con la opcion seleccionada y el dato a enviar [cedula:"12345"]
-			NumeroDocumento_FK: dato.datoEnviado,
+			NumeroDocumento: dato.datoEnviado,
 		}
 		console.log('Enviando datos:', JSON.stringify(datosBusq, null, 2))
 
@@ -64,7 +64,7 @@ const InicioOp = () => {
 					fechaNacimiento: respuesta.FechaNacimiento ? respuesta.FechaNacimiento.split('T')[0] : '',
 					tipoDocumento: respuesta.TipoDeDocumento_ID || '',
 					numeroTelefono: respuesta.NumeroTelefono || '',
-					tipoDeCitas: respuesta.TipoDeCitas || '',
+					tipoDeCitas: respuesta.TipoDeCitas_ID || '',
 				})
 			} else {
 				alert('No se encontraron datos para este documento')
@@ -82,28 +82,33 @@ const InicioOp = () => {
 	}
 
 	//Funcion que guarda los datos actualizados y los manda nuevamente al back
-	const handleSave = async () => {
-		try {
-			// Convertir formData a formato esperado por el backend
-			const dataToSend = {
-				PrimerNombre: formData.primerNombre,
-				SegundoNombre: formData.segundoNombre,
-				PrimerApellido: formData.primerApellido,
-				SegundoApellido: formData.segundoApellido,
-				Localidad: formData.localidad,
-				NumeroDocumento: formData.numeroDocumento,
-				FechaNacimiento: formData.fechaNacimiento,
-				TipoDeDocumento_ID: formData.tipoDocumento,
-				NumeroTelefono: formData.numeroTelefono,
-				TipoDeCitas: formData.tipoDeCitas
-			}
-			
-			//se ejecuta el endpoint que guardara los datos actualizados y se mandan los nuevos datos
-			await axios.post('http://localhost:3000/api/guardarDatos', dataToSend)
-			alert('Datos guardados correctamente')
+	//Funcion que guarda los datos actualizados y los manda nuevamente al back
+// Replace this in your handleSave function
+const handleSave = async () => {
+	try {
+	  // Convertir formData a formato esperado por el backend
+	const dataToSend = {
+		PrimerNombre: formData.primerNombre,
+		SegundoNombre: formData.segundoNombre,
+		PrimerApellido: formData.primerApellido,
+		SegundoApellido: formData.segundoApellido,
+		Localidad: formData.localidad,
+		NumeroDocumento: formData.numeroDocumento,
+		FechaNacimiento: formData.fechaNacimiento,
+		TipoDeDocumento_ID: formData.tipoDocumento,
+		NumeroTelefono: formData.numeroTelefono,
+		TipoDeCitas_ID: formData.tipoDeCitas
+	}
+		
+		console.log('Enviando datos para actualizar:', dataToSend);
+		
+		// Cambiar de POST a PATCH y usar la ruta correcta
+		await api.patch('/ActualizacionForm', dataToSend)
+		
+		alert('Datos guardados correctamente')
 		} catch (error) {
-			console.error('Error al guardar:', error)
-			alert('Error al guardar los datos')
+		console.error('Error al guardar:', error)
+		alert('Error al guardar los datos: ' + (error.response?.data?.error || error.message))
 		}
 	}
 
