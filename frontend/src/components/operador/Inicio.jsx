@@ -103,7 +103,7 @@ const handleSave = async () => {
 		console.log('Enviando datos para actualizar:', dataToSend);
 		
 		// Cambiar de POST a PATCH y usar la ruta correcta
-		await api.patch('/ActualizacionForm', dataToSend)
+		await api.patch('/api/ActualizacionForm', dataToSend)
 		
 		alert('Datos guardados correctamente')
 		} catch (error) {
