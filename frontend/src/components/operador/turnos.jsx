@@ -77,7 +77,7 @@ const TurnoOp = ({ setComponenteActual }) => {
         const sortedNoPrioritarios = sortPriorityGroup(turnosNoPrioritarios);
         
         // Combinamos los grupos: primero los prioritarios, luego los no prioritarios
-        const sortedPatients = [...sortedPrioritarios, ...sortedNoPrioritarios].reverse();
+        const sortedPatients = [...sortedPrioritarios, ...sortedNoPrioritarios];
         
         // Actualizar el estado y guardar en localStorage
         setPatients(sortedPatients);
@@ -98,15 +98,14 @@ const TurnoOp = ({ setComponenteActual }) => {
   useEffect(() => {
     loadTurnos();
   }, []);
-    // Invertir la lista para mostrar los más recientes primero
-    const reversedPatients = [...patients].reverse();
+    
 
     // Calculate pagination con la lista invertida
     const indexOfLastPatient = currentPage * patientsPerPage;
     const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
-    const currentPatients = reversedPatients.slice(
-    indexOfFirstPatient,
-    indexOfLastPatient
+    const currentPatients = patients.slice( // Usa 'patients' directamente
+        indexOfFirstPatient,
+        indexOfLastPatient
     );
 
   // Pagination handlers

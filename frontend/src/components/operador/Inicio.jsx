@@ -180,7 +180,7 @@ const handleSave = async () => {
 								}
 							>
 								<option value="">Opción a Buscar</option>
-								<option value="Cedula">Cédula</option>
+								<option value="Cedula">Numero de Documento</option>
 							</select>
 						</div>
 						<div className="flex-1">
